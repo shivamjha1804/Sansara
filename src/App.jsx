@@ -2,6 +2,7 @@ import React from "react";
 import Overview from "./components/Overview";
 import Higlights from "./components/Higlights";
 import Siteplans from "./components/Siteplans";
+import Gallery from "./components/Gallery";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <Overview />
       <Higlights />
       <Siteplans />
+      <Gallery />
     </div>
   );
 }
