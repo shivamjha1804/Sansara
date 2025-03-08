@@ -4,6 +4,8 @@ import Higlights from "./components/Higlights";
 import Siteplans from "./components/Siteplans";
 import Unitplans from "./components/Unitplans";
 import Testimonials from "./components/Testimonials";
+import NewsletterSubscription from "./components/Newsletter";
+import Footer from "./components/Footer";
 
 function App() {
   return (
@@ -13,6 +15,8 @@ function App() {
       <Siteplans />
       <Unitplans />
       <Testimonials />
+      <NewsletterSubscription />
+      <Footer />
     </div>
   );
 }
