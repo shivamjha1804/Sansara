@@ -1,14 +1,15 @@
 import React from "react";
-import Header from "./components/Header";
-import Hero from "./components/Hero";
-// App Component
-const App = () => {
+import Overview from "./components/Overview";
+import Higlights from "./components/Higlights";
+import Siteplans from "./components/Siteplans";
+
+function App() {
   return (
-    <div className="min-h-screen bg-gray-100">
-      <Header />
-      <Hero />
+    <div>
+      <Overview />
+      <Higlights />
+      <Siteplans />
     </div>
   );
-};
-
+}
 export default App;
