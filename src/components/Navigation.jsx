@@ -5,6 +5,8 @@ import HighlightsSection from "./Higlights";
 import Siteplans from "./Siteplans";
 import Unitplans from "./Unitplans";
 import EnquireForm from "./EnquireForm";
+import Testimonials from "./Testimonials";
+import SansaraEnquiry from "./SansaraEnquiry";
 // Import the Location component
 // import Location from "./Location";
 
@@ -173,7 +175,7 @@ const Navigation = () => {
         <div ref={overviewRef} id="overview" className="py-16">
           <Overview />
         </div>
-
+        <SansaraEnquiry />
         <div ref={galleryRef} id="gallery" className="py-16">
           <Gallery />
         </div>
@@ -189,7 +191,7 @@ const Navigation = () => {
         <div ref={unitplansRef} id="unit-plans" className="py-16">
           <Unitplans />
         </div>
-
+        <Testimonials />
         <div ref={locationRef} id="location" className="py-16">
           {/* Uncomment when Location component is available */}
           {/* <Location /> */}
