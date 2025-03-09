@@ -3,6 +3,7 @@ import Hero from "./components/Hero";
 import Overview from "./components/Overview";
 import Higlights from "./components/Higlights";
 import Siteplans from "./components/Siteplans";
+import Gallery from "./components/Gallery";
 import Unitplans from "./components/Unitplans";
 import Testimonials from "./components/Testimonials";
 import NewsletterSubscription from "./components/Newsletter";
@@ -18,6 +19,7 @@ function App() {
       <EnquireForm />
       <Higlights />
       <Siteplans />
+      <Gallery />
       <Unitplans />
       <Testimonials />
       <SansaraEnquiryForm />
