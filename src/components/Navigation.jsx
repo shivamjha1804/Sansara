@@ -7,6 +7,7 @@ import Unitplans from "./Unitplans";
 import EnquireForm from "./EnquireForm";
 import Testimonials from "./Testimonials";
 import SansaraEnquiry from "./SansaraEnquiry";
+import Location from "./Location";
 // Import the Location component
 // import Location from "./Location";
 
@@ -194,10 +195,10 @@ const Navigation = () => {
         <Testimonials />
         <div ref={locationRef} id="location" className="py-16">
           {/* Uncomment when Location component is available */}
-          {/* <Location /> */}
-          <div className="p-4 bg-gray-100 rounded-md text-center">
+          <Location  />
+          {/* <div className="p-4 bg-gray-100 rounded-md text-center">
             Location component placeholder
-          </div>
+          </div> */}
         </div>
 
         <div ref={enquiryRef} id="enquiry" className="py-16">
