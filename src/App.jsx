@@ -17,14 +17,6 @@ function App() {
     <div>
       <Hero />
       <Navigation />
-      <Overview />
-      <EnquireForm />
-      <Higlights />
-      <Siteplans />
-      <Gallery />
-      <Unitplans />
-      <Testimonials />
-      <SansaraEnquiryForm />
       <NewsletterSubscription />
       <Footer />
     </div>

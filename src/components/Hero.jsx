@@ -3,7 +3,7 @@ import Overview from "./Overview"; // Import the Overview component
 
 const Hero = () => {
   return (
-    <div className="relative min-h-screen w-full overflow-hidden">
+    <div className="relative min-h-screen w-full overflow-hidden boder">
       {/* Main background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
