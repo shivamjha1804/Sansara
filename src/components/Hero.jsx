@@ -7,7 +7,7 @@ const Hero = () => {
       {/* Main background image */}
       <div
         className="absolute inset-0 bg-cover bg-center"
-        style={{ backgroundImage: "url('./hero.png')" }}
+        style={{ backgroundImage: "url('./HeroImg.png')" }}
       />
 
       {/* Navigation bar */}
