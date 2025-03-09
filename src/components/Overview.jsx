@@ -82,24 +82,26 @@ const Overview = () => {
           Pricing (Inclusive of GST & extra charges)
         </h2>
 
-        <div>
-          <div>
-            <div className="py-4 px-6 font-medium text-lg decoration-1">
+        <div className=" grid grid-cols-2 gap-40">
+          <div className="-ml-10">
+            <div className="py-4  font-medium text-lg decoration-1 border-b border-gray-200 pt-1">
               3BHK
             </div>
-            <div className="py-4 px-6 font-medium text-lg decoration-1">
+            <div className="py-4  font-medium text-lg decoration-1 border-b border-gray-200 pt-1">
               4BHK
             </div>
-            <div className="py-4 px-6 font-medium text-lg decoration-1">
+            <div className="py-4  font-medium text-lg decoration-1">
               5BHK Duplex
             </div>
           </div>
           <div>
-            <div className="py-4 px-6 text-lg decoration-1">3.5 Cr Onwards</div>
-            <div className="py-4 px-6 text-lg decoration-1">3.7 Cr Onwards</div>
-            <div className="py-4 px-6 text-lg decoration-1">
-              5.79 Cr Onwards
+            <div className="py-4  text-lg decoration-1 border-b border-gray-200 pt-1">
+              3.5 Cr Onwards
             </div>
+            <div className="py-4  text-lg decoration-1 border-b border-gray-200 pt-1">
+              3.7 Cr Onwards
+            </div>
+            <div className="py-4  text-lg decoration-1">5.79 Cr Onwards</div>
           </div>
         </div>
       </div>
