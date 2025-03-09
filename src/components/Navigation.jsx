@@ -75,7 +75,7 @@ const Navigation = () => {
   }, [activeTab]);
 
   return (
-    <div className="relative w-full ">
+    <div className="relative ">
       {/* Fixed navigation at the top */}
       <div className="sticky top-8 z-50 bg-white shadow-md">
         <div className="max-w-6xl mx-auto px-4">
@@ -195,7 +195,7 @@ const Navigation = () => {
         <Testimonials />
         <div ref={locationRef} id="location" className="py-16">
           {/* Uncomment when Location component is available */}
-          <Location  />
+          <Location />
           {/* <div className="p-4 bg-gray-100 rounded-md text-center">
             Location component placeholder
           </div> */}
