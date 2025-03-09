@@ -76,7 +76,7 @@ const Navigation = () => {
   return (
     <div className="relative w-full ">
       {/* Fixed navigation at the top */}
-      <div className="sticky top-0 z-50 bg-white shadow-md">
+      <div className="sticky top-8 z-50 bg-white shadow-md">
         <div className="max-w-6xl mx-auto px-4">
           {/* Mobile menu button */}
           <div className="md:hidden flex justify-between items-center py-4">
