@@ -75,9 +75,9 @@ const Navigation = () => {
   }, [activeTab]);
 
   return (
-    <div className="relative w-full">
+    <div className="relative w-full ">
       {/* Fixed navigation at the top */}
-      <div className="sticky top-0 z-50 bg-white shadow-md">
+      <div className="sticky top-8 z-50 bg-white shadow-md">
         <div className="max-w-6xl mx-auto px-4">
           {/* Mobile menu button */}
           <div className="md:hidden flex justify-between items-center py-4">
@@ -113,7 +113,7 @@ const Navigation = () => {
           </div>
 
           {/* Desktop navigation */}
-          <nav className="hidden md:flex justify-between items-center py-4">
+          <nav className="hidden md:-top-8 md:flex  justify-between items-center py-4 absolute bg-white w-4/5 px-10 ml-12">
             {navItems.map((item, index) => (
               <a
                 key={index}
@@ -135,7 +135,7 @@ const Navigation = () => {
 
           {/* Mobile navigation */}
           {isMobileMenuOpen && (
-            <nav className="md:hidden py-2 pb-4">
+            <nav className="md:hidden py-2 pb-4 ">
               <div className="flex flex-col space-y-2">
                 {navItems.map((item, index) => (
                   <a
@@ -162,7 +162,7 @@ const Navigation = () => {
 
       {/* Water background image - optional, can be removed */}
       <div
-        className="w-full h-32 overflow-hidden mt-16"
+        className="w-full h-32 overflow-hidden"
         style={{
           backgroundImage: "url('./FooterImg.png')",
           backgroundSize: "cover",
