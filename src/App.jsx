@@ -1,5 +1,6 @@
 import React from "react";
 import Hero from "./components/Hero";
+import Navigation from "./components/Navigation";
 import Overview from "./components/Overview";
 import Higlights from "./components/Higlights";
 import Siteplans from "./components/Siteplans";
@@ -15,6 +16,7 @@ function App() {
   return (
     <div>
       <Hero />
+      <Navigation />
       <Overview />
       <EnquireForm />
       <Higlights />

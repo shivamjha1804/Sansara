@@ -1,9 +1,9 @@
 import React, { useState } from "react";
-import image1 from "../../public/image5.png";
-import image2 from "../../public/image1.png";
-import image3 from "../../public/image2.png";
-import image4 from "../../public/image3.png";
-import image5 from "../../public/image4.png";
+import image1 from "/image5.png";
+import image2 from "/image1.png";
+import image3 from "/image2.png";
+import image4 from "/image3.png";
+import image5 from "/image4.png";
 
 const Gallery = () => {
   const [activeIndex, setActiveIndex] = useState(null);
