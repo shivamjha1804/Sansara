@@ -11,7 +11,7 @@ const Testimonials = () => {
     {
       id: 2,
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.",
-      image: "./shubham.jpg",
+      image: "./TestimonialsImg.png",
     },
     {
       id: 3,
