@@ -50,44 +50,70 @@ const Overview = () => {
     }, 1000);
   };
 
-  // Handler for brochure download - updated with modern implementation
+  // Handler for brochure download - robust implementation
   const handleDownload = () => {
-    // Path to the brochure PDF file
-    const brochurePath = "./sansara-e-flyer (2).pdf";
-
-    // Create an anchor element
-    const link = document.createElement("a");
-    link.href = brochurePath;
-    link.download = "./sansara-e-flyer.pdf";
-
     // Add a loading indicator
     const loadingToast = document.createElement("div");
     loadingToast.className =
       "fixed bottom-4 right-4 bg-blue-700 text-white px-6 py-3 rounded shadow-lg z-50";
-    loadingToast.textContent = "Downloading brochure...";
+    loadingToast.textContent = "Checking brochure...";
     document.body.appendChild(loadingToast);
 
-    // Simulate a short delay to show the download is processing
-    setTimeout(() => {
-      // Trigger the download
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
+    // Path to the brochure PDF file
+    const brochurePath = "../../public/sansara-e-flyer.pdf";
 
-      // Remove the loading toast and show success
-      document.body.removeChild(loadingToast);
+    // Check if the file exists before downloading
+    fetch(brochurePath, { method: "HEAD" })
+      .then((response) => {
+        if (!response.ok) {
+          throw new Error(`HTTP error! Status: ${response.status}`);
+        }
+        return response;
+      })
+      .then(() => {
+        // File exists, proceed with download
+        loadingToast.textContent = "Downloading brochure...";
 
-      const successToast = document.createElement("div");
-      successToast.className =
-        "fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50";
-      successToast.textContent = "Download started successfully!";
-      document.body.appendChild(successToast);
+        // Create an anchor element
+        const link = document.createElement("a");
+        link.href = brochurePath;
+        link.setAttribute("download", "sansara-e-flyer.pdf");
 
-      // Remove success toast after 3 seconds
-      setTimeout(() => {
-        document.body.removeChild(successToast);
-      }, 3000);
-    }, 1000);
+        // Trigger the download
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+
+        // Show success message
+        document.body.removeChild(loadingToast);
+        const successToast = document.createElement("div");
+        successToast.className =
+          "fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50";
+        successToast.textContent = "Download started successfully!";
+        document.body.appendChild(successToast);
+
+        // Remove success toast after 3 seconds
+        setTimeout(() => {
+          document.body.removeChild(successToast);
+        }, 3000);
+      })
+      .catch((error) => {
+        // Handle error - file not found or other issue
+        console.error("Download error:", error);
+        document.body.removeChild(loadingToast);
+
+        const errorToast = document.createElement("div");
+        errorToast.className =
+          "fixed bottom-4 right-4 bg-red-600 text-white px-6 py-3 rounded shadow-lg z-50";
+        errorToast.textContent =
+          "Brochure file not found. Please contact support.";
+        document.body.appendChild(errorToast);
+
+        // Remove error toast after 5 seconds
+        setTimeout(() => {
+          document.body.removeChild(errorToast);
+        }, 5000);
+      });
   };
 
   // Handler for initiating a phone call

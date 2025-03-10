@@ -2,8 +2,9 @@ import React, { useState } from "react";
 
 const Unitplans = () => {
   const [selectedPlan, setSelectedPlan] = useState("3BHK"); // Track the selected plan
-  const [selectedUnit, setSelectedUnit] = useState(null);
-  const [isModalOpen, setIsModalOpen] = useState(false); // Track the selected unit
+  const [selectedUnit, setSelectedUnit] = useState(null); // Track the selected unit
+  const [isModalOpen, setIsModalOpen] = useState(false); // Track modal visibility
+  const [modalImage, setModalImage] = useState(""); // Track the image to display in the modal
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -58,6 +59,18 @@ const Unitplans = () => {
 
   // Get plan types from the floorPlanImages object keys
   const planTypes = Object.keys(floorPlanImages);
+
+  // Function to open the modal with the selected image
+  const openModal = (image) => {
+    setModalImage(image);
+    setIsModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImage("");
+  };
 
   // Handle form field changes
   const handleChange = (e) => {
@@ -195,15 +208,18 @@ const Unitplans = () => {
                         src={unit.image}
                         alt={`${unit.name} Floor Plan`}
                         className="max-w-full h-auto transform transition-transform duration-300 hover:scale-110 cursor-pointer"
-                        onClick={() => openModal(unit.image)} // Open modal on image click
+                        onClick={(e) => {
+                          e.stopPropagation(); // Prevent triggering the parent div's onClick
+                          openModal(unit.image);
+                        }} // Open modal on image click
                       />
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-            {/* Display selected unit details
-            {selectedUnit && (
+            {/* Display selected unit details - Commented out in both versions */}
+            {/* {selectedUnit && (
               <div className="mt-6 p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-medium mb-3 text-blue-600 text-center">
                   {selectedUnit}
@@ -279,7 +295,7 @@ const Unitplans = () => {
                       value={formData.phone}
                       onChange={handleChange}
                       placeholder="Phone Number"
-                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm  focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
                     {errors.phone && (
                       <p className="text-red-500 text-xs">{errors.phone}</p>
@@ -399,5 +415,3 @@ const Unitplans = () => {
 };
 
 export default Unitplans;
-
-/* jewiuhifuho  infoiwoinj*/
