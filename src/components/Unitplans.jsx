@@ -7,18 +7,26 @@ const Unitplans = () => {
   const planTypes = ["3BHK", "4 BHK", "4 BHK+STUDY", "5BHK DUPLEX"];
 
   return (
-    <div className="flex flex-col md:flex-row w-full max-w-6xl mx-auto overflow-hidden relative">
+    <div
+      className="flex h-screen w-full flex-col md:flex-row w-full max-w-6xl mx-auto overflow-hidden relative"
+      style={{
+        backgroundImage: `url("./ImagePlan.png")`, // Removed the extra ')'
+        backgroundSize: "cover", // Ensures the image covers the container
+        backgroundPosition: "center", // Centers the image
+        backgroundRepeat: "no-repeat", // Prevents repeating
+      }}
+    >
       {/* Main content - on top of the background */}
-      <div className="w-full  mx-auto px-4 py-8 relative">
-        <h2 className="text-center text-3xl">Unit Plans</h2>
-        <p className=" mb-12 mt-1 text-sm text-gray-600 text-center">
+      <div className="w-full  mx-auto  relative">
+        <h2 className="text-center text-3xl mt-3">Unit Plans</h2>
+        <p className="  mt-1 text-sm text-gray-600 text-center">
           2,3 and 5 BHK Homes
         </p>
 
         {/* Left section - Unit Plans */}
-        <div className="w-full p-4 ">
+        <div className="w-full p-4 justify-center items-center text-center">
           {/* Plan type tabs */}
-          <div className="flex  mb-4 md:w-1/2">
+          <div className="flex justify-center md:w-1/2">
             {planTypes.map((plan) => (
               <button
                 key={plan}
@@ -35,12 +43,12 @@ const Unitplans = () => {
           </div>
 
           {/* Floor plan image and details */}
-          <div className="bg-white p-4  flex">
-            <div className="flex flex-col items-center">
+          <div className=" pt-3 gap-7  flex">
+            <div className="  flex flex-col items-center">
               <img
                 src="./UnitplansImg.png"
                 alt="Floor Plan"
-                className="max-w-full h-auto mb-4"
+                className="max-w-full h-5/6 bg-white"
               />
             </div>
             {/* Right section - Enquiry Form */}
