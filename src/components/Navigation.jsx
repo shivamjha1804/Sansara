@@ -206,7 +206,7 @@ const Navigation = () => {
         </div>
 
         <div ref={enquiryRef} id="enquiry" className="">
-          <EnquireForm />
+          <SansaraEnquiryForm />
         </div>
       </div>
     </div>

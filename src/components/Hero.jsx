@@ -11,8 +11,10 @@ const Hero = () => {
       />
 
       {/* Navigation bar */}
-      <nav className="relative z-10 flex justify-between items-center px-8 py-4 text-white">
-        <div className="font-bold text-xl">PS GROUP</div>
+      <nav className="relative z-10 flex justify-between items-center  py-4 text-white border-b border-gray-100 w-4/5 mx-auto ">
+        <div className="font-bold text-xl">
+          <img src="./sansaraLogoImg01.png" alt="logo" />
+        </div>
 
         <div className="hidden md:flex space-x-8">
           <a href="#projects" className="hover:text-gray-200">

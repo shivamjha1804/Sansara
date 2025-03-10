@@ -50,11 +50,53 @@ const Overview = () => {
     }, 1000);
   };
 
-  // Handler for brochure download
+  // Handler for brochure download - updated with modern implementation
   const handleDownload = () => {
-    // Simulate download start
-    alert("Your brochure download is starting...");
-    // In a real implementation, this would trigger a file download
+    // Path to the brochure PDF file
+    const brochurePath = "./sansara-e-flyer (2).pdf";
+
+    // Create an anchor element
+    const link = document.createElement("a");
+    link.href = brochurePath;
+    link.download = "./sansara-e-flyer.pdf";
+
+    // Add a loading indicator
+    const loadingToast = document.createElement("div");
+    loadingToast.className =
+      "fixed bottom-4 right-4 bg-blue-700 text-white px-6 py-3 rounded shadow-lg z-50";
+    loadingToast.textContent = "Downloading brochure...";
+    document.body.appendChild(loadingToast);
+
+    // Simulate a short delay to show the download is processing
+    setTimeout(() => {
+      // Trigger the download
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      // Remove the loading toast and show success
+      document.body.removeChild(loadingToast);
+
+      const successToast = document.createElement("div");
+      successToast.className =
+        "fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50";
+      successToast.textContent = "Download started successfully!";
+      document.body.appendChild(successToast);
+
+      // Remove success toast after 3 seconds
+      setTimeout(() => {
+        document.body.removeChild(successToast);
+      }, 3000);
+    }, 1000);
+  };
+
+  // Handler for initiating a phone call
+  const handlePhoneCall = () => {
+    // Phone number to call
+    const phoneNumber = "+9103367676785";
+
+    // Create the tel: URI
+    window.location.href = `tel:${phoneNumber}`;
   };
 
   // Handler for contact form submission
@@ -80,16 +122,62 @@ const Overview = () => {
             }`}
           >
             <h3 className="font-bold text-lg mb-2 text-blue-700">Contact Us</h3>
-            <p className="mb-2">Call: +91 98765 43210</p>
-            <p className="mb-2">Email: info@sansara.com</p>
+            <p className="mb-2">
+              <a
+                href="tel:+919876543210"
+                className="hover:text-blue-700 transition-colors flex items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="inline-block mr-2"
+                >
+                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
+                </svg>
+                +9103367676785
+              </a>
+            </p>
+            <p className="mb-2">
+              <a
+                href="mailto:info@sansara.com"
+                className="hover:text-blue-700 transition-colors flex items-center"
+              >
+                <svg
+                  xmlns="http://www.w3.org/2000/svg"
+                  width="16"
+                  height="16"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  className="inline-block mr-2"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+                sales@psgroup.in
+              </a>
+            </p>
             <button
-              onClick={handleContactSubmit}
+              onClick={() => (window.location.href = "tel:+9103367676785")}
               className="bg-blue-700 text-white px-4 py-2 mt-2 rounded w-full hover:bg-blue-800 transition-colors"
             >
-              Get in Touch
+              Call Us
             </button>
           </div>
-          <button className="bg-blue-700 text-white p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800">
+          <button
+            className="bg-blue-700 text-white p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800"
+            onClick={handlePhoneCall}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -128,12 +216,31 @@ const Overview = () => {
             </p>
             <button
               onClick={handleDownload}
-              className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors"
+              className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors flex items-center justify-center"
             >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                width="20"
+                height="20"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                className="mr-2"
+              >
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
+                <polyline points="7 10 12 15 17 10" />
+                <line x1="12" y1="15" x2="12" y2="3" />
+              </svg>
               Download PDF
             </button>
           </div>
-          <button className="bg-blue-700 text-white p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800">
+          <button
+            className="bg-blue-700 text-white p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800"
+            onClick={handleDownload}
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
               width="24"
@@ -204,12 +311,36 @@ const Overview = () => {
                 />
                 <button
                   type="submit"
-                  className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors"
+                  className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors flex items-center justify-center"
                   disabled={submitStatus === "submitting"}
                 >
-                  {submitStatus === "submitting"
-                    ? "Submitting..."
-                    : "Submit Enquiry"}
+                  {submitStatus === "submitting" ? (
+                    <>
+                      <svg
+                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
+                        xmlns="http://www.w3.org/2000/svg"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                      >
+                        <circle
+                          className="opacity-25"
+                          cx="12"
+                          cy="12"
+                          r="10"
+                          stroke="currentColor"
+                          strokeWidth="4"
+                        ></circle>
+                        <path
+                          className="opacity-75"
+                          fill="currentColor"
+                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
+                        ></path>
+                      </svg>
+                      Submitting...
+                    </>
+                  ) : (
+                    "Submit Enquiry"
+                  )}
                 </button>
               </form>
             )}
@@ -242,7 +373,7 @@ const Overview = () => {
       </h1>
 
       {/* Key Features */}
-      <div className="grid grid-cols-6 text-center  mb-2 gap-4">
+      <div className="grid grid-cols-6 text-center mb-2 gap-4">
         <div>
           <div className="text-xl font-medium">17.4</div>
           <div className="text-sm">Acres</div>
@@ -261,7 +392,7 @@ const Overview = () => {
         </div>
         <div>
           <div className="text-xl font-medium">2.5</div>
-          <div className=" text-xs">Acres of Elevated Landscape</div>
+          <div className="text-xs">Acres of Elevated Landscape</div>
         </div>
         <div>
           <div className="text-xl font-medium">1000</div>
@@ -282,7 +413,7 @@ const Overview = () => {
           </p>
         </div>
 
-        <h2 className=" text-2xl text-blue-700 font-medium">
+        <h2 className="text-2xl text-blue-700 font-medium">
           It's not just a place to live – it's a world of its own.
         </h2>
 
@@ -310,7 +441,7 @@ const Overview = () => {
       </div>
 
       {/* Pricing Section */}
-      <div className=" flex flex-col items-center">
+      <div className="flex flex-col items-center">
         <h2 className="text-3xl text-center text-blue-700 font-medium mb-4 pb-2 border-b border-blue-700 w-full max-w-lg">
           Pricing (Inclusive of GST & extra charges)
         </h2>
