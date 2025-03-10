@@ -3,6 +3,23 @@ import React, { useState } from "react";
 const Unitplans = () => {
   const [selectedPlan, setSelectedPlan] = useState("3BHK"); // Track the selected plan
   const [selectedUnit, setSelectedUnit] = useState(null); // Track the selected unit
+  const [formData, setFormData] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    country: "",
+    unitType: "",
+    budget: "",
+  });
+
+  const [errors, setErrors] = useState({
+    name: "",
+    email: "",
+    phone: "",
+    country: "",
+    unitType: "",
+    budget: "",
+  });
 
   // Floor plan images and unit details
   const floorPlanImages = {
@@ -40,6 +57,67 @@ const Unitplans = () => {
 
   // Get plan types from the floorPlanImages object keys
   const planTypes = Object.keys(floorPlanImages);
+
+  // Handle form field changes
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({ ...formData, [name]: value });
+  };
+
+  // Validate the form before submission
+  const validateForm = () => {
+    const newErrors = {};
+
+    // Validate Name
+    if (!formData.name.trim()) newErrors.name = "Name is required.";
+
+    // Validate Email
+    const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required.";
+    } else if (!emailRegex.test(formData.email)) {
+      newErrors.email = "Please enter a valid email address.";
+    }
+
+    // Validate Phone Number
+    const phoneRegex = /^[0-9]{10}$/;
+    if (!formData.phone.trim()) {
+      newErrors.phone = "Phone number is required.";
+    } else if (!phoneRegex.test(formData.phone)) {
+      newErrors.phone = "Please enter a valid 10-digit phone number.";
+    }
+
+    // Validate Country
+    if (!formData.country) newErrors.country = "Country is required.";
+
+    // Validate Unit Type
+    if (!formData.unitType) newErrors.unitType = "Unit type is required.";
+
+    // Validate Budget
+    if (!formData.budget) newErrors.budget = "Budget is required.";
+
+    setErrors(newErrors);
+
+    return Object.keys(newErrors).length === 0; // Return true if no errors
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      // Form is valid, handle form submission (e.g., send to API)
+      alert("Form submitted successfully!");
+      // You can reset the form data if needed
+      setFormData({
+        name: "",
+        email: "",
+        phone: "",
+        country: "",
+        unitType: "",
+        budget: "",
+      });
+    }
+  };
 
   return (
     <div
@@ -156,48 +234,119 @@ const Unitplans = () => {
                 as possible
               </p>
 
-              <form>
-                <div className="mb-4">
-                  <label className="block text-sm font-medium mb-1 text-gray-700">
-                    Enquiry Type
-                  </label>
-                  <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent">
-                    <option>Select</option>
-                    <option>Sales</option>
-                    <option>Rental</option>
-                    <option>Information</option>
-                  </select>
-                </div>
-
+              <form onSubmit={handleSubmit}>
                 <div className="mb-4">
                   <label className="block text-sm font-medium mb-1 text-gray-700">
                     Your Information
                   </label>
-                  <div className="flex flex-col sm:flex-row gap-3 mb-3">
+                  <div className="mb-4">
                     <input
                       type="text"
-                      placeholder="First Name"
-                      className="w-full sm:w-1/2 border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                      name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      placeholder="Name"
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                     />
-                    <input
-                      type="text"
-                      placeholder="Last Name"
-                      className="w-full sm:w-1/2 border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    />
+                    {errors.name && (
+                      <p className="text-red-500 text-xs">{errors.name}</p>
+                    )}
                   </div>
-                  <input
-                    type="email"
-                    placeholder="E-Mail Address"
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm mb-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  />
+                  <div className="mb-4">
+                    <input
+                      type="email"
+                      name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      placeholder="E-Mail Address"
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    {errors.email && (
+                      <p className="text-red-500 text-xs">{errors.email}</p>
+                    )}
+                  </div>
+                  <div className="mb-4">
+                    <input
+                      type="text"
+                      name="phone"
+                      value={formData.phone}
+                      onChange={handleChange}
+                      placeholder="Phone Number"
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm  focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    />
+                    {errors.phone && (
+                      <p className="text-red-500 text-xs">{errors.phone}</p>
+                    )}
+                  </div>
 
-                  <textarea
-                    placeholder="Your Message (Optional)"
-                    rows="3"
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm mb-4 focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                  ></textarea>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1 text-gray-700">
+                      Select Country
+                    </label>
+                    <select
+                      name="country"
+                      value={formData.country}
+                      onChange={handleChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Select</option>
+                      <option>India</option>
+                      <option>USA</option>
+                      <option>UK</option>
+                      <option>UAE</option>
+                      <option>Singapore</option>
+                      <option>Australia</option>
+                    </select>
+                    {errors.country && (
+                      <p className="text-red-500 text-xs">{errors.country}</p>
+                    )}
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1 text-gray-700">
+                      Select Unit Type
+                    </label>
+                    <select
+                      name="unitType"
+                      value={formData.unitType}
+                      onChange={handleChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Select</option>
+                      <option>1BHK</option>
+                      <option>2BHK</option>
+                      <option>3BHK</option>
+                      <option>4BHK</option>
+                      <option>Penthouse</option>
+                    </select>
+                    {errors.unitType && (
+                      <p className="text-red-500 text-xs">{errors.unitType}</p>
+                    )}
+                  </div>
+                  <div className="mb-4">
+                    <label className="block text-sm font-medium mb-1 text-gray-700">
+                      Select Budget
+                    </label>
+                    <select
+                      name="budget"
+                      value={formData.budget}
+                      onChange={handleChange}
+                      className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                    >
+                      <option value="">Select</option>
+                      <option>₹50L - ₹1Cr</option>
+                      <option>₹1Cr - ₹1.5Cr</option>
+                      <option>₹1.5Cr - ₹2Cr</option>
+                      <option>₹2Cr+</option>
+                    </select>
+                    {errors.budget && (
+                      <p className="text-red-500 text-xs">{errors.budget}</p>
+                    )}
+                  </div>
 
-                  <button className="w-full bg-blue-600 text-white rounded py-2 font-medium hover:bg-blue-700 transition-colors">
+                  <button
+                    type="submit"
+                    className="w-full bg-blue-600 text-white rounded py-2 font-medium hover:bg-blue-700 transition-colors"
+                  >
                     Submit Enquiry
                   </button>
                 </div>

@@ -162,9 +162,7 @@ const Gallery = () => {
             <div
               className={`absolute inset-0 bg-black bg-opacity-40 flex items-end transition-opacity duration-300
               ${activeIndex === index ? "opacity-0" : "opacity-100"}`}
-            >
-              s
-            </div>
+            ></div>
           </div>
         ))}
       </div>

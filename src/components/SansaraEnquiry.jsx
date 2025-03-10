@@ -141,7 +141,7 @@ const SansaraEnquiryForm = () => {
                     placeholder="Name"
                     className="bg-transparent outline-none w-full text-white placeholder-white"
                   />
-                  <svg
+                  {/* <svg
                     className="w-4 h-4 text-white"
                     fill="none"
                     stroke="currentColor"
@@ -154,7 +154,7 @@ const SansaraEnquiryForm = () => {
                       strokeWidth="2"
                       d="M19 9l-7 7-7-7"
                     ></path>
-                  </svg>
+                  </svg> */}
                 </div>
                 {errors.name && (
                   <p className="text-white text-xs mt-1">{errors.name}</p>
