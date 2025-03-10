@@ -9,6 +9,7 @@ import Navigation from "./components/Navigation";
 import NewsletterSubscription from "./components/Newsletter";
 import Footer from "./components/Footer";
 import EnquireForm from "./components/EnquireForm";
+import SansaraEnquiryForm from "./components/SansaraEnquiry";
 
 function App() {
   return (

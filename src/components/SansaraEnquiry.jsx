@@ -105,9 +105,8 @@ const SansaraEnquiryForm = () => {
     <div
       className="w-full bg-no-repeat bg-center bg-cover"
       style={{
-        backgroundImage:
-          "linear-gradient(to bottom, #7199F0, #004567), url('./SansaraEnquiryImg.png')", // Gradient and image
-        backgroundBlendMode: "overlay", // Blend gradient with image
+        backgroundImage: "url('./SansaraEnquiryImg.png')",
+        backgroundBlendMode: "overlay",
       }}
     >
       <div className="max-w-3xl mx-auto flex justify-center flex-col items-center p-8 rounded-lg">
