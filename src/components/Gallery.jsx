@@ -10,6 +10,7 @@ import "slick-carousel/slick/slick-theme.css";
 
 const Gallery = () => {
   const [activeIndex, setActiveIndex] = useState(null);
+  const [modalIndex, setModalIndex] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slider, setSlider] = useState(null);
@@ -38,7 +39,7 @@ const Gallery = () => {
   ];
 
   const openModal = (index) => {
-    setActiveIndex(index);
+    setModalIndex(index);
     setActiveImageIndex(0);
     setIsModalOpen(true);
     document.body.style.overflow = "hidden";
@@ -46,31 +47,30 @@ const Gallery = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setActiveIndex(null);
+    setModalIndex(null);
     setActiveImageIndex(0);
     document.body.style.overflow = "auto";
   };
 
   useEffect(() => {
     // When activeImageIndex changes, update the slider
-    if (slider && activeIndex !== null) {
+    if (slider && modalIndex !== null) {
       slider.slickGoTo(activeImageIndex);
     }
-  }, [activeImageIndex, slider, activeIndex]);
+  }, [activeImageIndex, slider, modalIndex]);
 
   const goToNextImage = () => {
-    if (activeIndex !== null) {
-      const nextIndex =
-        (activeImageIndex + 1) % data[activeIndex].images.length;
+    if (modalIndex !== null) {
+      const nextIndex = (activeImageIndex + 1) % data[modalIndex].images.length;
       setActiveImageIndex(nextIndex);
     }
   };
 
   const goToPreviousImage = () => {
-    if (activeIndex !== null) {
+    if (modalIndex !== null) {
       const prevIndex =
-        (activeImageIndex - 1 + data[activeIndex].images.length) %
-        data[activeIndex].images.length;
+        (activeImageIndex - 1 + data[modalIndex].images.length) %
+        data[modalIndex].images.length;
       setActiveImageIndex(prevIndex);
     }
   };
@@ -81,10 +81,10 @@ const Gallery = () => {
     speed: 500,
     slidesToShow: 1,
     slidesToScroll: 1,
-    initialSlide: activeImageIndex,
+    initialSlide: 0,
     arrows: true,
     adaptiveHeight: true,
-    beforeChange: (oldIndex, newIndex) => {
+    afterChange: (newIndex) => {
       setActiveImageIndex(newIndex);
     },
   };
@@ -131,7 +131,7 @@ const Gallery = () => {
       </div>
 
       {/* Fixed Modal */}
-      {isModalOpen && activeIndex !== null && (
+      {isModalOpen && modalIndex !== null && (
         <div
           className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-2 sm:p-4"
           onClick={(e) => {
@@ -162,14 +162,14 @@ const Gallery = () => {
 
             <div className="p-4 pb-2">
               <h3 className="text-xl font-bold mb-1 text-center">
-                {`Gallery ${activeIndex + 1}`}
+                {`Gallery ${modalIndex + 1}`}
               </h3>
             </div>
 
             {/* Using Slider component instead of manual navigation */}
             <div className="w-full px-8 pb-4">
               <Slider ref={(slider) => setSlider(slider)} {...sliderSettings}>
-                {data[activeIndex].images.map((img, idx) => (
+                {data[modalIndex].images.map((img, idx) => (
                   <div key={`slide-${idx}`} className="outline-none">
                     <div className="w-full h-80 flex items-center justify-center">
                       <img
@@ -187,16 +187,21 @@ const Gallery = () => {
             <div className="bg-gray-100 p-4 border-t">
               <p className="text-sm text-gray-600 text-center mb-2">
                 {`Image ${activeImageIndex + 1} of ${
-                  data[activeIndex].images.length
+                  data[modalIndex].images.length
                 }`}
               </p>
 
               {/* Thumbnail navigation */}
               <div className="flex justify-center space-x-2 overflow-x-auto py-2">
-                {data[activeIndex].images.map((img, idx) => (
+                {data[modalIndex].images.map((img, idx) => (
                   <div
                     key={`thumb-${idx}`}
-                    onClick={() => setActiveImageIndex(idx)}
+                    onClick={() => {
+                      setActiveImageIndex(idx);
+                      if (slider) {
+                        slider.slickGoTo(idx);
+                      }
+                    }}
                     className={`w-16 h-12 rounded cursor-pointer transition-all ${
                       activeImageIndex === idx
                         ? "ring-2 ring-blue-500 opacity-100 scale-105"
