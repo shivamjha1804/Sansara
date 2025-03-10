@@ -63,7 +63,7 @@ const Overview = () => {
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-8 font-serif relative">
+    <div className="max-w-2xl mx-auto px-4 -top-4 font-serif relative">
       {/* Fixed Right Side Buttons */}
       <div className="fixed right-0 top-1/3 z-10 flex flex-col gap-4">
         {/* Contact Us Button */}
@@ -237,12 +237,12 @@ const Overview = () => {
       </div>
 
       {/* Original Overview Content */}
-      <h1 className="text-3xl text-center font-normal tracking-wide mb-12">
+      <h1 className="text-3xl text-center font-normal tracking-wide mb-6">
         OVERVIEW
       </h1>
 
       {/* Key Features */}
-      <div className="grid grid-cols-6 text-center mb-12 gap-4">
+      <div className="grid grid-cols-6 text-center mb-2 gap-4">
         <div>
           <div className="text-xl font-medium">17.4</div>
           <div className="text-sm">Acres</div>
@@ -316,11 +316,13 @@ const Overview = () => {
         </h2>
 
         <div className="grid grid-cols-2 gap-40">
-          <div className="-ml-10">
-            <div className="py-4 font-medium text-lg decoration-1 border-b border-gray-200 pt-1">
+          <div>
+            {" "}
+            {/* Removed -ml-10 here */}
+            <div className="py-4 font-medium text-lg decoration-1 border-b border-gray-200">
               3BHK
             </div>
-            <div className="py-4 font-medium text-lg decoration-1 border-b border-gray-200 pt-1">
+            <div className="py-4 font-medium text-lg decoration-1 border-b border-gray-200">
               4BHK
             </div>
             <div className="py-4 font-medium text-lg decoration-1">

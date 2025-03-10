@@ -74,7 +74,7 @@ const Navigation = () => {
   }, [activeTab]);
 
   return (
-    <div className="relative ">
+    <div className="relative">
       {/* Fixed navigation at the top */}
       <div className="sticky top-8 z-50 bg-white shadow-md">
         <div className="max-w-6xl mx-auto px-4">
