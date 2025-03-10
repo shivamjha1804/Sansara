@@ -3,6 +3,8 @@ import React, { useState } from "react";
 const Unitplans = () => {
   const [selectedPlan, setSelectedPlan] = useState("3BHK"); // Track the selected plan
   const [selectedUnit, setSelectedUnit] = useState(null); // Track the selected unit
+  const [isModalOpen, setIsModalOpen] = useState(false); // Track modal visibility
+  const [modalImage, setModalImage] = useState(""); // Track the image to display in the modal
 
   // Floor plan images and unit details
   const floorPlanImages = {
@@ -40,6 +42,18 @@ const Unitplans = () => {
 
   // Get plan types from the floorPlanImages object keys
   const planTypes = Object.keys(floorPlanImages);
+
+  // Function to open the modal with the selected image
+  const openModal = (image) => {
+    setModalImage(image);
+    setIsModalOpen(true);
+  };
+
+  // Function to close the modal
+  const closeModal = () => {
+    setIsModalOpen(false);
+    setModalImage("");
+  };
 
   return (
     <div
@@ -92,7 +106,6 @@ const Unitplans = () => {
                 ))}
               </div>
             </div>
-
             {/* Display units for the selected plan */}
             <div className="mt-6">
               <h3 className="text-lg font-medium mb-4 text-gray-700">
@@ -112,25 +125,25 @@ const Unitplans = () => {
                     <h4 className="text-md font-medium text-gray-800 mb-2">
                       {unit.name}
                     </h4>
-                    <div className="flex justify-center">
+                    <div className="flex justify-center overflow-hidden">
                       <img
                         src={unit.image}
                         alt={`${unit.name} Floor Plan`}
-                        className="max-w-full h-auto rounded"
+                        className="max-w-full h-auto transform transition-transform duration-300 hover:scale-110 cursor-pointer"
+                        onClick={() => openModal(unit.image)} // Open modal on image click
                       />
                     </div>
                   </div>
                 ))}
               </div>
             </div>
-
-            {/* Display selected unit details */}
+            {/* Display selected unit details
             {selectedUnit && (
               <div className="mt-6 p-4 rounded-lg shadow-md">
                 <h3 className="text-lg font-medium mb-3 text-blue-600 text-center">
                   {selectedUnit}
                 </h3>
-                <div className="flex justify-center">
+                <div className="flex justify-center overflow-hidden">
                   <img
                     src={
                       floorPlanImages[selectedPlan].find(
@@ -138,11 +151,18 @@ const Unitplans = () => {
                       )?.image
                     }
                     alt={`${selectedUnit} Floor Plan`}
-                    className="max-w-full h-auto border border-gray-200 rounded"
+                    className="max-w-full h-auto transform transition-transform duration-300 hover:scale-110 cursor-pointer"
+                    onClick={() =>
+                      openModal(
+                        floorPlanImages[selectedPlan].find(
+                          (unit) => unit.name === selectedUnit
+                        )?.image
+                      )
+                    } // Open modal on image click
                   />
                 </div>
               </div>
-            )}
+            )} */}
           </div>
 
           {/* Right Section - Only Enquiry Form */}
@@ -206,6 +226,38 @@ const Unitplans = () => {
           </div>
         </div>
       </div>
+
+      {/* Modal for displaying the larger image */}
+      {isModalOpen && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75">
+          <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-4xl max-h-[90vh] overflow-auto">
+            <button
+              className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"
+              onClick={closeModal}
+            >
+              <svg
+                xmlns="http://www.w3.org/2000/svg"
+                className="h-6 w-6"
+                fill="none"
+                viewBox="0 0 24 24"
+                stroke="currentColor"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth={2}
+                  d="M6 18L18 6M6 6l12 12"
+                />
+              </svg>
+            </button>
+            <img
+              src={modalImage}
+              alt="Enlarged Floor Plan"
+              className="max-w-full max-h-[80vh]"
+            />
+          </div>
+        </div>
+      )}
     </div>
   );
 };
