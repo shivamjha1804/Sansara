@@ -4,9 +4,9 @@ import Gallery from "./Gallery";
 import HighlightsSection from "./Higlights";
 import Siteplans from "./Siteplans";
 import Unitplans from "./Unitplans";
-import EnquireForm from "./EnquireForm";
 import Testimonials from "./Testimonials";
 import Location from "./Location";
+import Price from "./Price";
 import SansaraEnquiryForm from "./SansaraEnquiry";
 // Import the Location component
 // import Location from "./Location";
@@ -17,7 +17,7 @@ const Navigation = () => {
 
   // Refs for each section
   const overviewRef = useRef(null);
-  const sansaraEnquiryRef = useRef(null);
+  const priceRef = useRef(null);
   const galleryRef = useRef(null);
   const highlightsRef = useRef(null);
   const siteplansRef = useRef(null);
@@ -27,7 +27,7 @@ const Navigation = () => {
 
   const navItems = [
     { id: "OVERVIEW", ref: overviewRef },
-    { id: "SANSARAENQUIRY", ref: sansaraEnquiryRef },
+    { id: "PRICE", ref: priceRef },
     { id: "GALLERY", ref: galleryRef },
     { id: "HIGHLIGHTS", ref: highlightsRef },
     { id: "SITE PLAN", ref: siteplansRef },
@@ -42,7 +42,7 @@ const Navigation = () => {
 
     // Scroll to the corresponding section
     if (item.ref.current) {
-      item.ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
+      item.ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
     }
   };
 
@@ -178,8 +178,8 @@ const Navigation = () => {
         <div ref={overviewRef} id="overview" className="py-16">
           <Overview />
         </div>
-        <div ref={sansaraEnquiryRef} id="sansaraEnquiry" className="-mt-10">
-          <SansaraEnquiryForm />
+        <div ref={priceRef} id="price" className="-mt-10">
+          <Price />
         </div>
         <div ref={galleryRef} id="gallery" className="py-16">
           <Gallery />
