@@ -90,7 +90,7 @@ const Gallery = () => {
   };
 
   return (
-    <section className="w-full h-screen max-w-6xl mx-auto p-4">
+    <section className="w-full h-screen max-w-6xl mx-auto p-4 -mt-18 ">
       <h4 className="text-center text-3xl font-semibold mb-4">Gallery</h4>
 
       {/* Desktop layout (md and up) */}

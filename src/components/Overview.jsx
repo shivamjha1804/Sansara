@@ -237,12 +237,12 @@ const Overview = () => {
       </div>
 
       {/* Original Overview Content */}
-      <h1 className="text-3xl text-center font-normal tracking-wide mb-6">
+      <h1 className="text-3xl text-center font-normal tracking-wide mb-10">
         OVERVIEW
       </h1>
 
       {/* Key Features */}
-      <div className="grid grid-cols-6 text-center mb-2 gap-4">
+      <div className="grid grid-cols-6 text-center  mb-2 gap-4">
         <div>
           <div className="text-xl font-medium">17.4</div>
           <div className="text-sm">Acres</div>
@@ -310,19 +310,17 @@ const Overview = () => {
       </div>
 
       {/* Pricing Section */}
-      <div className="mb-8 flex flex-col items-center">
+      <div className=" flex flex-col items-center">
         <h2 className="text-3xl text-center text-blue-700 font-medium mb-4 pb-2 border-b border-blue-700 w-full max-w-lg">
           Pricing (Inclusive of GST & extra charges)
         </h2>
 
         <div className="grid grid-cols-2 gap-40">
-          <div>
-            {" "}
-            {/* Removed -ml-10 here */}
-            <div className="py-4 font-medium text-lg decoration-1 border-b border-gray-200">
+          <div className="-ml-10">
+            <div className="py-4 font-medium text-lg decoration-1 border-b border-gray-200 pt-1">
               3BHK
             </div>
-            <div className="py-4 font-medium text-lg decoration-1 border-b border-gray-200">
+            <div className="py-4 font-medium text-lg decoration-1 border-b border-gray-200 pt-1">
               4BHK
             </div>
             <div className="py-4 font-medium text-lg decoration-1">

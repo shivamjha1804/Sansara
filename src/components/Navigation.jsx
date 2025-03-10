@@ -7,6 +7,7 @@ import Unitplans from "./Unitplans";
 import EnquireForm from "./EnquireForm";
 import Testimonials from "./Testimonials";
 import Location from "./Location";
+import SansaraEnquiryForm from "./SansaraEnquiry";
 // Import the Location component
 // import Location from "./Location";
 
@@ -16,6 +17,7 @@ const Navigation = () => {
 
   // Refs for each section
   const overviewRef = useRef(null);
+  const sansaraEnquiryRef = useRef(null);
   const galleryRef = useRef(null);
   const highlightsRef = useRef(null);
   const siteplansRef = useRef(null);
@@ -25,6 +27,7 @@ const Navigation = () => {
 
   const navItems = [
     { id: "OVERVIEW", ref: overviewRef },
+    { id: "SANSARAENQUIRY", ref: sansaraEnquiryRef },
     { id: "GALLERY", ref: galleryRef },
     { id: "HIGHLIGHTS", ref: highlightsRef },
     { id: "SITE PLAN", ref: siteplansRef },
@@ -159,7 +162,7 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Water background image - optional, can be removed */}
+      {/* Water background image  */}
       <div
         className="w-full h-32 overflow-hidden"
         style={{
@@ -171,27 +174,30 @@ const Navigation = () => {
       ></div>
 
       {/* Content Sections - All sections are rendered but with appropriate spacing */}
-      <div className="content-sections max-w-6xl mx-auto px-4">
+      <div className="content-sections max-w-full mx-auto">
         <div ref={overviewRef} id="overview" className="py-16">
           <Overview />
+        </div>
+        <div ref={sansaraEnquiryRef} id="sansaraEnquiry" className="-mt-10">
+          <SansaraEnquiryForm />
         </div>
         <div ref={galleryRef} id="gallery" className="py-16">
           <Gallery />
         </div>
 
-        <div ref={highlightsRef} id="highlights" className="py-16">
+        <div ref={highlightsRef} id="highlights" className="-mt-24">
           <HighlightsSection />
         </div>
 
-        <div ref={siteplansRef} id="site-plan" className="py-16">
+        <div ref={siteplansRef} id="site-plan" className="-mt-12">
           <Siteplans />
         </div>
 
-        <div ref={unitplansRef} id="unit-plans" className="py-16">
+        <div ref={unitplansRef} id="unit-plans" className="py-4">
           <Unitplans />
         </div>
         <Testimonials />
-        <div ref={locationRef} id="location" className="py-16">
+        <div ref={locationRef} id="location" className="">
           {/* Uncomment when Location component is available */}
           <Location />
           {/* <div className="p-4 bg-gray-100 rounded-md text-center">
@@ -199,7 +205,7 @@ const Navigation = () => {
           </div> */}
         </div>
 
-        <div ref={enquiryRef} id="enquiry" className="py-16">
+        <div ref={enquiryRef} id="enquiry" className="">
           <EnquireForm />
         </div>
       </div>
