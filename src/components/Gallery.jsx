@@ -1,9 +1,4 @@
 import React, { useState, useEffect } from "react";
-import image1 from "/image1.png";
-import image2 from "/image2.png";
-import image3 from "/image3.png";
-import image4 from "/image4.png";
-import image5 from "/image5.png";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -15,26 +10,82 @@ const Gallery = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slider, setSlider] = useState(null);
 
+  // Sample data - in a real app, you would use your actual image paths
   const data = [
     {
-      title: image1,
-      images: [image1, image2, image3, image4, image5],
+      title: "/image1.jpg",
+      images: [
+        "/image1.jpg",
+        "/image2.jpg",
+        "/image3.jpg",
+        "/image4.jpg",
+        "/image5.jpg",
+        "/image6.jpg",
+        "/image7.jpg",
+        "/image8.jpg",
+        "/image9.jpg",
+        "/image10.jpg",
+      ],
     },
     {
-      title: image2,
-      images: [image1, image2, image3, image4, image5],
+      title: "/image9.jpg",
+      images: [
+        "/image1.jpg",
+        "/image2.jpg",
+        "/image3.jpg",
+        "/image4.jpg",
+        "/image5.jpg",
+        "/image6.jpg",
+        "/image7.jpg",
+        "/image8.jpg",
+        "/image9.jpg",
+        "/image10.jpg",
+      ],
     },
     {
-      title: image3,
-      images: [image1, image2, image3, image4, image5],
+      title: "/image5.jpg",
+      images: [
+        "/image1.jpg",
+        "/image2.jpg",
+        "/image3.jpg",
+        "/image4.jpg",
+        "/image5.jpg",
+        "/image6.jpg",
+        "/image7.jpg",
+        "/image8.jpg",
+        "/image9.jpg",
+        "/image10.jpg",
+      ],
     },
     {
-      title: image4,
-      images: [image1, image2, image3, image4, image5],
+      title: "/image7.jpg",
+      images: [
+        "/image1.jpg",
+        "/image2.jpg",
+        "/image3.jpg",
+        "/image4.jpg",
+        "/image5.jpg",
+        "/image6.jpg",
+        "/image7.jpg",
+        "/image8.jpg",
+        "/image9.jpg",
+        "/image10.jpg",
+      ],
     },
     {
-      title: image5,
-      images: [image1, image2, image3, image4, image5],
+      title: "/image10.jpg",
+      images: [
+        "/image1.jpg",
+        "/image2.jpg",
+        "/image3.jpg",
+        "/image4.jpg",
+        "/image5.jpg",
+        "/image6.jpg",
+        "/image7.jpg",
+        "/image8.jpg",
+        "/image9.jpg",
+        "/image10.jpg",
+      ],
     },
   ];
 
@@ -59,22 +110,6 @@ const Gallery = () => {
     }
   }, [activeImageIndex, slider, modalIndex]);
 
-  const goToNextImage = () => {
-    if (modalIndex !== null) {
-      const nextIndex = (activeImageIndex + 1) % data[modalIndex].images.length;
-      setActiveImageIndex(nextIndex);
-    }
-  };
-
-  const goToPreviousImage = () => {
-    if (modalIndex !== null) {
-      const prevIndex =
-        (activeImageIndex - 1 + data[modalIndex].images.length) %
-        data[modalIndex].images.length;
-      setActiveImageIndex(prevIndex);
-    }
-  };
-
   const sliderSettings = {
     dots: true,
     infinite: true,
@@ -87,58 +122,82 @@ const Gallery = () => {
     afterChange: (newIndex) => {
       setActiveImageIndex(newIndex);
     },
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          arrows: false,
+          dots: true,
+        },
+      },
+    ],
   };
 
   return (
-    <section className="w-full h-screen max-w-6xl mx-auto p-4 -mt-18 ">
-      <h4 className="text-center text-3xl font-semibold mb-4">Gallery</h4>
+    <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8 sm:py-12">
+      <h2 className="text-center text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8">
+        Gallery
+      </h2>
 
-      {/* Desktop layout (md and up) */}
-      <div className="hidden md:flex gap-4 justify-center h-[450px] mt-6">
+      {/* Desktop/Tablet layout (md and up) - Accordion style */}
+      <div className="hidden md:flex flex-wrap lg:flex-nowrap gap-2 sm:gap-4 justify-center h-[300px] sm:h-[350px] lg:h-[450px]">
         {data.map((item, index) => (
           <div
             key={`desktop-${index}`}
-            className={`relative shadow-lg rounded-lg overflow-hidden transition-all duration-500 cursor-pointer flex 
-              ${activeIndex === index ? "flex-[5]" : "flex-[1]"}`}
+            className={`relative shadow-lg rounded-lg overflow-hidden transition-all duration-500 cursor-pointer
+              ${
+                activeIndex === index
+                  ? "flex-[5] lg:flex-[4]"
+                  : "flex-[1] lg:flex-[0.5]"
+              }`}
             onMouseEnter={() => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
             onClick={() => openModal(index)}
           >
             <img
               src={item.title}
-              alt={`Image ${index + 1}`}
+              alt={`Gallery ${index + 1}`}
               className="w-full h-full object-cover"
             />
+            <div
+              className={`absolute inset-0 bg-black bg-opacity-40 flex items-end transition-opacity duration-300
+              ${activeIndex === index ? "opacity-0" : "opacity-100"}`}
+            >
+              s
+            </div>
           </div>
         ))}
       </div>
 
       {/* Mobile layout (smaller than md) */}
-      <div className="flex md:hidden flex-col gap-4 mt-6">
+      <div className="grid md:hidden grid-cols-1 sm:grid-cols-2 gap-4">
         {data.map((item, index) => (
           <div
             key={`mobile-${index}`}
-            className="relative shadow-lg rounded-lg overflow-hidden h-[400px] cursor-pointer"
+            className="relative shadow-lg rounded-lg overflow-hidden h-[200px] sm:h-[250px] cursor-pointer"
             onClick={() => openModal(index)}
           >
             <img
               src={item.title}
-              alt={`Image ${index + 1}`}
+              alt={`Gallery ${index + 1}`}
               className="w-full h-full object-cover"
             />
+            <div className="absolute inset-0 bg-black bg-opacity-30 flex items-end">
+              <p className="text-white font-medium p-3">Gallery {index + 1}</p>
+            </div>
           </div>
         ))}
       </div>
 
-      {/* Fixed Modal */}
+      {/* Modal */}
       {isModalOpen && modalIndex !== null && (
         <div
-          className="fixed inset-0 bg-black bg-opacity-80 flex items-center justify-center z-50 p-2 sm:p-4"
+          className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-2 sm:p-4"
           onClick={(e) => {
             if (e.target === e.currentTarget) closeModal();
           }}
         >
-          <div className="relative bg-white rounded-lg w-full max-w-4xl overflow-hidden shadow-2xl">
+          <div className="relative bg-white rounded-lg w-full max-w-lg sm:max-w-2xl lg:max-w-4xl overflow-hidden shadow-2xl">
             {/* Close button */}
             <button
               onClick={closeModal}
@@ -160,18 +219,18 @@ const Gallery = () => {
               </svg>
             </button>
 
-            <div className="p-4 pb-2">
-              <h3 className="text-xl font-bold mb-1 text-center">
+            <div className="p-3 sm:p-4 pb-2">
+              <h3 className="text-lg sm:text-xl font-bold mb-1 text-center">
                 {`Gallery ${modalIndex + 1}`}
               </h3>
             </div>
 
-            {/* Using Slider component instead of manual navigation */}
-            <div className="w-full px-8 pb-4">
+            {/* Slider */}
+            <div className="w-full px-2 sm:px-6 lg:px-8 pb-4">
               <Slider ref={(slider) => setSlider(slider)} {...sliderSettings}>
                 {data[modalIndex].images.map((img, idx) => (
                   <div key={`slide-${idx}`} className="outline-none">
-                    <div className="w-full h-80 flex items-center justify-center">
+                    <div className="w-full h-56 sm:h-64 md:h-80 flex items-center justify-center">
                       <img
                         src={img}
                         alt={`Image ${idx + 1}`}
@@ -183,16 +242,16 @@ const Gallery = () => {
               </Slider>
             </div>
 
-            {/* Enhanced footer with thumbnails */}
-            <div className="bg-gray-100 p-4 border-t">
-              <p className="text-sm text-gray-600 text-center mb-2">
+            {/* Footer with thumbnails */}
+            <div className="bg-gray-100 p-2 sm:p-4 border-t">
+              <p className="text-xs sm:text-sm text-gray-600 text-center mb-2">
                 {`Image ${activeImageIndex + 1} of ${
                   data[modalIndex].images.length
                 }`}
               </p>
 
-              {/* Thumbnail navigation */}
-              <div className="flex justify-center space-x-2 overflow-x-auto py-2">
+              {/* Thumbnail navigation - scrollable on smaller screens */}
+              <div className="flex justify-start sm:justify-center space-x-2 overflow-x-auto py-2 px-2 sm:px-0">
                 {data[modalIndex].images.map((img, idx) => (
                   <div
                     key={`thumb-${idx}`}
@@ -202,7 +261,7 @@ const Gallery = () => {
                         slider.slickGoTo(idx);
                       }
                     }}
-                    className={`w-16 h-12 rounded cursor-pointer transition-all ${
+                    className={`flex-shrink-0 w-12 sm:w-16 h-9 sm:h-12 rounded cursor-pointer transition-all ${
                       activeImageIndex === idx
                         ? "ring-2 ring-blue-500 opacity-100 scale-105"
                         : "opacity-70 hover:opacity-100"

@@ -96,12 +96,7 @@ const Overview = () => {
     const phoneNumber = "+9103367676785";
 
     // Create the tel: URI
-    window.location.href = `tel:${phoneNumber}`;
-  };
-
-  // Handler for contact form submission
-  const handleContactSubmit = () => {
-    alert("Thank you! A representative will contact you soon.");
+    window.location.href = `tel:${+9103367676785}`;
   };
 
   return (
