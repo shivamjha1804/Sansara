@@ -33,13 +33,13 @@ const Testimonials = () => {
       </div>
 
       {/* Testimonial Grid */}
-      <div className="flex justify-center items-center gap-28">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-28">
         {testimonials.map((testimonial) => (
           <div
             key={testimonial.id}
             className={`${
               testimonial.image ? "bg-white" : "bg-gray-50"
-            } rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl`}
+            } rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl w-full md:w-auto`}
           >
             {testimonial.image && (
               <div
@@ -67,11 +67,6 @@ const Testimonials = () => {
                 </div>
               </div>
             )}
-            {/* <div className="p-6">
-              {!testimonial.image && (
-                <p className="text-gray-600">{testimonial.text}</p>
-              )}
-            </div> */}
           </div>
         ))}
       </div>
