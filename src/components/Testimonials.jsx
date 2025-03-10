@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 
 const Testimonials = () => {
   // Sample testimonial data
@@ -6,24 +6,21 @@ const Testimonials = () => {
     {
       id: 1,
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.",
-      image: "./TestimonialsImg.png",
+      image: "./virat-01.jpg",
+      name: "John Doe",
+      position: "CEO, Company",
     },
     {
       id: 2,
       text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.",
-      image: "./TestimonialsImg.png",
-    },
-    {
-      id: 3,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.",
-      image: null,
-    },
-    {
-      id: 4,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.",
-      image: null,
+      image: "./virat-01.jpg",
+      name: "Jane Smith",
+      position: "Director, Organization",
     },
   ];
+
+  // State to track which testimonial is being hovered
+  const [hoveredId, setHoveredId] = useState(null);
 
   return (
     <div className="container mx-auto px-4 py-16">
@@ -36,28 +33,40 @@ const Testimonials = () => {
       </div>
 
       {/* Testimonial Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-28">
         {testimonials.map((testimonial) => (
           <div
             key={testimonial.id}
             className={`${
               testimonial.image ? "bg-white" : "bg-gray-50"
-            } rounded-lg overflow-hidden`}
+            } rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl w-full md:w-auto`}
           >
             {testimonial.image && (
-              <div className="relative h-64 w-full">
+              <div
+                className="relative h-64 w-full cursor-pointer"
+                onMouseEnter={() => setHoveredId(testimonial.id)}
+                onMouseLeave={() => setHoveredId(null)}
+              >
                 <img
                   src={testimonial.image}
                   alt="Testimonial"
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover transition-opacity duration-300"
                 />
+
+                {/* Overlay that appears on hover */}
+                <div
+                  className={`absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4 transition-opacity duration-300 ${
+                    hoveredId === testimonial.id ? "opacity-100" : "opacity-0"
+                  }`}
+                >
+                  <p className="text-white text-center mb-4">
+                    {testimonial.text}
+                  </p>
+                  <p className="text-white font-bold">{testimonial.name}</p>
+                  <p className="text-white text-sm">{testimonial.position}</p>
+                </div>
               </div>
             )}
-            <div className="p-6">
-              {!testimonial.image && (
-                <p className="text-gray-600">{testimonial.text}</p>
-              )}
-            </div>
           </div>
         ))}
       </div>
