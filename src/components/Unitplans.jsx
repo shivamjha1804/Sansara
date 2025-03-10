@@ -2,7 +2,8 @@ import React, { useState } from "react";
 
 const Unitplans = () => {
   const [selectedPlan, setSelectedPlan] = useState("3BHK"); // Track the selected plan
-  const [selectedUnit, setSelectedUnit] = useState(null); // Track the selected unit
+  const [selectedUnit, setSelectedUnit] = useState(null);
+  const [isModalOpen, setIsModalOpen] = useState(false); // Track the selected unit
   const [formData, setFormData] = useState({
     name: "",
     email: "",
