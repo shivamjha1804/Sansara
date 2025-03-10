@@ -1,51 +1,45 @@
 import React, { useState } from "react";
 
 const Unitplans = () => {
-  const [selectedPlan, setSelectedPlan] = useState("3BHK");
-  const [selectedUnit, setSelectedUnit] = useState(null);
-  const [enquiryType, setEnquiryType] = useState("Select");
-
-  const planTypes = ["3BHK", "4BHK", "5BHK DUPLEX"];
+  const [selectedPlan, setSelectedPlan] = useState("3BHK"); // Track the selected plan
+  const [selectedUnit, setSelectedUnit] = useState(null); // Track the selected unit
 
   // Floor plan images and unit details
   const floorPlanImages = {
-    "3BHK": {
-      unit1: {
+    "3BHK": [
+      {
         name: "Unit-A-3BHK",
         image: "./unit-A-3BHK-amp.jpg",
-        size: "1450 sq.ft",
       },
-      unit2: {
+      {
         name: "Unit-C-3BHK",
         image: "./unit-C-3bhk-amp.jpg",
-        size: "1450 sq.ft",
       },
-    },
-    "4BHK": {
-      unit1: {
+    ],
+    "4BHK": [
+      {
         name: "Unit-B-4BHK",
         image: "./unit-B-4bhk-amp.jpg",
-        size: "1850 sq.ft",
       },
-      unit2: {
+      {
         name: "Unit-D-4BHK-Study",
         image: "./unit-D-4BHK-study-amp.jpg",
-        size: "2100 sq.ft",
       },
-    },
-    "5BHK DUPLEX": {
-      unit1: {
+    ],
+    "5BHK DUPLEX": [
+      {
         name: "Unit-C-5BHK-Duplex-Lower",
         image: "./unit-C-5bhk-duplex-lower-amp.jpg",
-        size: "2800 sq.ft",
       },
-      unit2: {
+      {
         name: "Unit-C-5BHK-Duplex-Upper",
         image: "./unit-C-5BHK-Duplex-Upper-amp.jpg",
-        size: "2800 sq.ft",
       },
-    },
+    ],
   };
+
+  // Get plan types from the floorPlanImages object keys
+  const planTypes = Object.keys(floorPlanImages);
 
   return (
     <div
@@ -73,91 +67,87 @@ const Unitplans = () => {
         <div className="flex flex-col lg:flex-row w-full">
           {/* Left Section - Unit Plan Content */}
           <div className="w-full lg:w-1/2 p-4 lg:p-6 lg:rounded-bl-lg">
-            {/* Plan type tabs */}
-            <div className="flex justify-center mb-6">
-              {planTypes.map((plan) => (
-                <button
-                  key={plan}
-                  className={`px-4 py-2 text-sm focus:outline-none transition-all duration-300 ${
-                    selectedPlan === plan
-                      ? "border-b-2 border-blue-600 text-blue-600 font-medium"
-                      : "text-gray-700 hover:text-blue-500"
-                  }`}
-                  onClick={() => {
-                    setSelectedPlan(plan);
-                    setSelectedUnit(null); // Reset unit selection when plan changes
-                  }}
-                >
-                  {plan}
-                </button>
-              ))}
-            </div>
-
-            {/* Unit selection */}
+            {/* Plan type selection */}
             <div className="mb-6">
-              <div className="text-lg font-medium text-gray-700 mb-3 text-center">
-                Select Unit
-              </div>
-              <div className="flex flex-wrap justify-center gap-4">
-                <button
-                  className={`px-6 py-2 rounded-md transition-all duration-300 ${
-                    selectedUnit === "unit1"
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                  }`}
-                  onClick={() => setSelectedUnit("unit1")}
-                >
-                  {floorPlanImages[selectedPlan].unit1.name}
-                </button>
-                <button
-                  className={`px-6 py-2 rounded-md transition-all duration-300 ${
-                    selectedUnit === "unit2"
-                      ? "bg-blue-600 text-white"
-                      : "bg-gray-200 text-gray-700 hover:bg-gray-300"
-                  }`}
-                  onClick={() => setSelectedUnit("unit2")}
-                >
-                  {floorPlanImages[selectedPlan].unit2.name}
-                </button>
+              <label className="block text-sm font-medium mb-2 text-gray-700">
+                Select Plan Type
+              </label>
+              <div className="flex flex-wrap gap-2">
+                {planTypes.map((plan) => (
+                  <button
+                    key={plan}
+                    type="button"
+                    className={`px-4 py-2 text-sm rounded-md ${
+                      selectedPlan === plan
+                        ? "bg-blue-600 text-white"
+                        : "bg-gray-200 text-gray-800 hover:bg-gray-300"
+                    }`}
+                    onClick={() => {
+                      setSelectedPlan(plan);
+                      setSelectedUnit(null); // Reset unit selection when plan changes
+                    }}
+                  >
+                    {plan}
+                  </button>
+                ))}
               </div>
             </div>
 
-            {/* Floor plan image and details */}
-            <div className="mt-4">
-              {selectedUnit ? (
-                <div className="p-4 rounded-lg shadow-md">
-                  <h3 className="text-lg font-medium mb-3 text-blue-600 text-center">
-                    {floorPlanImages[selectedPlan][selectedUnit].name}
-                  </h3>
-                  <div className="flex justify-center">
-                    <img
-                      src={floorPlanImages[selectedPlan][selectedUnit].image}
-                      alt={`${floorPlanImages[selectedPlan][selectedUnit].name} Floor Plan`}
-                      className="max-w-full h-auto border border-gray-200 rounded"
-                    />
-                  </div>
-                  <div className="mt-4 flex justify-between items-center">
-                    <button className="px-4 py-2 bg-blue-600 text-white text-sm rounded hover:bg-blue-700 transition-colors">
-                      Download Plan
-                    </button>
-                    <div className="text-sm text-gray-600 font-medium">
-                      Size: {floorPlanImages[selectedPlan][selectedUnit].size}
+            {/* Display units for the selected plan */}
+            <div className="mt-6">
+              <h3 className="text-lg font-medium mb-4 text-gray-700">
+                Available Units
+              </h3>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                {floorPlanImages[selectedPlan].map((unit) => (
+                  <div
+                    key={unit.name}
+                    className={`p-4 rounded-lg shadow-md cursor-pointer ${
+                      selectedUnit === unit.name
+                        ? "border-2 border-blue-600"
+                        : "border border-gray-200"
+                    }`}
+                    onClick={() => setSelectedUnit(unit.name)}
+                  >
+                    <h4 className="text-md font-medium text-gray-800 mb-2">
+                      {unit.name}
+                    </h4>
+                    <div className="flex justify-center">
+                      <img
+                        src={unit.image}
+                        alt={`${unit.name} Floor Plan`}
+                        className="max-w-full h-auto rounded"
+                      />
                     </div>
                   </div>
-                </div>
-              ) : (
-                <div className="p-8 rounded-lg border border-dashed border-gray-300 flex items-center justify-center min-h-[250px]">
-                  <p className="text-gray-500">
-                    Please select a unit to view floor plan
-                  </p>
-                </div>
-              )}
+                ))}
+              </div>
             </div>
+
+            {/* Display selected unit details */}
+            {selectedUnit && (
+              <div className="mt-6 p-4 rounded-lg shadow-md">
+                <h3 className="text-lg font-medium mb-3 text-blue-600 text-center">
+                  {selectedUnit}
+                </h3>
+                <div className="flex justify-center">
+                  <img
+                    src={
+                      floorPlanImages[selectedPlan].find(
+                        (unit) => unit.name === selectedUnit
+                      )?.image
+                    }
+                    alt={`${selectedUnit} Floor Plan`}
+                    className="max-w-full h-auto border border-gray-200 rounded"
+                  />
+                </div>
+              </div>
+            )}
           </div>
 
           {/* Right Section - Only Enquiry Form */}
           <div className="w-full lg:w-1/2 p-4 lg:p-6 rounded-b-lg lg:rounded-br-lg lg:rounded-bl-none">
-            <div className="bg-blue-50 p-6 shadow-md rounded-lg h-full">
+            <div className="bg-white p-6 shadow-md rounded-lg h-full">
               <h3 className="text-lg font-medium mb-1 text-gray-800">
                 Real Estate Enquiry Form
               </h3>
@@ -171,11 +161,7 @@ const Unitplans = () => {
                   <label className="block text-sm font-medium mb-1 text-gray-700">
                     Enquiry Type
                   </label>
-                  <select
-                    className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                    value={enquiryType}
-                    onChange={(e) => setEnquiryType(e.target.value)}
-                  >
+                  <select className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent">
                     <option>Select</option>
                     <option>Sales</option>
                     <option>Rental</option>
