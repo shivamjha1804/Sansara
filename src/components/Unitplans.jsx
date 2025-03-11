@@ -185,9 +185,7 @@ const Unitplans = () => {
       <div className="w-full h-full mx-auto">
         {/* Centered Heading for both sections */}
         <div className="w-full pt-6 pb-4 rounded-t-lg text-center mb-0">
-          <h2 className="text-2xl sm:text-3xl font-bold text-gray-800">
-            Unit Plans
-          </h2>
+          <h2 className="text-2xl sm:text-3xl  text-gray-800">Unit Plans</h2>
           <p className="mt-1 text-sm text-gray-600">
             Luxury 3, 4 and 5 BHK Homes
           </p>

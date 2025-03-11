@@ -353,8 +353,8 @@ const HighlightsSection = () => {
 
   return (
     <div className="w-full max-w-6xl mx-auto px-4 py-8 relative">
-      <h1 className="text-center text-xl sm:text-2xl md:text-3xl font-bold mb-6 md:mb-12">
-        HIGHLIGHTS
+      <h1 className="text-center text-xl sm:text-2xl md:text-3xl mb-6 md:mb-12">
+        Highlights
       </h1>
 
       <div className="relative">

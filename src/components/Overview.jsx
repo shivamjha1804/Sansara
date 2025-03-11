@@ -402,7 +402,7 @@ const Overview = () => {
 
       {/* Original Overview Content - Made responsive */}
       <h1 className="text-2xl sm:text-3xl text-center font-normal tracking-wide mb-6 sm:mb-10 pt-4">
-        OVERVIEW
+        Overview
       </h1>
 
       {/* Key Features - Responsive grid */}
@@ -449,7 +449,7 @@ const Overview = () => {
       </div>
 
       {/* Description Paragraphs - Responsive text and spacing */}
-      <div className="space-y-2 text-center mb-8 sm:mb-16 px-2 sm:px-0">
+      <div className="space-y-2 text-center mb-8 sm:mb-16 px-2 sm:px-2">
         <div className="border-t border-gray-200 pt-4 sm:pt-5">
           <p className="text-xs sm:text-sm">
             Discover Sansara, the tallest riverfront luxury residences, first of
@@ -489,7 +489,6 @@ const Overview = () => {
       </div>
 
       {/* Add extra padding at bottom for mobile to account for fixed bottom menu */}
-      <div className="h-16 md:h-0"></div>
     </div>
   );
 };
