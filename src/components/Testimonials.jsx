@@ -1,7 +1,9 @@
 import React, { useState } from "react";
+import Slider from "react-slick";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 
 const Testimonials = () => {
-  // Sample testimonial data
   const testimonials = [
     {
       id: 1,
@@ -23,61 +25,92 @@ const Testimonials = () => {
     },
     {
       id: 4,
-      text: "I have booked the project because PS Group is building it.",
+      text: "I have booked the project because PS Group is building it.",
       image: "./PawanKrPansari.jpg",
       name: "Pawan Pansari",
     },
   ];
 
-  // State to track which testimonial is being hovered
   const [hoveredId, setHoveredId] = useState(null);
+
+  const settings = {
+    dots: true,
+    infinite: true,
+    speed: 500,
+    slidesToShow: 1,
+    slidesToScroll: 1,
+    autoplay: true,
+    autoplaySpeed: 3000,
+    responsive: [
+      {
+        breakpoint: 768,
+        settings: {
+          slidesToShow: 1,
+          slidesToScroll: 1,
+        },
+      },
+    ],
+  };
 
   return (
     <div className="container mx-auto px-4 py-16">
-      {/* Testimonial Header */}
       <div className="text-center mb-12">
         <h2 className="text-3xl font-serif mb-2">Testimonials</h2>
-        <p className="text-gray-600">
-          Lorem Ipsum Dolor Sit Amet prst Consectetur et toro
-        </p>
+        <p className="text-gray-600">Lorem Ipsum Dolor Sit Amet Consectetur</p>
       </div>
 
-      {/* Testimonial Grid */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-2">
+      <div className="hidden md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-4">
         {testimonials.map((testimonial) => (
           <div
             key={testimonial.id}
-            className={`${
-              testimonial.image ? "bg-white" : "bg-gray-50"
-            } rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl w-full md:w-auto`}
+            className="relative bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl"
           >
-            {testimonial.image && (
+            <img
+              src={testimonial.image}
+              alt="Testimonial"
+              className=" object-cover h-44"
+            />
+            <div
+              className={`absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4 transition-opacity duration-300 ${
+                hoveredId === testimonial.id ? "opacity-100" : "opacity-0"
+              }`}
+              onMouseEnter={() => setHoveredId(testimonial.id)}
+              onMouseLeave={() => setHoveredId(null)}
+            >
+              <p className="text-white text-center mb-1">{testimonial.text}</p>
+              <p className="text-white font-bold">{testimonial.name}</p>
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div className="md:hidden">
+        <Slider {...settings}>
+          {testimonials.map((testimonial) => (
+            <div
+              key={testimonial.id}
+              className="relative bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl"
+            >
+              <img
+                src={testimonial.image}
+                alt="Testimonial"
+                className="w-full h-64 object-cover"
+              />
               <div
-                className="relative h-64 w-full cursor-pointer"
+                className={`absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4 transition-opacity duration-300 ${
+                  hoveredId === testimonial.id ? "opacity-100" : "opacity-0"
+                }`}
                 onMouseEnter={() => setHoveredId(testimonial.id)}
                 onMouseLeave={() => setHoveredId(null)}
               >
-                <img
-                  src={testimonial.image}
-                  alt="Testimonial"
-                  className="w-full h-full object-cover transition-opacity duration-300"
-                />
-
-                {/* Overlay that appears on hover */}
-                <div
-                  className={`absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4 transition-opacity duration-300 ${
-                    hoveredId === testimonial.id ? "opacity-100" : "opacity-0"
-                  }`}
-                >
-                  <p className="text-white text-center mb-1">
-                    {testimonial.text}
-                  </p>
-                  <p className="text-white font-bold">{testimonial.name}</p>
-                </div>
+                <p className="text-white text-center mb-1">
+                  {testimonial.text}
+                </p>
+                <p className="text-white font-bold">{testimonial.name}</p>
               </div>
-            )}
-          </div>
-        ))}
+            </div>
+          ))}
+        </Slider>
       </div>
     </div>
   );

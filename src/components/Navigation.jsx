@@ -9,6 +9,7 @@ import Testimonials from "./Testimonials";
 import Location from "./Location";
 import Price from "./Price";
 import SansaraEnquiryForm from "./SansaraEnquiry";
+import YoutubeVideo from "./YoutubeVideo";
 // Import the Location component
 // import Location from "./Location";
 
@@ -80,11 +81,11 @@ const Navigation = () => {
   return (
     <div className="relative">
       {/* Fixed navigation at the top */}
-      <div className="sticky top-8 z-50 bg-white shadow-md">
+      <div className="sticky top-8 z-50 bg-blue-200 shadow-md">
         <div className="max-w-6xl mx-auto px-4">
           {/* Mobile menu button */}
           <div className="md:hidden flex justify-between items-center py-4">
-            <span className="font-medium text-lg">Navigation</span>
+            <img src="sansaraLogoImg01.png" alt="logo" />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md hover:bg-gray-100"
@@ -182,9 +183,11 @@ const Navigation = () => {
         <div ref={priceRef} id="price" className="-mt-10">
           <Price />
         </div>
+        <SansaraEnquiryForm />
         <div ref={galleryRef} id="gallery" className="py-16">
           <Gallery />
         </div>
+        <YoutubeVideo />
 
         <div ref={highlightsRef} id="highlights" className="-mt-24">
           <HighlightsSection />
