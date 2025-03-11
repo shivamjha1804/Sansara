@@ -2,7 +2,6 @@ import React, { useState, useRef, useEffect } from "react";
 import Overview from "./Overview";
 import Gallery from "./Gallery";
 import HighlightsSection from "./Higlights";
-import EnquireForm from "./EnquireForm";
 import Siteplans from "./Siteplans";
 import Unitplans from "./Unitplans";
 import Testimonials from "./Testimonials";
@@ -13,6 +12,7 @@ import SansaraEnquiryForm from "./SansaraEnquiry";
 const Navigation = () => {
   const [activeTab, setActiveTab] = useState("OVERVIEW");
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
+  const [isNavbarFixed, setIsNavbarFixed] = useState(false);
 
   // Refs for each section
   const overviewRef = useRef(null);
@@ -69,6 +69,13 @@ const Navigation = () => {
           }
         }
       }
+
+      // Toggle fixed navbar
+      if (window.scrollY > 100) {
+        setIsNavbarFixed(true);
+      } else {
+        setIsNavbarFixed(false);
+      }
     };
 
     window.addEventListener("scroll", handleScroll);
@@ -78,30 +85,29 @@ const Navigation = () => {
   return (
     <div className="relative">
       {/* Fixed navigation at the top */}
-      <div className="sticky top-0 z-50 bg-white shadow-md">
+      <div
+        className={`sticky top-0 z-50 bg-slate-400 shadow-md transition-all duration-300 ${
+          isNavbarFixed ? "py-2" : "py-4"
+        }`}
+      >
         <div className="max-w-6xl mx-auto px-4">
-          {/* Mobile menu button */}
-          <div className="md:hidden flex justify-between items-center py-4">
-            {/* Company logo instead of "Navigation" text */}
+          {/* Logo and Mobile Menu Button */}
+          <div className="flex justify-between items-center">
+            {/* Logo */}
             <div className="flex items-center">
               <img
-                src="./sansaraLogoImg01.png"
-                alt="Company Logo"
-                className="h-8"
-                onError={(e) => {
-                  // Fallback if image doesn't load
-                  e.target.onerror = null;
-                  e.target.style.display = "none";
-                  const textLogo = document.createElement("span");
-                  textLogo.innerText = "COMPANY LOGO";
-                  textLogo.className = "font-bold text-lg text-blue-700";
-                  e.target.parentNode.appendChild(textLogo);
-                }}
+                src="./sansaraLogoImg01.png" // Replace with your logo path
+                alt="Logo"
+                className={`h-8 transition-all duration-300 ${
+                  isNavbarFixed ? "w-auto" : "w-0 opacity-0"
+                }`}
               />
             </div>
+
+            {/* Mobile Menu Button */}
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
-              className="p-2 rounded-md hover:bg-gray-100"
+              className="md:hidden p-2 rounded-md hover:bg-gray-100"
             >
               <svg
                 className="w-6 h-6"
@@ -129,8 +135,12 @@ const Navigation = () => {
             </button>
           </div>
 
-          {/* Desktop navigation - improved positioning */}
-          <nav className="hidden md:flex justify-between items-center py-4 absolute bg-white w-4/5 px-10 ml-12 -top-8">
+          {/* Desktop Navigation */}
+          <nav
+            className={`hidden md:flex justify-between items-center transition-all duration-300 ${
+              isNavbarFixed ? "mt-2" : "mt-4"
+            }`}
+          >
             {navItems.map((item, index) => (
               <a
                 key={index}
@@ -150,9 +160,9 @@ const Navigation = () => {
             ))}
           </nav>
 
-          {/* Mobile navigation - improved styling with background */}
+          {/* Mobile Navigation */}
           {isMobileMenuOpen && (
-            <nav className="md:hidden py-2 pb-4 bg-white">
+            <nav className="md:hidden py-2 pb-4">
               <div className="flex flex-col space-y-2">
                 {navItems.map((item, index) => (
                   <a
@@ -177,47 +187,31 @@ const Navigation = () => {
         </div>
       </div>
 
-      {/* Water background image  */}
-      <div
-        className="w-full h-32 overflow-hidden"
-        style={{
-          backgroundImage: "url('./FooterImg.png')",
-          backgroundSize: "cover",
-          backgroundPosition: "center",
-          opacity: 0.7,
-        }}
-      ></div>
-
-      {/* Content Sections - All sections are rendered but with appropriate spacing */}
+      {/* Content Sections */}
       <div className="content-sections max-w-full mx-auto">
         <div ref={overviewRef} id="overview" className="py-16">
           <Overview />
         </div>
-        <div ref={priceRef} id="price" className="pt-16">
+        <div ref={priceRef} id="price" className="-mt-10">
           <Price />
         </div>
-        <EnquireForm />
         <div ref={galleryRef} id="gallery" className="py-16">
           <Gallery />
         </div>
-
-        <div ref={highlightsRef} id="highlights" className="pt-16">
+        <div ref={highlightsRef} id="highlights" className="-mt-24">
           <HighlightsSection />
         </div>
-
-        <div ref={siteplansRef} id="site-plan" className="pt-16">
+        <div ref={siteplansRef} id="site-plan" className="-mt-12">
           <Siteplans />
         </div>
-
-        <div ref={unitplansRef} id="unit-plans" className="py-16">
+        <div ref={unitplansRef} id="unit-plans" className="py-4">
           <Unitplans />
         </div>
         <Testimonials />
-        <div ref={locationRef} id="location" className="pt-16">
+        <div ref={locationRef} id="location" className="">
           <Location />
         </div>
-
-        <div ref={enquiryRef} id="enquiry" className="pt-16">
+        <div ref={enquiryRef} id="enquiry" className="">
           <SansaraEnquiryForm />
         </div>
       </div>

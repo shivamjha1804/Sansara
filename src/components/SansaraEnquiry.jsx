@@ -105,8 +105,7 @@ const SansaraEnquiryForm = () => {
     <div
       className="w-full bg-no-repeat bg-center bg-cover"
       style={{
-        backgroundImage:
-          "url('./findYourPerfect.png')",
+        backgroundImage: "url('./findYourPerfect.png')",
         // backgroundBlendMode: "", // Blend gradient with image
         backgroundSize: "cover", // Make image cover the entire background
         backgroundPosition: "center", // Center the imag

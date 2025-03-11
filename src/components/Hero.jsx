@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
@@ -12,6 +12,20 @@ const Hero = () => {
   });
   const [errors, setErrors] = useState({});
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
+
+  // Prevent scrolling when modal is open
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    // Cleanup function to reset overflow when component unmounts
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showModal]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
