@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 
 const Overview = () => {
-  // State to track which button is being hovered
+  // State to track which button is being hovered or touched
   const [hoveredButton, setHoveredButton] = useState(null);
 
   // State for form inputs in the enquiry panel
@@ -14,13 +14,18 @@ const Overview = () => {
   // State for form submission status
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  // Handler functions for button hover
+  // Handler functions for button hover/touch
   const handleMouseEnter = (buttonId) => {
     setHoveredButton(buttonId);
   };
 
   const handleMouseLeave = () => {
     setHoveredButton(null);
+  };
+
+  // Toggle button content on touch devices
+  const handleTouchButton = (buttonId) => {
+    setHoveredButton(hoveredButton === buttonId ? null : buttonId);
   };
 
   // Handler for form input changes
@@ -119,27 +124,25 @@ const Overview = () => {
   // Handler for initiating a phone call
   const handlePhoneCall = () => {
     // Phone number to call
-    const phoneNumber = "+9103367676785";
-
-    // Create the tel: URI
-    window.location.href = `tel:${+9103367676785}`;
+    window.location.href = `tel:+9103367676785`;
   };
 
   return (
-    <div className="max-w-2xl mx-auto px-4 -top-4 font-serif relative">
-      {/* Fixed Right Side Buttons */}
-      <div className="fixed right-0 top-1/3 z-10 flex flex-col gap-4">
+    <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 -top-4 font-serif relative">
+      {/* Fixed Right Side Buttons - Responsive positioning */}
+      <div className="fixed z-10 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col justify-around md:justify-start md:gap-4 bg-white md:bg-transparent p-2 md:p-0 shadow-md md:shadow-none">
         {/* Contact Us Button */}
         <div
-          className="relative flex items-center"
+          className="relative flex items-center justify-center"
           onMouseEnter={() => handleMouseEnter("contact")}
           onMouseLeave={handleMouseLeave}
+          onClick={() => handleTouchButton("contact")}
         >
           <div
-            className={`absolute right-full mr-2 bg-white shadow-lg p-4 rounded-lg w-64 transition-all duration-300 ${
+            className={`absolute bottom-full md:bottom-auto md:right-full mb-2 md:mb-0 md:mr-2 bg-white shadow-lg p-4 rounded-lg w-full max-w-xs md:w-64 transition-all duration-300 ${
               hoveredButton === "contact"
                 ? "opacity-100 visible"
-                : "opacity-0 invisible"
+                : "opacity-0 invisible pointer-events-none"
             }`}
           >
             <h3 className="font-bold text-lg mb-2 text-blue-700">Contact Us</h3>
@@ -196,20 +199,21 @@ const Overview = () => {
             </button>
           </div>
           <button
-            className="bg-blue-700 text-white p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800"
+            className="bg-blue-700 text-white p-2 md:p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800 rounded-full md:rounded-none"
             onClick={handlePhoneCall}
+            aria-label="Contact Us"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-6 h-6"
+              className="w-5 h-5 md:w-6 md:h-6"
             >
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z" />
             </svg>
@@ -218,21 +222,22 @@ const Overview = () => {
 
         {/* Download Brochure Button */}
         <div
-          className="relative flex items-center"
+          className="relative flex items-center justify-center"
           onMouseEnter={() => handleMouseEnter("brochure")}
           onMouseLeave={handleMouseLeave}
+          onClick={() => handleTouchButton("brochure")}
         >
           <div
-            className={`absolute right-full mr-2 bg-white shadow-lg p-4 rounded-lg w-64 transition-all duration-300 ${
+            className={`absolute bottom-full md:bottom-auto md:right-full mb-2 md:mb-0 md:mr-2 bg-white shadow-lg p-4 rounded-lg w-full max-w-xs md:w-64 transition-all duration-300 ${
               hoveredButton === "brochure"
                 ? "opacity-100 visible"
-                : "opacity-0 invisible"
+                : "opacity-0 invisible pointer-events-none"
             }`}
           >
             <h3 className="font-bold text-lg mb-2 text-blue-700">
               Download Brochure
             </h3>
-            <p className="mb-4">
+            <p className="mb-4 text-sm">
               Get detailed information about Sansara Riverfront Residences.
             </p>
             <button
@@ -259,20 +264,21 @@ const Overview = () => {
             </button>
           </div>
           <button
-            className="bg-blue-700 text-white p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800"
+            className="bg-blue-700 text-white p-2 md:p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800 rounded-full md:rounded-none"
             onClick={handleDownload}
+            aria-label="Download Brochure"
           >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-6 h-6"
+              className="w-5 h-5 md:w-6 md:h-6"
             >
               <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4" />
               <polyline points="7 10 12 15 17 10" />
@@ -283,15 +289,16 @@ const Overview = () => {
 
         {/* Enquiry Now Button */}
         <div
-          className="relative flex items-center"
+          className="relative flex items-center justify-center"
           onMouseEnter={() => handleMouseEnter("enquiry")}
           onMouseLeave={handleMouseLeave}
+          onClick={() => handleTouchButton("enquiry")}
         >
           <div
-            className={`absolute right-full mr-2 bg-white shadow-lg p-4 rounded-lg w-64 transition-all duration-300 ${
+            className={`absolute bottom-full md:bottom-auto md:right-full mb-2 md:mb-0 md:mr-2 bg-white shadow-lg p-4 rounded-lg w-full max-w-xs md:w-64 transition-all duration-300 ${
               hoveredButton === "enquiry"
                 ? "opacity-100 visible"
-                : "opacity-0 invisible"
+                : "opacity-0 invisible pointer-events-none"
             }`}
           >
             <h3 className="font-bold text-lg mb-2 text-blue-700">
@@ -366,18 +373,21 @@ const Overview = () => {
               </form>
             )}
           </div>
-          <button className="bg-blue-700 text-white p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800">
+          <button
+            className="bg-blue-700 text-white p-2 md:p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800 rounded-full md:rounded-none"
+            aria-label="Enquiry Now"
+          >
             <svg
               xmlns="http://www.w3.org/2000/svg"
-              width="24"
-              height="24"
+              width="20"
+              height="20"
               viewBox="0 0 24 24"
               fill="none"
               stroke="currentColor"
               strokeWidth="2"
               strokeLinecap="round"
               strokeLinejoin="round"
-              className="w-6 h-6"
+              className="w-5 h-5 md:w-6 md:h-6"
             >
               <rect x="3" y="4" width="18" height="18" rx="2" ry="2" />
               <line x1="16" y1="2" x2="16" y2="6" />
@@ -388,53 +398,58 @@ const Overview = () => {
         </div>
       </div>
 
-      {/* Original Overview Content */}
-      <h1 className="text-3xl text-center font-normal tracking-wide mb-10">
+      {/* Original Overview Content - Made responsive */}
+      <h1 className="text-2xl sm:text-3xl text-center font-normal tracking-wide mb-6 sm:mb-10 pt-4">
         OVERVIEW
       </h1>
 
-      {/* Key Features */}
-      <div className="grid grid-row-2 text-center mb-2 text-xl font-medium text-blue-500">
-        <div className="grid grid-cols-3 px-20 text-center mb-2 gap-2">
+      {/* Key Features - Responsive grid */}
+      <div className="text-center mb-6 text-blue-500">
+        {/* First row of features */}
+        <div className="grid grid-cols-3 px-4 sm:px-20 text-center mb-2 gap-2">
           <div>
-            <div className="text-3xl">17.4</div>
-            <div className="text-sm">Acres</div>
+            <div className="text-xl sm:text-3xl font-medium">17.4</div>
+            <div className="text-xs sm:text-sm">Acres</div>
           </div>
           <div>
-            <div className="text-3xl">5</div>
-            <div className="text-sm">Towers</div>
+            <div className="text-xl sm:text-3xl font-medium">5</div>
+            <div className="text-xs sm:text-sm">Towers</div>
           </div>
           <div>
-            <div className="text-3xl">G+40</div>
-            <div className="text-sm">Storey</div>
+            <div className="text-xl sm:text-3xl font-medium">G+40</div>
+            <div className="text-xs sm:text-sm">Storey</div>
           </div>
         </div>
-        <div className="grid grid-cols-4 text-center mb-2 gap-2 mt-8">
+
+        {/* Second row of features - Responsive grid that changes based on screen size */}
+        <div className="grid grid-cols-2 md:grid-cols-4 text-center mb-2 gap-2 mt-6 sm:mt-8">
           <div>
-            <div className="text-3xl">70%</div>
-            <div className="text-sm">Open-to-sky</div>
+            <div className="text-xl sm:text-3xl font-medium">70%</div>
+            <div className="text-xs sm:text-sm">Open-to-sky</div>
           </div>
           <div>
-            <div className="text-3xl">2.5</div>
-            <div className="text-sm">Acres of Elevated Landscape</div>
-          </div>
-          <div>
-            <div className="text-3xl">1000</div>
-            <div className="text-sm">
-              Ft. Riverfront <br /> Boulevard
+            <div className="text-xl sm:text-3xl font-medium">2.5</div>
+            <div className="text-xs sm:text-sm">
+              Acres of Elevated Landscape
             </div>
           </div>
           <div>
-            <div className="text-3xl">1300+ </div>
-            <div className="text-sm">perennial trees</div>
+            <div className="text-xl sm:text-3xl font-medium">1000</div>
+            <div className="text-xs sm:text-sm">
+              Ft. Riverfront <br className="hidden sm:block" /> Boulevard
+            </div>
+          </div>
+          <div>
+            <div className="text-xl sm:text-3xl font-medium">1300+</div>
+            <div className="text-xs sm:text-sm">perennial trees</div>
           </div>
         </div>
       </div>
 
-      {/* Description Paragraphs */}
-      <div className="space-y-2 text-center mb-16">
-        <div className="border-t border-gray-200 pt-5">
-          <p className="text-sm">
+      {/* Description Paragraphs - Responsive text and spacing */}
+      <div className="space-y-2 text-center mb-8 sm:mb-16 px-2 sm:px-0">
+        <div className="border-t border-gray-200 pt-4 sm:pt-5">
+          <p className="text-xs sm:text-sm">
             Discover Sansara, the tallest riverfront luxury residences, first of
             its kind in Howrah, offering breathtaking views of the Ganges. With
             the iconic Howrah bridge as the backdrop, Sansara is a perfect union
@@ -444,11 +459,11 @@ const Overview = () => {
           </p>
         </div>
 
-        <h2 className="text-2xl text-blue-700 font-medium">
+        <h2 className="text-xl sm:text-2xl text-blue-700 font-medium mt-4">
           It's not just a place to live – it's a world of its own.
         </h2>
 
-        <p className="text-sm pb-1">
+        <p className="text-xs sm:text-sm pb-1">
           A world where breathtaking residences are perfectly complemented by
           state-of-the-art recreational facilities. A world birthed amidst
           nature, nurtured by the green therapy of lush landscapes and the blue
@@ -456,7 +471,7 @@ const Overview = () => {
           familytime.
         </p>
 
-        <p className="text-sm pb-1">
+        <p className="text-xs sm:text-sm pb-1">
           Here, every day begins and ends with the serene beauty of the river.
           Because every home is East- facing, mindfully crafted to offer
           unobstructed views. And this thoughtful design is just one of the
@@ -464,12 +479,15 @@ const Overview = () => {
           brightness, creating an uplifting atmosphere from dawn to dusk.
         </p>
 
-        <p className="text-sm pb-1">
+        <p className="text-xs sm:text-sm pb-1">
           Sansara is a world that's mindfully designed to celebrate life.
           Bringing you a meeting point of fulfillment and desires. Of serenity
           and amenities. Of comfort and extravagance.
         </p>
       </div>
+
+      {/* Add extra padding at bottom for mobile to account for fixed bottom menu */}
+      <div className="h-16 md:h-0"></div>
     </div>
   );
 };

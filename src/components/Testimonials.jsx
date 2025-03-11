@@ -43,7 +43,7 @@ const Testimonials = () => {
       </div>
 
       {/* Testimonial Grid */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-10">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-2 md:gap-2">
         {testimonials.map((testimonial) => (
           <div
             key={testimonial.id}
