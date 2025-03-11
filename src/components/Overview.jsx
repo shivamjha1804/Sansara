@@ -50,16 +50,19 @@ const Overview = () => {
     }, 1000);
   };
 
-  // Handler for brochure download
+  // Handler for brochure download - robust implementation
   const handleDownload = () => {
+    // Add a loading indicator
     const loadingToast = document.createElement("div");
     loadingToast.className =
       "fixed bottom-4 right-4 bg-blue-700 text-white px-6 py-3 rounded shadow-lg z-50";
     loadingToast.textContent = "Checking brochure...";
     document.body.appendChild(loadingToast);
 
+    // Path to the brochure PDF file
     const brochurePath = "https://psgroup.in/sansara-Eflyer.pdf";
 
+    // Check if the file exists before downloading
     fetch(brochurePath, { method: "HEAD" })
       .then((response) => {
         if (!response.ok) {
@@ -68,16 +71,20 @@ const Overview = () => {
         return response;
       })
       .then(() => {
+        // File exists, proceed with download
         loadingToast.textContent = "Downloading brochure...";
 
+        // Create an anchor element
         const link = document.createElement("a");
         link.href = brochurePath;
         link.setAttribute("download", "sansara-e-flyer.pdf");
 
+        // Trigger the download
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
 
+        // Show success message
         document.body.removeChild(loadingToast);
         const successToast = document.createElement("div");
         successToast.className =
@@ -85,11 +92,13 @@ const Overview = () => {
         successToast.textContent = "Download started successfully!";
         document.body.appendChild(successToast);
 
+        // Remove success toast after 3 seconds
         setTimeout(() => {
           document.body.removeChild(successToast);
         }, 3000);
       })
       .catch((error) => {
+        // Handle error - file not found or other issue
         console.error("Download error:", error);
         document.body.removeChild(loadingToast);
 
@@ -100,6 +109,7 @@ const Overview = () => {
           "Brochure file not found. Please contact support.";
         document.body.appendChild(errorToast);
 
+        // Remove error toast after 5 seconds
         setTimeout(() => {
           document.body.removeChild(errorToast);
         }, 5000);
@@ -108,12 +118,15 @@ const Overview = () => {
 
   // Handler for initiating a phone call
   const handlePhoneCall = () => {
+    // Phone number to call
     const phoneNumber = "+9103367676785";
-    window.location.href = `tel:${phoneNumber}`;
+
+    // Create the tel: URI
+    window.location.href = `tel:${+9103367676785}`;
   };
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 font-serif relative">
+    <div className="max-w-2xl mx-auto px-4 -top-4 font-serif relative">
       {/* Fixed Right Side Buttons */}
       <div className="fixed right-0 top-1/3 z-10 flex flex-col gap-4">
         {/* Contact Us Button */}
@@ -176,7 +189,7 @@ const Overview = () => {
               </a>
             </p>
             <button
-              onClick={handlePhoneCall}
+              onClick={() => (window.location.href = "tel:+9103367676785")}
               className="bg-blue-700 text-white px-4 py-2 mt-2 rounded w-full hover:bg-blue-800 transition-colors"
             >
               Call Us
@@ -376,30 +389,46 @@ const Overview = () => {
       </div>
 
       {/* Original Overview Content */}
-      <h1 className="text-3xl sm:text-4xl lg:text-5xl text-center font-normal tracking-wide mb-10">
+      <h1 className="text-3xl text-center font-normal tracking-wide mb-10">
         OVERVIEW
       </h1>
 
       {/* Key Features */}
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 text-center mb-8">
-        {[
-          { value: "17.4", label: "Acres" },
-          { value: "5", label: "Towers" },
-          { value: "G+40", label: "Storey" },
-          { value: "70%", label: "Open-to-sky" },
-          { value: "2.5", label: "Acres of Elevated Landscape" },
-          { value: "1000", label: "Ft. Riverfront Boulevard" },
-          { value: "1300+", label: "Perennial Trees" },
-        ].map((item, index) => (
-          <div key={index} className="p-4 bg-gray-50 rounded-lg shadow-sm">
-            <div className="text-3xl sm:text-4xl lg:text-5xl text-blue-700">
-              {item.value}
-            </div>
-            <div className="text-sm sm:text-base lg:text-lg text-gray-600">
-              {item.label}
+      <div className="grid grid-row-2 text-center mb-2 text-xl font-medium text-blue-500">
+        <div className="grid grid-cols-3 px-20 text-center mb-2 gap-2">
+          <div>
+            <div className="text-3xl">17.4</div>
+            <div className="text-sm">Acres</div>
+          </div>
+          <div>
+            <div className="text-3xl">5</div>
+            <div className="text-sm">Towers</div>
+          </div>
+          <div>
+            <div className="text-3xl">G+40</div>
+            <div className="text-sm">Storey</div>
+          </div>
+        </div>
+        <div className="grid grid-cols-4 text-center mb-2 gap-2 mt-8">
+          <div>
+            <div className="text-3xl">70%</div>
+            <div className="text-sm">Open-to-sky</div>
+          </div>
+          <div>
+            <div className="text-3xl">2.5</div>
+            <div className="text-sm">Acres of Elevated Landscape</div>
+          </div>
+          <div>
+            <div className="text-3xl">1000</div>
+            <div className="text-sm">
+              Ft. Riverfront <br /> Boulevard
             </div>
           </div>
-        ))}
+          <div>
+            <div className="text-3xl">1300+ </div>
+            <div className="text-sm">perennial trees</div>
+          </div>
+        </div>
       </div>
 
       {/* Description Paragraphs */}

@@ -84,9 +84,13 @@ const Hero = () => {
       />
 
       {/* Navigation bar */}
-      <nav className="relative z-10 flex justify-between items-center py-4 text-white w-4/5 mx-auto">
+      <nav className="relative z-10 flex justify-between items-center py-4 px-4 sm:px-6 lg:px-8 text-white">
         <div className="font-bold text-xl">
-          <img src="./sansaraLogoImg01.png" alt="logo" />
+          <img
+            src="./sansaraLogoImg01.png"
+            alt="logo"
+            className="w-24 sm:w-32 lg:w-40"
+          />
         </div>
         <button
           className="bg-white bg-opacity-20 border border-white px-4 py-2 rounded text-sm hover:bg-opacity-30 transition-colors"
@@ -98,7 +102,7 @@ const Hero = () => {
 
       {/* Main content with Sansara title */}
       <div className="relative h-screen flex justify-center items-center">
-        <h1 className="text-white text-6xl md:text-7xl lg:text-8xl tracking-widest font-light mt-12">
+        <h1 className="text-white text-4xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest font-light mt-12">
           SANSARA
         </h1>
       </div>
