@@ -135,7 +135,7 @@ const Gallery = () => {
 
   return (
     <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8 sm:py-12">
-      <h2 className="text-center text-2xl sm:text-3xl font-semibold mb-6 sm:mb-8">
+      <h2 className="text-center text-2xl sm:text-3xl  mb-6 sm:mb-8">
         Gallery
       </h2>
 

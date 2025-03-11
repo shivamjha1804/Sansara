@@ -2,9 +2,9 @@ import React from "react";
 
 const Price = () => {
   return (
-    <div className="flex flex-col items-center px-4 py-8 md:py-12">
+    <div className="flex flex-col items-center px-4 py-8 md:py-12 -mt-24">
       {/* Heading */}
-      <h2 className="text-2xl md:text-3xl text-center text-blue-700 font-medium mb-4 pb-2 border-b border-blue-700 max-w-full">
+      <h2 className="text-[18px] md:text-3xl text-center text-black font-medium mb-4 pb-2 border-b border-black max-w-full">
         Pricing (Inclusive of GST & extra charges)
       </h2>
 
