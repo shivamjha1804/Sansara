@@ -181,7 +181,6 @@ const HighlightsSection = () => {
         "Floating Deck",
         "Pool Deck",
         "Alfresco Dining",
-        "1300+ perennial trees after 1000 ft",
         "Private Garden Sitting",
         "Event Lawn and Sculpture Amphitheatre",
         "Observaory with Telescope Corner Café",

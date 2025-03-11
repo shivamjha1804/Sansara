@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Overview from "./Overview";
 import Gallery from "./Gallery";
 import HighlightsSection from "./Higlights";
+import EnquireForm from "./EnquireForm";
 import Siteplans from "./Siteplans";
 import Unitplans from "./Unitplans";
 import Testimonials from "./Testimonials";
@@ -181,6 +182,7 @@ const Navigation = () => {
         <div ref={priceRef} id="price" className="-mt-10">
           <Price />
         </div>
+        <EnquireForm />
         <div ref={galleryRef} id="gallery" className="py-16">
           <Gallery />
         </div>

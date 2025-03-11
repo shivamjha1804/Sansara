@@ -95,17 +95,11 @@ const EnquireForm = () => {
             <select
               name="name"
               value={formData.name}
+              placeholder="name"
               onChange={handleChange}
               className="w-full bg-white bg-opacity-20 backdrop-blur-sm text-white border border-white border-opacity-30 rounded px-4 py-3 appearance-none"
               required
-            >
-              <option value="" disabled>
-                Name
-              </option>
-              <option value="Mr.">Mr.</option>
-              <option value="Mrs.">Mrs.</option>
-              <option value="Ms.">Ms.</option>
-            </select>
+            ></select>
             <div className="absolute inset-y-0 right-0 flex items-center pr-3 pointer-events-none">
               <svg
                 className="w-4 h-4 text-white"

@@ -60,7 +60,7 @@ const Overview = () => {
     document.body.appendChild(loadingToast);
 
     // Path to the brochure PDF file
-    const brochurePath = "../../public/sansara-e-flyer.pdf";
+    const brochurePath = "https://psgroup.in/sansara-Eflyer.pdf";
 
     // Check if the file exists before downloading
     fetch(brochurePath, { method: "HEAD" })
@@ -145,7 +145,7 @@ const Overview = () => {
             <h3 className="font-bold text-lg mb-2 text-blue-700">Contact Us</h3>
             <p className="mb-2">
               <a
-                href="tel:+919876543210"
+                href="tel:+9103367676785"
                 className="hover:text-blue-700 transition-colors flex items-center"
               >
                 <svg
@@ -167,7 +167,7 @@ const Overview = () => {
             </p>
             <p className="mb-2">
               <a
-                href="mailto:info@sansara.com"
+                href="mailto:sales@psgroup.in"
                 className="hover:text-blue-700 transition-colors flex items-center"
               >
                 <svg
@@ -394,30 +394,40 @@ const Overview = () => {
       </h1>
 
       {/* Key Features */}
-      <div className="grid grid-cols-6 text-center mb-2 gap-4">
-        <div>
-          <div className="text-xl font-medium">17.4</div>
-          <div className="text-sm">Acres</div>
+      <div className="grid grid-row-2 text-center mb-2 text-xl font-medium text-blue-500">
+        <div className="grid grid-cols-3 px-20 text-center mb-2 gap-2">
+          <div>
+            <div className="text-3xl">17.4</div>
+            <div className="text-sm">Acres</div>
+          </div>
+          <div>
+            <div className="text-3xl">5</div>
+            <div className="text-sm">Towers</div>
+          </div>
+          <div>
+            <div className="text-3xl">G+40</div>
+            <div className="text-sm">Storey</div>
+          </div>
         </div>
-        <div>
-          <div className="text-xl font-medium">5</div>
-          <div className="text-sm">Towers</div>
-        </div>
-        <div>
-          <div className="text-xl font-medium">G+40</div>
-          <div className="text-sm">Storey</div>
-        </div>
-        <div>
-          <div className="text-xl font-medium">70%</div>
-          <div className="text-sm">Open-to-sky</div>
-        </div>
-        <div>
-          <div className="text-xl font-medium">2.5</div>
-          <div className="text-xs">Acres of Elevated Landscape</div>
-        </div>
-        <div>
-          <div className="text-xl font-medium">1000</div>
-          <div className="text-sm">Ft. Riverfront Boulevard</div>
+        <div className="grid grid-cols-4 text-center mb-2 gap-2 mt-8">
+          <div>
+            <div className="text-3xl">70%</div>
+            <div className="text-sm">Open-to-sky</div>
+          </div>
+          <div>
+            <div className="text-3xl">2.5</div>
+            <div className="text-sm">Acres of Elevated Landscape</div>
+          </div>
+          <div>
+            <div className="text-3xl">1000</div>
+            <div className="text-sm">
+              Ft. Riverfront <br /> Boulevard
+            </div>
+          </div>
+          <div>
+            <div className="text-3xl">1300+ </div>
+            <div className="text-sm">perennial trees</div>
+          </div>
         </div>
       </div>
 

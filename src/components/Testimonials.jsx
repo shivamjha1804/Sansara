@@ -5,17 +5,27 @@ const Testimonials = () => {
   const testimonials = [
     {
       id: 1,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.",
-      image: "./virat-01.jpg",
-      name: "John Doe",
-      position: "CEO, Company",
+      text: "Sansara by PS group is the best location by the Ganges offering calm atmosphere and beautiful views.",
+      image: "./MahavirDugar.png",
+      name: "Mahavir Dugar",
     },
     {
       id: 2,
-      text: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat.",
-      image: "./virat-01.jpg",
-      name: "Jane Smith",
-      position: "Director, Organization",
+      text: "Sansara is a one-of-a-kind Ganga-facing project, and is a world of its own.",
+      image: "./PawanKrBansari.jpg",
+      name: "Pawan Kr. Bansari",
+    },
+    {
+      id: 3,
+      text: "Sansara is a unique Ganga Facing apartment offering breathtaking views of the sunrise",
+      image: "./RakeshGhiya.jpg",
+      name: "Rakesh Ghiya",
+    },
+    {
+      id: 4,
+      text: "I have booked the project because PS Group is building it.",
+      image: "./PawanKrPansari.jpg",
+      name: "Pawan Pansari",
     },
   ];
 
@@ -33,7 +43,7 @@ const Testimonials = () => {
       </div>
 
       {/* Testimonial Grid */}
-      <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-28">
+      <div className="flex flex-col md:flex-row justify-center items-center gap-8 md:gap-10">
         {testimonials.map((testimonial) => (
           <div
             key={testimonial.id}
@@ -59,11 +69,10 @@ const Testimonials = () => {
                     hoveredId === testimonial.id ? "opacity-100" : "opacity-0"
                   }`}
                 >
-                  <p className="text-white text-center mb-4">
+                  <p className="text-white text-center mb-1">
                     {testimonial.text}
                   </p>
                   <p className="text-white font-bold">{testimonial.name}</p>
-                  <p className="text-white text-sm">{testimonial.position}</p>
                 </div>
               </div>
             )}
