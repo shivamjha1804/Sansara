@@ -48,7 +48,7 @@ const Price = () => {
       </div>
 
       {/* Tablet and desktop view - two column layout */}
-      <div className="hidden md:grid md:grid-cols-2 md:gap-6 lg:gap-8 w-full max-w-2xl">
+      <div className="hidden md:grid md:grid-cols-2 md:gap-6 lg:gap-8 w-full max-w-2xl pl-16">
         <div>
           <div className="py-4 font-medium text-lg border-b border-gray-200">
             3BHK
@@ -61,7 +61,7 @@ const Price = () => {
           </div>
           <div className="py-4 font-medium text-lg">5BHK Duplex</div>
         </div>
-        <div>
+        <div className=" pr-16">
           <div className="py-4 text-lg border-b border-gray-200 font-bold text-blue-700">
             Rs. 3.11 Cr - 3.50 Cr
           </div>
