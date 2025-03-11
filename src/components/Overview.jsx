@@ -161,7 +161,7 @@ const Overview = () => {
           onClick={() => handleTouchButton("contact")}
         >
           <div
-            className={`absolute bottom-full md:bottom-auto md:right-full mb-2 md:mb-0 md:mr-2 bg-white shadow-lg p-4 rounded-lg w-full max-w-xs md:w-64 transition-all duration-300 ${
+            className={`absolute bottom-full md:bottom-auto md:right-full mb-2 md:mb-0 md:mr-2 bg-white shadow-lg p-4 rounded-lg w-auto ml-12 max-w-max md:w-64 transition-all duration-300 ${
               hoveredButton === "contact"
                 ? "opacity-100 visible"
                 : "opacity-0 invisible pointer-events-none"
@@ -250,7 +250,7 @@ const Overview = () => {
           onClick={() => handleTouchButton("brochure")}
         >
           <div
-            className={`absolute bottom-full md:bottom-auto md:right-full mb-2 md:mb-0 md:mr-2 bg-white shadow-lg p-4 rounded-lg w-full max-w-xs md:w-64 transition-all duration-300 ${
+            className={`absolute bottom-full md:bottom-auto md:right-full mb-2 md:mb-0 md:mr-2 bg-white shadow-lg p-4 rounded-lg w-auto max-w-max md:w-64 transition-all duration-300 ${
               hoveredButton === "brochure"
                 ? "opacity-100 visible"
                 : "opacity-0 invisible pointer-events-none"
@@ -264,7 +264,7 @@ const Overview = () => {
             </p>
             <button
               onClick={handleDownload}
-              className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors flex items-center justify-center"
+              className="bg-blue-700  text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors flex items-center justify-center"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
