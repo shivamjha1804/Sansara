@@ -2,6 +2,7 @@ import React, { useState, useRef, useEffect } from "react";
 import Overview from "./Overview";
 import Gallery from "./Gallery";
 import HighlightsSection from "./Higlights";
+import EnquireForm from "./EnquireForm";
 import Siteplans from "./Siteplans";
 import Unitplans from "./Unitplans";
 import Testimonials from "./Testimonials";
