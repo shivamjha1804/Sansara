@@ -1,18 +1,91 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import Form from "./Form";
 
 const Overview = () => {
   // State to track which button is being hovered or touched
   const [hoveredButton, setHoveredButton] = useState(null);
-
-  // State for form inputs in the enquiry panel
+  const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     phone: "",
+    country: "",
+    unitType: "",
+    budget: "",
   });
-
+  const [errors, setErrors] = useState({});
+  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
   // State for form submission status
   const [submitStatus, setSubmitStatus] = useState(null);
+
+  // Prevent body scrolling when modal is open
+  useEffect(() => {
+    if (showModal) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [showModal]);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors({
+        ...errors,
+        [name]: null,
+      });
+    }
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+    if (!formData.name.trim()) newErrors.name = "Name is required";
+    if (!formData.email.trim()) {
+      newErrors.email = "Email is required";
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = "Email is invalid";
+    }
+    if (!formData.phone.trim()) newErrors.phone = "Phone number is required";
+    if (!formData.country) newErrors.country = "Country is required";
+    if (!formData.unitType) newErrors.unitType = "Unit type is required";
+    if (!formData.budget) newErrors.budget = "Budget is required";
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
+  };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    if (validateForm()) {
+      console.log("Form submitted:", formData);
+      setIsFormSubmitted(true);
+      setSubmitStatus("success"); // Set the submission status
+
+      // Reset form after submission
+      setTimeout(() => {
+        setFormData({
+          name: "",
+          email: "",
+          phone: "",
+          country: "",
+          unitType: "",
+          budget: "",
+        });
+        setIsFormSubmitted(false);
+        setSubmitStatus(null); // Reset the submission status
+        setShowModal(false);
+      }, 3000);
+    }
+  };
 
   // Handler functions for button hover/touch
   const handleMouseEnter = (buttonId) => {
@@ -28,109 +101,58 @@ const Overview = () => {
     setHoveredButton(hoveredButton === buttonId ? null : buttonId);
   };
 
-  // Handler for form input changes
-  const handleInputChange = (e) => {
-    const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
-  };
-
-  // Handler for form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    // Simulate form submission
-    setSubmitStatus("submitting");
-
-    // Mock API call delay
-    setTimeout(() => {
-      setSubmitStatus("success");
-      setFormData({ name: "", email: "", phone: "" });
-
-      // Reset status after showing success message
-      setTimeout(() => {
-        setSubmitStatus(null);
-      }, 3000);
-    }, 1000);
-  };
-
   // Handler for brochure download - robust implementation
   const handleDownload = () => {
-    // Add a loading indicator
-    const loadingToast = document.createElement("div");
-    loadingToast.className =
-      "fixed bottom-4 right-4 bg-blue-700 text-white px-6 py-3 rounded shadow-lg z-50";
-    loadingToast.textContent = "Checking brochure...";
-    document.body.appendChild(loadingToast);
+    try {
+      // Path to the brochure PDF file
+      const brochurePath = "https://psgroup.in/sansara-Eflyer.pdf";
 
-    // Path to the brochure PDF file
-    const brochurePath = "https://psgroup.in/sansara-Eflyer.pdf";
+      // Open the PDF in a new tab/window
+      window.open(brochurePath, "_blank");
 
-    // Check if the file exists before downloading
-    fetch(brochurePath, { method: "HEAD" })
-      .then((response) => {
-        if (!response.ok) {
-          throw new Error(`HTTP error! Status: ${response.status}`);
-        }
-        return response;
-      })
-      .then(() => {
-        // File exists, proceed with download
-        loadingToast.textContent = "Downloading brochure...";
+      // Show success message using a safer approach
+      const successToast = document.createElement("div");
+      successToast.className =
+        "fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50";
+      successToast.textContent = "Download started in a new tab!";
+      document.body.appendChild(successToast);
 
-        // Create an anchor element
-        const link = document.createElement("a");
-        link.href = brochurePath;
-        link.setAttribute("download", "sansara-e-flyer.pdf");
-
-        // Trigger the download
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-
-        // Show success message
-        document.body.removeChild(loadingToast);
-        const successToast = document.createElement("div");
-        successToast.className =
-          "fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50";
-        successToast.textContent = "Download started successfully!";
-        document.body.appendChild(successToast);
-
-        // Remove success toast after 3 seconds
-        setTimeout(() => {
+      // Remove success toast after 3 seconds
+      setTimeout(() => {
+        if (document.body.contains(successToast)) {
           document.body.removeChild(successToast);
-        }, 3000);
-      })
-      .catch((error) => {
-        // Handle error - file not found or other issue
-        console.error("Download error:", error);
-        document.body.removeChild(loadingToast);
+        }
+      }, 3000);
+    } catch (error) {
+      // Handle error
+      console.error("Download error:", error);
 
-        const errorToast = document.createElement("div");
-        errorToast.className =
-          "fixed bottom-4 right-4 bg-red-600 text-white px-6 py-3 rounded shadow-lg z-50";
-        errorToast.textContent =
-          "Brochure file not found. Please contact support.";
-        document.body.appendChild(errorToast);
+      const errorToast = document.createElement("div");
+      errorToast.className =
+        "fixed bottom-4 right-4 bg-red-600 text-white px-6 py-3 rounded shadow-lg z-50";
+      errorToast.textContent =
+        "Couldn't open the brochure. Please try again later.";
+      document.body.appendChild(errorToast);
 
-        // Remove error toast after 5 seconds
-        setTimeout(() => {
+      // Remove error toast after 5 seconds
+      setTimeout(() => {
+        if (document.body.contains(errorToast)) {
           document.body.removeChild(errorToast);
-        }, 5000);
-      });
+        }
+      }, 5000);
+    }
   };
 
   // Handler for initiating a phone call
   const handlePhoneCall = () => {
     // Phone number to call
-    window.location.href = `tel:+9103367676785`;
+    window.location.href = "tel:+9103367676785";
   };
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 -top-4 font-serif relative">
       {/* Fixed Right Side Buttons - Responsive positioning */}
-      <div className="fixed z-10 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col justify-around md:justify-start md:gap-4 bg-white md:bg-transparent p-2 md:p-0 shadow-md md:shadow-none">
+      <div className="fixed z-50 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col justify-around md:justify-start md:gap-4 bg-white md:bg-transparent p-2 md:p-0 shadow-md md:shadow-none">
         {/* Contact Us Button */}
         <div
           className="relative flex items-center justify-center"
@@ -192,7 +214,7 @@ const Overview = () => {
               </a>
             </p>
             <button
-              onClick={() => (window.location.href = "tel:+9103367676785")}
+              onClick={handlePhoneCall}
               className="bg-blue-700 text-white px-4 py-2 mt-2 rounded w-full hover:bg-blue-800 transition-colors"
             >
               Call Us
@@ -288,93 +310,10 @@ const Overview = () => {
         </div>
 
         {/* Enquiry Now Button */}
-        <div
-          className="relative flex items-center justify-center"
-          onMouseEnter={() => handleMouseEnter("enquiry")}
-          onMouseLeave={handleMouseLeave}
-          onClick={() => handleTouchButton("enquiry")}
-        >
-          <div
-            className={`absolute bottom-full md:bottom-auto md:right-full mb-2 md:mb-0 md:mr-2 bg-white shadow-lg p-4 rounded-lg w-full max-w-xs md:w-64 transition-all duration-300 ${
-              hoveredButton === "enquiry"
-                ? "opacity-100 visible"
-                : "opacity-0 invisible pointer-events-none"
-            }`}
-          >
-            <h3 className="font-bold text-lg mb-2 text-blue-700">
-              Enquiry Now
-            </h3>
-            {submitStatus === "success" ? (
-              <div className="text-green-600 py-4 text-center">
-                Thank you for your enquiry! We'll get back to you soon.
-              </div>
-            ) : (
-              <form className="space-y-3" onSubmit={handleSubmit}>
-                <input
-                  type="text"
-                  name="name"
-                  value={formData.name}
-                  onChange={handleInputChange}
-                  placeholder="Your Name"
-                  className="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-blue-700"
-                  required
-                />
-                <input
-                  type="email"
-                  name="email"
-                  value={formData.email}
-                  onChange={handleInputChange}
-                  placeholder="Email Address"
-                  className="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-blue-700"
-                  required
-                />
-                <input
-                  type="tel"
-                  name="phone"
-                  value={formData.phone}
-                  onChange={handleInputChange}
-                  placeholder="Phone Number"
-                  className="w-full p-2 border rounded focus:outline-none focus:ring-1 focus:ring-blue-700"
-                  required
-                />
-                <button
-                  type="submit"
-                  className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors flex items-center justify-center"
-                  disabled={submitStatus === "submitting"}
-                >
-                  {submitStatus === "submitting" ? (
-                    <>
-                      <svg
-                        className="animate-spin -ml-1 mr-2 h-4 w-4 text-white"
-                        xmlns="http://www.w3.org/2000/svg"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                      >
-                        <circle
-                          className="opacity-25"
-                          cx="12"
-                          cy="12"
-                          r="10"
-                          stroke="currentColor"
-                          strokeWidth="4"
-                        ></circle>
-                        <path
-                          className="opacity-75"
-                          fill="currentColor"
-                          d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4zm2 5.291A7.962 7.962 0 014 12H0c0 3.042 1.135 5.824 3 7.938l3-2.647z"
-                        ></path>
-                      </svg>
-                      Submitting...
-                    </>
-                  ) : (
-                    "Submit Enquiry"
-                  )}
-                </button>
-              </form>
-            )}
-          </div>
+        <div className="relative flex items-center justify-center">
           <button
             className="bg-blue-700 text-white p-2 md:p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800 rounded-full md:rounded-none"
+            onClick={() => setShowModal(true)}
             aria-label="Enquiry Now"
           >
             <svg
@@ -397,6 +336,69 @@ const Overview = () => {
           </button>
         </div>
       </div>
+
+      {/* Modal for Enquiry Form */}
+      {showModal && (
+        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+          <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative overflow-hidden animate-fadeIn">
+            {/* Close button */}
+            <button
+              onClick={() => setShowModal(false)}
+              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 z-10 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-1"
+              aria-label="Close modal"
+            >
+              <svg
+                className="w-6 h-6"
+                fill="none"
+                stroke="currentColor"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  strokeWidth="2"
+                  d="M6 18L18 6M6 6l12 12"
+                ></path>
+              </svg>
+            </button>
+
+            {isFormSubmitted && submitStatus === "success" ? (
+              <div className="p-8 text-center">
+                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
+                  <svg
+                    className="w-8 h-8 text-green-600"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth="2"
+                      d="M5 13l4 4L19 7"
+                    ></path>
+                  </svg>
+                </div>
+                <h3 className="text-xl font-medium mb-2 text-gray-800">
+                  Thank You!
+                </h3>
+                <p className="text-gray-600">
+                  We've received your enquiry and will contact you shortly.
+                </p>
+              </div>
+            ) : (
+              <Form
+                formData={formData}
+                errors={errors}
+                handleChange={handleChange}
+                handleSubmit={handleSubmit}
+              />
+            )}
+          </div>
+        </div>
+      )}
 
       {/* Original Overview Content - Made responsive */}
       <h1 className="text-2xl sm:text-3xl text-center font-normal tracking-wide mb-6 sm:mb-10 pt-4">
