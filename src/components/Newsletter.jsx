@@ -12,7 +12,7 @@ const NewsletterSubscription = () => {
 
   // In a real implementation, you would import the background image
   // or use it from your public folder
-  const backgroundImageUrl = "./HiglightsImage.png"; // Replace with actual path
+  const backgroundImageUrl = "./NewsletterBgImg.png"; // Replace with actual path
 
   return (
     <div className="w-full h-64 relative overflow-hidden">
