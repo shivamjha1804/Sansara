@@ -9,8 +9,6 @@ import Testimonials from "./Testimonials";
 import Location from "./Location";
 import Price from "./Price";
 import SansaraEnquiryForm from "./SansaraEnquiry";
-// Import the Location component
-// import Location from "./Location";
 
 const Navigation = () => {
   const [activeTab, setActiveTab] = useState("OVERVIEW");
@@ -80,11 +78,27 @@ const Navigation = () => {
   return (
     <div className="relative">
       {/* Fixed navigation at the top */}
-      <div className="sticky top-8 z-50 bg-white shadow-md">
+      <div className="sticky top-0 z-50 bg-white shadow-md">
         <div className="max-w-6xl mx-auto px-4">
           {/* Mobile menu button */}
           <div className="md:hidden flex justify-between items-center py-4">
-            <span className="font-medium text-lg">Navigation</span>
+            {/* Company logo instead of "Navigation" text */}
+            <div className="flex items-center">
+              <img
+                src="./sansaraLogoImg01.png"
+                alt="Company Logo"
+                className="h-8"
+                onError={(e) => {
+                  // Fallback if image doesn't load
+                  e.target.onerror = null;
+                  e.target.style.display = "none";
+                  const textLogo = document.createElement("span");
+                  textLogo.innerText = "COMPANY LOGO";
+                  textLogo.className = "font-bold text-lg text-blue-700";
+                  e.target.parentNode.appendChild(textLogo);
+                }}
+              />
+            </div>
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md hover:bg-gray-100"
@@ -115,8 +129,8 @@ const Navigation = () => {
             </button>
           </div>
 
-          {/* Desktop navigation */}
-          <nav className="hidden md:-top-8 md:flex  justify-between items-center py-4 absolute bg-white w-4/5 px-10 ml-12">
+          {/* Desktop navigation - improved positioning */}
+          <nav className="hidden md:flex justify-between items-center py-4 absolute bg-white w-4/5 px-10 ml-12 -top-8">
             {navItems.map((item, index) => (
               <a
                 key={index}
@@ -136,9 +150,9 @@ const Navigation = () => {
             ))}
           </nav>
 
-          {/* Mobile navigation */}
+          {/* Mobile navigation - improved styling with background */}
           {isMobileMenuOpen && (
-            <nav className="md:hidden py-2 pb-4 ">
+            <nav className="md:hidden py-2 pb-4 bg-white">
               <div className="flex flex-col space-y-2">
                 {navItems.map((item, index) => (
                   <a
@@ -179,7 +193,7 @@ const Navigation = () => {
         <div ref={overviewRef} id="overview" className="py-16">
           <Overview />
         </div>
-        <div ref={priceRef} id="price" className="-mt-10">
+        <div ref={priceRef} id="price" className="pt-16">
           <Price />
         </div>
         <EnquireForm />
@@ -187,27 +201,23 @@ const Navigation = () => {
           <Gallery />
         </div>
 
-        <div ref={highlightsRef} id="highlights" className="-mt-24">
+        <div ref={highlightsRef} id="highlights" className="pt-16">
           <HighlightsSection />
         </div>
 
-        <div ref={siteplansRef} id="site-plan" className="-mt-12">
+        <div ref={siteplansRef} id="site-plan" className="pt-16">
           <Siteplans />
         </div>
 
-        <div ref={unitplansRef} id="unit-plans" className="py-4">
+        <div ref={unitplansRef} id="unit-plans" className="py-16">
           <Unitplans />
         </div>
         <Testimonials />
-        <div ref={locationRef} id="location" className="">
-          {/* Uncomment when Location component is available */}
+        <div ref={locationRef} id="location" className="pt-16">
           <Location />
-          {/* <div className="p-4 bg-gray-100 rounded-md text-center">
-            Location component placeholder
-          </div> */}
         </div>
 
-        <div ref={enquiryRef} id="enquiry" className="">
+        <div ref={enquiryRef} id="enquiry" className="pt-16">
           <SansaraEnquiryForm />
         </div>
       </div>
