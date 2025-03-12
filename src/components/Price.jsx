@@ -11,36 +11,28 @@ const Price = () => {
       {/* Mobile view - stacked layout */}
       <div className="w-full max-w-md block md:hidden">
         <div className="mb-6 flex justify-between">
-          <div className="py-3 font-medium text-lg bg-gray-50 px-4 rounded-t-lg border-b border-gray-200">
-            3BHK
-          </div>
+          <div className="py-3 font-medium text-lg px-4 ">3BHK</div>
           <div className="py-3 text-lg px-4 bg-white rounded-b-lg font-bold text-blue-700">
             Rs. 3.11 Cr - 3.50 Cr
           </div>
         </div>
 
         <div className="mb-6 flex justify-between">
-          <div className="py-3 font-medium text-lg bg-gray-50 px-4 rounded-t-lg border-b border-gray-200">
-            4BHK
-          </div>
+          <div className="py-3 font-medium text-lg px-4 ">4BHK</div>
           <div className="py-3 text-lg px-4 bg-white rounded-b-lg font-bold text-blue-700">
             Rs. 3.96 Cr - 4.35 Cr
           </div>
         </div>
 
         <div className="mb-6 flex justify-between">
-          <div className="py-3 font-medium text-lg bg-gray-50 px-4 rounded-t-lg border-b border-gray-200">
-            5BHK
-          </div>
+          <div className="py-3 font-medium text-lg  px-4 ">5BHK</div>
           <div className="py-3 text-lg px-4 bg-white rounded-b-lg font-bold text-blue-700">
             Rs. 4.08 Cr - 4.49 Cr
           </div>
         </div>
 
         <div className="mb-6 flex justify-between">
-          <div className="py-3 font-medium text-lg bg-gray-50 px-4 rounded-t-lg border-b border-gray-200">
-            5BHK Duplex
-          </div>
+          <div className="py-3 font-medium text-lg px-4 ">5BHK Duplex</div>
           <div className="py-3 text-lg px-4 bg-white rounded-b-lg font-bold text-blue-700">
             Rs. 6.17 Cr - 6.38 Cr
           </div>
