@@ -5,25 +5,38 @@ const Footer = () => {
   const waveBackgroundUrl = "FooterImg.png"; // Replace with actual path
 
   return (
-    <footer className="w-full">
+    <footer className="w-full bg-gray-100">
       {/* Contact Information Section */}
-      <div className="w-full bg-white">
-        <div className="container mx-auto py-8">
-          <div className="flex flex-col md:flex-row justify-around">
+      <div className="w-full bg-white py-8">
+        <div className="container mx-auto px-6 md:px-12">
+          <div className="flex flex-col md:flex-row justify-between items-center space-y-6 md:space-y-0 md:space-x-12">
             {/* Mail Section */}
-            <div className="p-4 text-center md:text-left border-r border-gray-200">
-              <h3 className="text-gray-600 text-sm font-medium mb-2">MAIL</h3>
+            <div className="text-center md:text-left md:border-r md:border-gray-200 pr-6">
+              <h3 className="text-gray-600 text-sm font-medium">MAIL</h3>
               <a
-                href="mailto:sales@group.in"
+                href="mailto:sales@psgroup.in"
                 className="text-blue-600 hover:underline"
               >
                 sales@psgroup.in
               </a>
             </div>
 
+            {/* RERA Information Section */}
+            <div className="text-center md:border-r md:border-gray-200 pr-6">
+              <p className="text-gray-600 text-xs">
+                PHASE I - WBRERA/P/HOW/2024/001857
+              </p>
+              <a
+                href="http://www.Rera.Wb.Gov.In"
+                className="text-blue-500 hover:underline"
+              >
+                www.Rera.Wb.Gov.In
+              </a>
+            </div>
+
             {/* Call Section */}
-            <div className="p-4 text-center border-r border-gray-200">
-              <h3 className="text-gray-600 text-sm font-medium mb-2">CALL</h3>
+            <div className="text-center">
+              <h3 className="text-gray-600 text-sm font-medium">CALL</h3>
               <a
                 href="tel:+910336767678"
                 className="text-blue-600 hover:underline"
@@ -33,22 +46,11 @@ const Footer = () => {
             </div>
           </div>
         </div>
-
-        {/* RERA Information */}
-        <div className="text-center text-xs text-gray-500 pb-4">
-          <p>PHASE I - WBRERA/P/HOW/2024/001857</p>
-          <a
-            href="http://www.Rera.Wb.Gov.In"
-            className="text-blue-500 hover:underline"
-          >
-            www.Rera.Wb.Gov.In
-          </a>
-        </div>
       </div>
 
       {/* Water Wave Background Section */}
       <div
-        className="w-full h-20"
+        className="w-full h-20 mt-6"
         style={{
           backgroundImage: `url(${waveBackgroundUrl})`,
           backgroundSize: "cover",

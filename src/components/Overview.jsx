@@ -152,7 +152,7 @@ const Overview = () => {
   return (
     <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 -top-4 font-serif relative">
       {/* Fixed Right Side Buttons - Responsive positioning */}
-      <div className="fixed z-50 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col justify-around md:justify-start md:gap-4 bg-white md:bg-transparent p-2 md:p-0 shadow-md md:shadow-none">
+      <div className="fixed z-50 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col justify-around md:justify-start md:gap-4 bg-white md:bg-transparent p-2 md:p-0 shadow-md md:shadow-none ">
         {/* Contact Us Button */}
         <div
           className="relative flex items-center justify-center"
@@ -411,15 +411,15 @@ const Overview = () => {
         <div className="grid grid-cols-3 px-4 sm:px-20 text-center mb-2 gap-2">
           <div>
             <div className="text-xl sm:text-3xl font-medium">17.4</div>
-            <div className="text-xs sm:text-sm">Acres</div>
+            <div className="text-xs sm:text-sm text-black">Acres</div>
           </div>
           <div>
             <div className="text-xl sm:text-3xl font-medium">5</div>
-            <div className="text-xs sm:text-sm">Towers</div>
+            <div className="text-xs sm:text-sm text-black">Towers</div>
           </div>
           <div>
             <div className="text-xl sm:text-3xl font-medium">G+40</div>
-            <div className="text-xs sm:text-sm">Storey</div>
+            <div className="text-xs sm:text-sm text-black">Storey</div>
           </div>
         </div>
 
@@ -427,23 +427,23 @@ const Overview = () => {
         <div className="grid grid-cols-2 md:grid-cols-4 text-center mb-2 gap-2 mt-6 sm:mt-8">
           <div>
             <div className="text-xl sm:text-3xl font-medium">70%</div>
-            <div className="text-xs sm:text-sm">Open-to-sky</div>
+            <div className="text-xs sm:text-sm text-black">Open-to-sky</div>
           </div>
           <div>
             <div className="text-xl sm:text-3xl font-medium">2.5</div>
-            <div className="text-xs sm:text-sm">
+            <div className="text-xs sm:text-sm text-black">
               Acres of Elevated Landscape
             </div>
           </div>
           <div>
             <div className="text-xl sm:text-3xl font-medium">1000</div>
-            <div className="text-xs sm:text-sm">
+            <div className="text-xs sm:text-sm text-black">
               Ft. Riverfront <br className="hidden sm:block" /> Boulevard
             </div>
           </div>
           <div>
             <div className="text-xl sm:text-3xl font-medium">1300+</div>
-            <div className="text-xs sm:text-sm">perennial trees</div>
+            <div className="text-xs sm:text-sm text-black">perennial trees</div>
           </div>
         </div>
       </div>

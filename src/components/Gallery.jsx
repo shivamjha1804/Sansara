@@ -13,78 +13,283 @@ const Gallery = () => {
   // Sample data - in a real app, you would use your actual image paths
   const data = [
     {
-      title: "/image1.jpg",
+      main: {
+        path: "/image1.jpg",
+        title: "Elevation Day View",
+      },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.jpg",
-        "/image5.jpg",
-        "/image6.jpg",
-        "/image7.jpg",
-        "/image8.jpg",
-        "/image9.jpg",
-        "/image10.jpg",
+        {
+          path: "/image1.jpg",
+          tile: "Elevation Day View",
+        },
+        {
+          path: "/image2.jpg",
+          title: "Elevation Across The Ganges",
+        },
+        {
+          path: "/image3.jpg",
+          title: "Ghats",
+        },
+        {
+          path: "/image4.jpg",
+          title: "Podium View",
+        },
+        {
+          path: "/image5.jpg",
+          title: "The River And Water Cascade",
+        },
+        {
+          path: "/image6.jpg",
+          title: "Family Lounge",
+        },
+        {
+          path: "/image7.jpg",
+          title: "Floating Deck",
+        },
+        {
+          path: "/image8.jpg",
+          title: "Open Lawn & Amphithetare",
+        },
+        {
+          path: "/image9.jpg",
+          title: "Parent Deck",
+        },
+        {
+          path: "/image10.jpg",
+          title: "Podium Side Walkway",
+        },
+        {
+          path: "/image11.jpg",
+          title: "Senior Citizens Recreation Area",
+        },
+        {
+          path: "/image12.jpg",
+          title: "Stepped Garden",
+        },
       ],
     },
     {
-      title: "/image9.jpg",
+      main: {
+        path: "/image9.jpg",
+        title: "Parent Deck",
+      },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.jpg",
-        "/image5.jpg",
-        "/image6.jpg",
-        "/image7.jpg",
-        "/image8.jpg",
-        "/image9.jpg",
-        "/image10.jpg",
+        {
+          path: "/image1.jpg",
+          tile: "Elevation Day View",
+        },
+        {
+          path: "/image2.jpg",
+          title: "Elevation Across The Ganges",
+        },
+        {
+          path: "/image3.jpg",
+          title: "Ghats",
+        },
+        {
+          path: "/image4.jpg",
+          title: "Podium View",
+        },
+        {
+          path: "/image5.jpg",
+          title: "The River And Water Cascade",
+        },
+        {
+          path: "/image6.jpg",
+          title: "Family Lounge",
+        },
+        {
+          path: "/image7.jpg",
+          title: "Floating Deck",
+        },
+        {
+          path: "/image8.jpg",
+          title: "Open Lawn & Amphithetare",
+        },
+        {
+          path: "/image9.jpg",
+          title: "Parent Deck",
+        },
+        {
+          path: "/image10.jpg",
+          title: "Podium Side Walkway",
+        },
+        {
+          path: "/image11.jpg",
+          title: "Senior Citizens Recreation Area",
+        },
+        {
+          path: "/image12.jpg",
+          title: "Stepped Garden",
+        },
       ],
     },
     {
-      title: "/image5.jpg",
+      main: {
+        path: "/image4.jpg",
+        title: "Podium View",
+      },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.jpg",
-        "/image5.jpg",
-        "/image6.jpg",
-        "/image7.jpg",
-        "/image8.jpg",
-        "/image9.jpg",
-        "/image10.jpg",
+        {
+          path: "/image1.jpg",
+          tile: "Elevation Day View",
+        },
+        {
+          path: "/image2.jpg",
+          title: "Elevation Across The Ganges",
+        },
+        {
+          path: "/image3.jpg",
+          title: "Ghats",
+        },
+        {
+          path: "/image4.jpg",
+          title: "Podium View",
+        },
+        {
+          path: "/image5.jpg",
+          title: "The River And Water Cascade",
+        },
+        {
+          path: "/image6.jpg",
+          title: "Family Lounge",
+        },
+        {
+          path: "/image7.jpg",
+          title: "Floating Deck",
+        },
+        {
+          path: "/image8.jpg",
+          title: "Open Lawn & Amphithetare",
+        },
+        {
+          path: "/image9.jpg",
+          title: "Parent Deck",
+        },
+        {
+          path: "/image10.jpg",
+          title: "Podium Side Walkway",
+        },
+        {
+          path: "/image11.jpg",
+          title: "Senior Citizens Recreation Area",
+        },
+        {
+          path: "/image12.jpg",
+          title: "Stepped Garden",
+        },
       ],
     },
     {
-      title: "/image7.jpg",
+      main: {
+        path: "/image7.jpg",
+        title: "Floating Deck",
+      },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.jpg",
-        "/image5.jpg",
-        "/image6.jpg",
-        "/image7.jpg",
-        "/image8.jpg",
-        "/image9.jpg",
-        "/image10.jpg",
+        {
+          path: "/image1.jpg",
+          tile: "Elevation Day View",
+        },
+        {
+          path: "/image2.jpg",
+          title: "Elevation Across The Ganges",
+        },
+        {
+          path: "/image3.jpg",
+          title: "Ghats",
+        },
+        {
+          path: "/image4.jpg",
+          title: "Podium View",
+        },
+        {
+          path: "/image5.jpg",
+          title: "The River And Water Cascade",
+        },
+        {
+          path: "/image6.jpg",
+          title: "Family Lounge",
+        },
+        {
+          path: "/image7.jpg",
+          title: "Floating Deck",
+        },
+        {
+          path: "/image8.jpg",
+          title: "Open Lawn & Amphithetare",
+        },
+        {
+          path: "/image9.jpg",
+          title: "Parent Deck",
+        },
+        {
+          path: "/image10.jpg",
+          title: "Podium Side Walkway",
+        },
+        {
+          path: "/image11.jpg",
+          title: "Senior Citizens Recreation Area",
+        },
+        {
+          path: "/image12.jpg",
+          title: "Stepped Garden",
+        },
       ],
     },
     {
-      title: "/image10.jpg",
+      main: {
+        path: "/image10.jpg",
+        title: "Podium Side Walkway",
+      },
       images: [
-        "/image1.jpg",
-        "/image2.jpg",
-        "/image3.jpg",
-        "/image4.jpg",
-        "/image5.jpg",
-        "/image6.jpg",
-        "/image7.jpg",
-        "/image8.jpg",
-        "/image9.jpg",
-        "/image10.jpg",
+        {
+          path: "/image1.jpg",
+          tile: "Elevation Day View",
+        },
+        {
+          path: "/image2.jpg",
+          title: "Elevation Across The Ganges",
+        },
+        {
+          path: "/image3.jpg",
+          title: "Ghats",
+        },
+        {
+          path: "/image4.jpg",
+          title: "Podium View",
+        },
+        {
+          path: "/image5.jpg",
+          title: "The River And Water Cascade",
+        },
+        {
+          path: "/image6.jpg",
+          title: "Family Lounge",
+        },
+        {
+          path: "/image7.jpg",
+          title: "Floating Deck",
+        },
+        {
+          path: "/image8.jpg",
+          title: "Open Lawn & Amphithetare",
+        },
+        {
+          path: "/image9.jpg",
+          title: "Parent Deck",
+        },
+        {
+          path: "/image10.jpg",
+          title: "Podium Side Walkway",
+        },
+        {
+          path: "/image11.jpg",
+          title: "Senior Citizens Recreation Area",
+        },
+        {
+          path: "/image12.jpg",
+          title: "Stepped Garden",
+        },
       ],
     },
   ];
@@ -155,8 +360,8 @@ const Gallery = () => {
             onClick={() => openModal(index)}
           >
             <img
-              src={item.title}
-              alt={`Gallery ${index + 1}`}
+              src={item.main.path}
+              alt={item.main.title}
               className="w-full h-full object-cover"
             />
             <div
@@ -176,12 +381,12 @@ const Gallery = () => {
             onClick={() => openModal(index)}
           >
             <img
-              src={item.title}
-              alt={`Gallery ${index + 1}`}
+              src={item.main.path}
+              alt={item.main.title}
               className="w-full h-full object-cover"
             />
             <div className="absolute inset-0 bg-black bg-opacity-30 flex items-end">
-              <p className="text-white font-medium p-3">Gallery {index + 1}</p>
+              <p className="text-white font-medium p-3">{item.main.title}</p>
             </div>
           </div>
         ))}
@@ -219,7 +424,7 @@ const Gallery = () => {
 
             <div className="p-3 sm:p-4 pb-2">
               <h3 className="text-lg sm:text-xl font-bold mb-1 text-center">
-                {`Gallery ${modalIndex + 1}`}
+                {`Gallery`}
               </h3>
             </div>
 
@@ -228,12 +433,17 @@ const Gallery = () => {
               <Slider ref={(slider) => setSlider(slider)} {...sliderSettings}>
                 {data[modalIndex].images.map((img, idx) => (
                   <div key={`slide-${idx}`} className="outline-none">
-                    <div className="w-full h-56 sm:h-64 md:h-80 flex items-center justify-center">
+                    <div className="w-full h-56 sm:h-64 md:h-80 flex items-center justify-center relative">
                       <img
-                        src={img}
-                        alt={`Image ${idx + 1}`}
+                        src={img.path}
+                        alt={img.title}
                         className="max-h-full max-w-full object-contain"
                       />
+                      <div className="absolute bottom-0 left-0 right-0 bg-transparent backdrop-blur-lg">
+                        <p className="text-white font-medium  text-center">
+                          {img.title}
+                        </p>
+                      </div>
                     </div>
                   </div>
                 ))}
@@ -266,7 +476,7 @@ const Gallery = () => {
                     }`}
                   >
                     <img
-                      src={img}
+                      src={img.path}
                       alt={`Thumbnail ${idx + 1}`}
                       className="w-full h-full object-cover rounded"
                     />

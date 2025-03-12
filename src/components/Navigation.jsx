@@ -44,39 +44,54 @@ const Navigation = () => {
 
     // Scroll to the corresponding section
     if (item.ref.current) {
-      item.ref.current.scrollIntoView({ behavior: "smooth", block: "center" });
+      item.ref.current.scrollIntoView({ behavior: "smooth", block: "start" });
     }
   };
 
-  // Automatically update activeTab based on scroll position
+  // Improve scroll position detection with debounce-like functionality
   useEffect(() => {
+    let isScrolling;
+
     const handleScroll = () => {
-      const scrollPosition = window.scrollY + 100; // Adjust offset as needed
+      // Clear our timeout throughout the scroll
+      window.clearTimeout(isScrolling);
 
-      // Find the section currently in view
-      for (const item of navItems) {
-        if (item.ref.current) {
-          const element = item.ref.current;
-          const rect = element.getBoundingClientRect();
-          const offsetTop = window.scrollY + rect.top;
-          const offsetHeight = rect.height;
+      // Set a timeout to run after scrolling ends
+      isScrolling = setTimeout(() => {
+        const scrollPosition = window.scrollY + 100;
 
-          if (
-            scrollPosition >= offsetTop &&
-            scrollPosition < offsetTop + offsetHeight
-          ) {
-            if (activeTab !== item.id) {
-              setActiveTab(item.id);
+        // Find the section that takes up most of the viewport
+        let currentSection = null;
+        let maxVisibleHeight = 0;
+
+        for (const item of navItems) {
+          if (item.ref.current) {
+            const element = item.ref.current;
+            const rect = element.getBoundingClientRect();
+
+            // Calculate how much of the element is visible in viewport
+            const visibleHeight =
+              Math.min(rect.bottom, window.innerHeight) - Math.max(rect.top, 0);
+
+            if (visibleHeight > maxVisibleHeight) {
+              maxVisibleHeight = visibleHeight;
+              currentSection = item;
             }
-            break;
           }
         }
-      }
+
+        if (currentSection && activeTab !== currentSection.id) {
+          setActiveTab(currentSection.id);
+        }
+      }, 100);
     };
 
     window.addEventListener("scroll", handleScroll);
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, [activeTab]);
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+      window.clearTimeout(isScrolling);
+    };
+  }, [activeTab, navItems]);  
 
   return (
     <div className="relative  ">

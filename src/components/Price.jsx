@@ -10,7 +10,7 @@ const Price = () => {
 
       {/* Mobile view - stacked layout */}
       <div className="w-full max-w-md block md:hidden">
-        <div className="mb-6">
+        <div className="mb-6 flex justify-between">
           <div className="py-3 font-medium text-lg bg-gray-50 px-4 rounded-t-lg border-b border-gray-200">
             3BHK
           </div>
@@ -19,7 +19,7 @@ const Price = () => {
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 flex justify-between">
           <div className="py-3 font-medium text-lg bg-gray-50 px-4 rounded-t-lg border-b border-gray-200">
             4BHK
           </div>
@@ -28,7 +28,7 @@ const Price = () => {
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 flex justify-between">
           <div className="py-3 font-medium text-lg bg-gray-50 px-4 rounded-t-lg border-b border-gray-200">
             5BHK
           </div>
@@ -37,7 +37,7 @@ const Price = () => {
           </div>
         </div>
 
-        <div className="mb-6">
+        <div className="mb-6 flex justify-between">
           <div className="py-3 font-medium text-lg bg-gray-50 px-4 rounded-t-lg border-b border-gray-200">
             5BHK Duplex
           </div>
@@ -78,13 +78,6 @@ const Price = () => {
       </div>
 
       {/* Description */}
-      <p className="text-center mt-8 md:mt-12 px-4 md:px-8 lg:px-16 max-w-4xl">
-        At Sansara, life unfolds along the river with a riverside café, a
-        shopping mall, and a temple within the community. The heritage-inspired
-        ghats offer a peaceful retreat, while the state-of-the-art sports arena
-        keeps you active. Every detail is designed for harmony, making Sansara a
-        world of its own.
-      </p>
     </div>
   );
 };
