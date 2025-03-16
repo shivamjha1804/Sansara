@@ -10,6 +10,7 @@ import Location from "./Location";
 import Price from "./Price";
 import SansaraEnquiryForm from "./SansaraEnquiry";
 import YoutubeVideo from "./YoutubeVideo";
+import LifestyleAmenities from "./Lifestyle Amenities";
 // Import the Location component
 // import Location from "./Location";
 
@@ -91,7 +92,7 @@ const Navigation = () => {
       window.removeEventListener("scroll", handleScroll);
       window.clearTimeout(isScrolling);
     };
-  }, [activeTab, navItems]);  
+  }, [activeTab, navItems]);
 
   return (
     <div className="relative  ">
@@ -195,6 +196,7 @@ const Navigation = () => {
         <div ref={overviewRef} id="overview" className="py-16">
           <Overview />
         </div>
+        <LifestyleAmenities />
         <div ref={priceRef} id="price" className="-mt-10">
           <Price />
         </div>
