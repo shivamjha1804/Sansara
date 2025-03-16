@@ -31,7 +31,8 @@ const Testimonials = () => {
     },
   ];
 
-  const [hoveredId, setHoveredId] = useState(null);
+  const [hoveredId, setHoveredId] = useState(null); // For desktop hover effect
+  const [activeTestimonialId, setActiveTestimonialId] = useState(null); // For mobile click effect
 
   const settings = {
     dots: true,
@@ -47,35 +48,46 @@ const Testimonials = () => {
         settings: {
           slidesToShow: 1,
           slidesToScroll: 1,
+          arrows: false, // Hide arrows on mobile
         },
       },
     ],
+  };
+
+  const handleTestimonialClick = (id) => {
+    // Toggle the active testimonial
+    if (activeTestimonialId === id) {
+      setActiveTestimonialId(null); // Hide text if the same testimonial is clicked again
+    } else {
+      setActiveTestimonialId(id); // Show text for the clicked testimonial
+    }
   };
 
   return (
     <div className="container mx-auto px-4 py-16">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-serif mb-2">Testimonials</h2>
-        <p className="text-gray-600">Lorem Ipsum Dolor Sit Amet Consectetur</p>
+        <p className="text-gray-600">What our customers say about us</p>
       </div>
 
+      {/* Desktop View */}
       <div className="hidden md:grid md:grid-cols-2 md:gap-4 lg:grid-cols-4">
         {testimonials.map((testimonial) => (
           <div
             key={testimonial.id}
             className="relative bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl"
+            onMouseEnter={() => setHoveredId(testimonial.id)}
+            onMouseLeave={() => setHoveredId(null)}
           >
             <img
               src={testimonial.image}
               alt="Testimonial"
-              className=" object-cover h-44"
+              className="w-full object-cover" // Removed fixed height
             />
             <div
               className={`absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4 transition-opacity duration-300 ${
                 hoveredId === testimonial.id ? "opacity-100" : "opacity-0"
               }`}
-              onMouseEnter={() => setHoveredId(testimonial.id)}
-              onMouseLeave={() => setHoveredId(null)}
             >
               <p className="text-white text-center mb-1">{testimonial.text}</p>
               <p className="text-white font-bold">{testimonial.name}</p>
@@ -84,30 +96,31 @@ const Testimonials = () => {
         ))}
       </div>
 
-      <div className="md:hidden">
+      {/* Mobile View */}
+      <div className="md:hidden -mx-4">
+        {" "}
+        {/* Remove padding for mobile */}
         <Slider {...settings}>
           {testimonials.map((testimonial) => (
             <div
               key={testimonial.id}
-              className="relative bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300 hover:shadow-xl"
+              className="relative bg-white rounded-lg overflow-hidden shadow-md transition-all duration-300"
+              onClick={() => handleTestimonialClick(testimonial.id)} // Handle click
             >
               <img
                 src={testimonial.image}
                 alt="Testimonial"
-                className="w-full h-64 object-cover"
+                className="w-full h-64 object-cover" // Fixed height for mobile
               />
-              <div
-                className={`absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4 transition-opacity duration-300 ${
-                  hoveredId === testimonial.id ? "opacity-100" : "opacity-0"
-                }`}
-                onMouseEnter={() => setHoveredId(testimonial.id)}
-                onMouseLeave={() => setHoveredId(null)}
-              >
-                <p className="text-white text-center mb-1">
-                  {testimonial.text}
-                </p>
-                <p className="text-white font-bold">{testimonial.name}</p>
-              </div>
+              {/* Conditionally render text based on activeTestimonialId */}
+              {activeTestimonialId === testimonial.id && (
+                <div className="absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4">
+                  <p className="text-white text-center mb-1">
+                    {testimonial.text}
+                  </p>
+                  <p className="text-white font-bold">{testimonial.name}</p>
+                </div>
+              )}
             </div>
           ))}
         </Slider>

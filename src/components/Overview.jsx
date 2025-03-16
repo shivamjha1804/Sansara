@@ -2,7 +2,6 @@ import React, { useEffect, useState } from "react";
 import Form from "./Form";
 
 const Overview = () => {
-  // State to track which button is being hovered or touched
   const [hoveredButton, setHoveredButton] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [formData, setFormData] = useState({
@@ -15,10 +14,8 @@ const Overview = () => {
   });
   const [errors, setErrors] = useState({});
   const [isFormSubmitted, setIsFormSubmitted] = useState(false);
-  // State for form submission status
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  // Prevent body scrolling when modal is open
   useEffect(() => {
     if (showModal) {
       document.body.style.overflow = "hidden";
@@ -36,7 +33,6 @@ const Overview = () => {
       ...formData,
       [name]: value,
     });
-    // Clear error when user starts typing
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -68,7 +64,10 @@ const Overview = () => {
     if (validateForm()) {
       console.log("Form submitted:", formData);
       setIsFormSubmitted(true);
-      setSubmitStatus("success"); // Set the submission status
+      setSubmitStatus("success");
+
+      // Download the brochure after form submission
+      handleDownload();
 
       // Reset form after submission
       setTimeout(() => {
@@ -81,13 +80,12 @@ const Overview = () => {
           budget: "",
         });
         setIsFormSubmitted(false);
-        setSubmitStatus(null); // Reset the submission status
+        setSubmitStatus(null);
         setShowModal(false);
       }, 3000);
     }
   };
 
-  // Handler functions for button hover/touch
   const handleMouseEnter = (buttonId) => {
     setHoveredButton(buttonId);
   };
@@ -96,35 +94,27 @@ const Overview = () => {
     setHoveredButton(null);
   };
 
-  // Toggle button content on touch devices
   const handleTouchButton = (buttonId) => {
     setHoveredButton(hoveredButton === buttonId ? null : buttonId);
   };
 
-  // Handler for brochure download - robust implementation
   const handleDownload = () => {
     try {
-      // Path to the brochure PDF file
       const brochurePath = "https://psgroup.in/sansara-Eflyer.pdf";
-
-      // Open the PDF in a new tab/window
       window.open(brochurePath, "_blank");
 
-      // Show success message using a safer approach
       const successToast = document.createElement("div");
       successToast.className =
         "fixed bottom-4 right-4 bg-green-600 text-white px-6 py-3 rounded shadow-lg z-50";
       successToast.textContent = "Download started in a new tab!";
       document.body.appendChild(successToast);
 
-      // Remove success toast after 3 seconds
       setTimeout(() => {
         if (document.body.contains(successToast)) {
           document.body.removeChild(successToast);
         }
       }, 3000);
     } catch (error) {
-      // Handle error
       console.error("Download error:", error);
 
       const errorToast = document.createElement("div");
@@ -134,7 +124,6 @@ const Overview = () => {
         "Couldn't open the brochure. Please try again later.";
       document.body.appendChild(errorToast);
 
-      // Remove error toast after 5 seconds
       setTimeout(() => {
         if (document.body.contains(errorToast)) {
           document.body.removeChild(errorToast);
@@ -143,17 +132,13 @@ const Overview = () => {
     }
   };
 
-  // Handler for initiating a phone call
   const handlePhoneCall = () => {
-    // Phone number to call
     window.location.href = "tel:+9103367676785";
   };
 
   return (
     <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 -top-4 font-serif relative">
-      {/* Fixed Right Side Buttons - Responsive positioning */}
-      <div className="fixed z-50 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col justify-around md:justify-start md:gap-4 bg-white md:bg-transparent p-2 md:p-0 shadow-md md:shadow-none ">
-        {/* Contact Us Button */}
+      <div className="fixed z-50 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col justify-around md:justify-start md:gap-4 bg-white md:bg-transparent p-2 md:p-0 shadow-md md:shadow-none">
         <div
           className="relative flex items-center justify-center"
           onMouseEnter={() => handleMouseEnter("contact")}
@@ -242,7 +227,6 @@ const Overview = () => {
           </button>
         </div>
 
-        {/* Download Brochure Button */}
         <div
           className="relative flex items-center justify-center"
           onMouseEnter={() => handleMouseEnter("brochure")}
@@ -263,8 +247,8 @@ const Overview = () => {
               Get detailed information about Sansara Riverfront Residences.
             </p>
             <button
-              onClick={handleDownload}
-              className="bg-blue-700  text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors flex items-center justify-center"
+              onClick={() => setShowModal(true)}
+              className="bg-blue-700 text-white px-4 py-2 rounded w-full hover:bg-blue-800 transition-colors flex items-center justify-center"
             >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
@@ -287,7 +271,7 @@ const Overview = () => {
           </div>
           <button
             className="bg-blue-700 text-white p-2 md:p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800 rounded-full md:rounded-none"
-            onClick={handleDownload}
+            onClick={() => setShowModal(true)}
             aria-label="Download Brochure"
           >
             <svg
@@ -309,7 +293,6 @@ const Overview = () => {
           </button>
         </div>
 
-        {/* Enquiry Now Button */}
         <div className="relative flex items-center justify-center">
           <button
             className="bg-blue-700 text-white p-2 md:p-3 flex items-center justify-center shadow-lg transition-all hover:bg-blue-800 rounded-full md:rounded-none"
@@ -337,11 +320,9 @@ const Overview = () => {
         </div>
       </div>
 
-      {/* Modal for Enquiry Form */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative overflow-hidden animate-fadeIn">
-            {/* Close button */}
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 z-10 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-1"
@@ -400,14 +381,11 @@ const Overview = () => {
         </div>
       )}
 
-      {/* Original Overview Content - Made responsive */}
       <h1 className="text-2xl sm:text-3xl text-center font-normal tracking-wide mb-6 sm:mb-10 pt-4">
         Overview
       </h1>
 
-      {/* Key Features - Responsive grid */}
       <div className="text-center mb-6 text-blue-500">
-        {/* First row of features */}
         <div className="grid grid-cols-3 px-4 sm:px-20 text-center mb-2 gap-2">
           <div>
             <div className="text-xl sm:text-3xl font-medium">17.4</div>
@@ -423,7 +401,6 @@ const Overview = () => {
           </div>
         </div>
 
-        {/* Second row of features - Responsive grid that changes based on screen size */}
         <div className="grid grid-cols-2 md:grid-cols-4 text-center mb-2 gap-2 mt-6 sm:mt-8">
           <div>
             <div className="text-xl sm:text-3xl font-medium">70%</div>

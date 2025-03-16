@@ -86,7 +86,7 @@ const Hero = () => {
       {/* Main background image with responsive sizing */}
       <div
         className="absolute inset-0 bg-cover bg-center bg-no-repeat h-full w-full"
-        style={{ backgroundImage: "url('./HeroImg.png')" }}
+        style={{ backgroundImage: "url('./HeroImg.jpg')" }}
       />
 
       {/* Overlay for better text visibility on all screens */}
