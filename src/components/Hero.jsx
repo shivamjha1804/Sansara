@@ -83,10 +83,16 @@ const Hero = () => {
 
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
-      {/* Main background image with responsive sizing */}
+      {/* Desktop/Tablet background image - hidden on small screens */}
       <div
-        className="absolute inset-0 bg-cover bg-center bg-no-repeat h-full w-full"
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat h-full w-full hidden sm:block"
         style={{ backgroundImage: "url('./HeroImg.jpg')" }}
+      />
+
+      {/* Mobile background image - shown only on small screens */}
+      <div
+        className="absolute inset-0 bg-cover bg-center bg-no-repeat h-full w-full sm:hidden"
+        style={{ backgroundImage: "url('./MobileHeroImg.png')" }}
       />
 
       {/* Overlay for better text visibility on all screens */}

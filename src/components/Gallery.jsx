@@ -9,10 +9,13 @@ const Gallery = () => {
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [slider, setSlider] = useState(null);
+  const [imagesLoaded, setImagesLoaded] = useState({});
+  const [isLoading, setIsLoading] = useState(true);
 
   // Sample data - in a real app, you would use your actual image paths
   const data = [
     {
+      id: "elevation-day",
       main: {
         path: "/image1.jpg",
         title: "Elevation Day View",
@@ -20,7 +23,7 @@ const Gallery = () => {
       images: [
         {
           path: "/image1.jpg",
-          tile: "Elevation Day View",
+          title: "Elevation Day View",
         },
         {
           path: "/image2.jpg",
@@ -48,7 +51,7 @@ const Gallery = () => {
         },
         {
           path: "/image8.jpg",
-          title: "Open Lawn & Amphithetare",
+          title: "Open Lawn & Amphitheatre",
         },
         {
           path: "/image9.jpg",
@@ -69,6 +72,7 @@ const Gallery = () => {
       ],
     },
     {
+      id: "parent-deck",
       main: {
         path: "/image9.jpg",
         title: "Parent Deck",
@@ -76,7 +80,7 @@ const Gallery = () => {
       images: [
         {
           path: "/image1.jpg",
-          tile: "Elevation Day View",
+          title: "Elevation Day View",
         },
         {
           path: "/image2.jpg",
@@ -104,7 +108,7 @@ const Gallery = () => {
         },
         {
           path: "/image8.jpg",
-          title: "Open Lawn & Amphithetare",
+          title: "Open Lawn & Amphitheatre",
         },
         {
           path: "/image9.jpg",
@@ -125,6 +129,7 @@ const Gallery = () => {
       ],
     },
     {
+      id: "podium-view",
       main: {
         path: "/image4.jpg",
         title: "Podium View",
@@ -132,7 +137,7 @@ const Gallery = () => {
       images: [
         {
           path: "/image1.jpg",
-          tile: "Elevation Day View",
+          title: "Elevation Day View",
         },
         {
           path: "/image2.jpg",
@@ -160,7 +165,7 @@ const Gallery = () => {
         },
         {
           path: "/image8.jpg",
-          title: "Open Lawn & Amphithetare",
+          title: "Open Lawn & Amphitheatre",
         },
         {
           path: "/image9.jpg",
@@ -181,6 +186,7 @@ const Gallery = () => {
       ],
     },
     {
+      id: "floating-deck",
       main: {
         path: "/image7.jpg",
         title: "Floating Deck",
@@ -188,7 +194,7 @@ const Gallery = () => {
       images: [
         {
           path: "/image1.jpg",
-          tile: "Elevation Day View",
+          title: "Elevation Day View",
         },
         {
           path: "/image2.jpg",
@@ -216,7 +222,7 @@ const Gallery = () => {
         },
         {
           path: "/image8.jpg",
-          title: "Open Lawn & Amphithetare",
+          title: "Open Lawn & Amphitheatre",
         },
         {
           path: "/image9.jpg",
@@ -237,6 +243,7 @@ const Gallery = () => {
       ],
     },
     {
+      id: "podium-walkway",
       main: {
         path: "/image10.jpg",
         title: "Podium Side Walkway",
@@ -244,7 +251,7 @@ const Gallery = () => {
       images: [
         {
           path: "/image1.jpg",
-          tile: "Elevation Day View",
+          title: "Elevation Day View",
         },
         {
           path: "/image2.jpg",
@@ -272,7 +279,7 @@ const Gallery = () => {
         },
         {
           path: "/image8.jpg",
-          title: "Open Lawn & Amphithetare",
+          title: "Open Lawn & Amphitheatre",
         },
         {
           path: "/image9.jpg",
@@ -294,26 +301,97 @@ const Gallery = () => {
     },
   ];
 
+  // Preload main gallery images on component mount
+  useEffect(() => {
+    const preloadImages = () => {
+      setIsLoading(true);
+      let loadedCount = 0;
+      const totalMainImages = data.length;
+
+      data.forEach((item, index) => {
+        const img = new Image();
+        img.src = item.main.path;
+
+        img.onload = () => {
+          setImagesLoaded((prev) => ({
+            ...prev,
+            [`main-${index}`]: true,
+          }));
+
+          loadedCount++;
+          if (loadedCount === totalMainImages) {
+            setIsLoading(false);
+          }
+        };
+
+        img.onerror = () => {
+          setImagesLoaded((prev) => ({
+            ...prev,
+            [`main-${index}`]: "error",
+          }));
+
+          loadedCount++;
+          if (loadedCount === totalMainImages) {
+            setIsLoading(false);
+          }
+        };
+      });
+    };
+
+    preloadImages();
+  }, []);
+
+  // Preload specific gallery images when modal opens
+  useEffect(() => {
+    if (modalIndex !== null) {
+      // Preload the first few images in the gallery
+      const preloadCount = Math.min(4, data[modalIndex].images.length);
+
+      for (let i = 0; i < preloadCount; i++) {
+        const img = new Image();
+        img.src = data[modalIndex].images[i].path;
+      }
+    }
+  }, [modalIndex]);
+
+  // Update slider when activeImageIndex changes
+  useEffect(() => {
+    if (slider && modalIndex !== null) {
+      slider.slickGoTo(activeImageIndex);
+    }
+  }, [activeImageIndex, slider, modalIndex]);
+
+  // Handle body overflow when modal opens/closes
+  useEffect(() => {
+    if (isModalOpen) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
+    }
+
+    return () => {
+      document.body.style.overflow = "auto";
+    };
+  }, [isModalOpen]);
+
   const openModal = (index) => {
     setModalIndex(index);
     setActiveImageIndex(0);
     setIsModalOpen(true);
-    document.body.style.overflow = "hidden";
   };
 
   const closeModal = () => {
     setIsModalOpen(false);
     setModalIndex(null);
     setActiveImageIndex(0);
-    document.body.style.overflow = "auto";
   };
 
-  useEffect(() => {
-    // When activeImageIndex changes, update the slider
-    if (slider && modalIndex !== null) {
-      slider.slickGoTo(activeImageIndex);
-    }
-  }, [activeImageIndex, slider, modalIndex]);
+  const handleImageError = (index, imageType) => {
+    setImagesLoaded((prev) => ({
+      ...prev,
+      [`${imageType}-${index}`]: "error",
+    }));
+  };
 
   const sliderSettings = {
     dots: true,
@@ -324,6 +402,8 @@ const Gallery = () => {
     initialSlide: 0,
     arrows: true,
     adaptiveHeight: true,
+    lazyLoad: "ondemand",
+    swipe: true,
     afterChange: (newIndex) => {
       setActiveImageIndex(newIndex);
     },
@@ -338,17 +418,32 @@ const Gallery = () => {
     ],
   };
 
+  // Render loading state
+  if (isLoading) {
+    return (
+      <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8 sm:py-12">
+        <h2 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-8">
+          Gallery
+        </h2>
+        <div className="flex justify-center items-center h-[300px]">
+          <div className="animate-pulse flex flex-col items-center">
+            <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+            <p className="mt-4 text-gray-500">Loading gallery...</p>
+          </div>
+        </div>
+      </section>
+    );
+  }
+
   return (
     <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8 sm:py-12">
-      <h2 className="text-center text-2xl sm:text-3xl  mb-6 sm:mb-8">
-        Gallery
-      </h2>
+      <h2 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-8">Gallery</h2>
 
       {/* Desktop/Tablet layout (md and up) - Accordion style */}
       <div className="hidden md:flex flex-wrap lg:flex-nowrap gap-2 sm:gap-4 justify-center h-[300px] sm:h-[350px] lg:h-[450px]">
         {data.map((item, index) => (
           <div
-            key={`desktop-${index}`}
+            key={`desktop-${item.id}`}
             className={`relative shadow-lg rounded-lg overflow-hidden transition-all duration-500 cursor-pointer
               ${
                 activeIndex === index
@@ -359,15 +454,29 @@ const Gallery = () => {
             onMouseLeave={() => setActiveIndex(null)}
             onClick={() => openModal(index)}
           >
-            <img
-              src={item.main.path}
-              alt={item.main.title}
-              className="w-full h-full object-cover"
-            />
+            {imagesLoaded[`main-${index}`] === "error" ? (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <p className="text-gray-500 text-center px-2">
+                  {item.main.title}
+                </p>
+              </div>
+            ) : (
+              <img
+                src={item.main.path}
+                alt={item.main.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={() => handleImageError(index, "main")}
+              />
+            )}
             <div
               className={`absolute inset-0 bg-black bg-opacity-40 flex items-end transition-opacity duration-300
               ${activeIndex === index ? "opacity-0" : "opacity-100"}`}
-            ></div>
+            >
+              <p className="text-white font-medium p-3 w-full text-center">
+                {item.main.title}
+              </p>
+            </div>
           </div>
         ))}
       </div>
@@ -376,17 +485,29 @@ const Gallery = () => {
       <div className="grid md:hidden grid-cols-1 sm:grid-cols-2 gap-4">
         {data.map((item, index) => (
           <div
-            key={`mobile-${index}`}
+            key={`mobile-${item.id}`}
             className="relative shadow-lg rounded-lg overflow-hidden h-[200px] sm:h-[250px] cursor-pointer"
             onClick={() => openModal(index)}
           >
-            <img
-              src={item.main.path}
-              alt={item.main.title}
-              className="w-full h-full object-cover"
-            />
+            {imagesLoaded[`main-${index}`] === "error" ? (
+              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
+                <p className="text-gray-500 text-center px-2">
+                  {item.main.title}
+                </p>
+              </div>
+            ) : (
+              <img
+                src={item.main.path}
+                alt={item.main.title}
+                className="w-full h-full object-cover"
+                loading="lazy"
+                onError={() => handleImageError(index, "main")}
+              />
+            )}
             <div className="absolute inset-0 bg-black bg-opacity-30 flex items-end">
-              <p className="text-white font-medium p-3">{item.main.title}</p>
+              <p className="text-white font-medium p-3 w-full text-center">
+                {item.main.title}
+              </p>
             </div>
           </div>
         ))}
