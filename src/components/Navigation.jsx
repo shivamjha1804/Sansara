@@ -10,7 +10,7 @@ import Location from "./Location";
 import Price from "./Price";
 import SansaraEnquiryForm from "./SansaraEnquiry";
 import YoutubeVideo from "./YoutubeVideo";
-import LifestyleAmenities from "./Lifestyle Amenities";
+import LifestyleAmenities from "./LifestyleAmenities";
 // Import the Location component
 // import Location from "./Location";
 
