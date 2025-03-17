@@ -132,13 +132,10 @@ const Form = ({ formData, errors, handleChange, handleSubmit }) => {
               className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent focus:outline-none appearance-none bg-white"
             >
               <option value="">Select</option>
-              <option>1BHK</option>
-              <option>2BHK</option>
               <option>3BHK</option>
               <option>4BHK</option>
               <option>5BHK</option>
               <option>5BHK Duplex</option>
-              <option>Penthouse</option>
             </select>
             {errors.unitType && (
               <p className="text-red-500 text-xs mt-1">{errors.unitType}</p>
