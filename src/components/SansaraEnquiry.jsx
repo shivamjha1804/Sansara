@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 
 const SansaraEnquiryForm = () => {
   const [formData, setFormData] = useState({
@@ -27,13 +27,34 @@ const SansaraEnquiryForm = () => {
     "Singapore",
     "Australia",
   ];
-  const unitTypeOptions = ["1 BHK", "2 BHK", "3 BHK", "4 BHK", "Penthouse"];
+  const unitTypeOptions = ["3 BHK", "4 BHK", "5 BHK", "5 BHK Duplex"];
   const budgetOptions = [
-    "₹50L - ₹1Cr",
-    "₹1Cr - ₹1.5Cr",
-    "₹1.5Cr - ₹2Cr",
-    "₹2Cr+",
+    "₹3.11 Cr - ₹3.50 Cr",
+    "₹3.96 Cr - ₹4.35 Cr",
+    "₹4.08 Cr - ₹4.49 Cr",
+    "₹6.17 Cr - ₹6.38 Cr",
   ];
+
+  // Automatically set budget based on unit type
+  useEffect(() => {
+    switch (formData.unitType) {
+      case "3 BHK":
+        setFormData((prev) => ({ ...prev, budget: "₹3.11 Cr - ₹3.50 Cr" }));
+        break;
+      case "4 BHK":
+        setFormData((prev) => ({ ...prev, budget: "₹3.96 Cr - ₹4.35 Cr" }));
+        break;
+      case "5 BHK":
+        setFormData((prev) => ({ ...prev, budget: "₹4.08 Cr - ₹4.49 Cr" }));
+        break;
+      case "5 BHK Duplex":
+        setFormData((prev) => ({ ...prev, budget: "₹6.17 Cr - ₹6.38 Cr" }));
+        break;
+      default:
+        setFormData((prev) => ({ ...prev, budget: "" }));
+        break;
+    }
+  }, [formData.unitType]);
 
   const handleInputChange = (e) => {
     const { name, value } = e.target;
@@ -106,9 +127,8 @@ const SansaraEnquiryForm = () => {
       className="w-full bg-no-repeat bg-center bg-cover"
       style={{
         backgroundImage: "url('./findYourPerfect.png')",
-        // backgroundBlendMode: "", // Blend gradient with image
-        backgroundSize: "cover", // Make image cover the entire background
-        backgroundPosition: "center", // Center the imag
+        backgroundSize: "cover",
+        backgroundPosition: "center",
       }}
     >
       <div className="max-w-3xl mx-auto flex justify-center flex-col items-center p-8 rounded-lg">
@@ -140,20 +160,6 @@ const SansaraEnquiryForm = () => {
                     placeholder="Name"
                     className="bg-transparent outline-none w-full text-white placeholder-white"
                   />
-                  {/* <svg
-                    className="w-4 h-4 text-white"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M19 9l-7 7-7-7"
-                    ></path>
-                  </svg> */}
                 </div>
                 {errors.name && (
                   <p className="text-white text-xs mt-1">{errors.name}</p>
