@@ -297,8 +297,8 @@ const Unitplans = () => {
                         <option value="">Select</option>
                         <option>3BHK</option>
                         <option>4BHK</option>
+                        <option>5BHK</option>
                         <option>5BHK DUPLEX</option>
-                        <option>Penthouse</option>
                       </select>
                       {errors.unitType && (
                         <p className="text-red-500 text-xs">
