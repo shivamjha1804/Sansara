@@ -95,6 +95,19 @@ const Unitplans = () => {
     setFormData({ ...formData, [name]: value });
   };
 
+  // Automatically set budget based on unit type
+  useEffect(() => {
+    if (formData.unitType === "3BHK") {
+      setFormData((prev) => ({ ...prev, budget: "₹3.11 Cr - ₹3.50 Cr" }));
+    } else if (formData.unitType === "4BHK") {
+      setFormData((prev) => ({ ...prev, budget: "₹3.96 Cr - ₹4.35 Cr" }));
+    } else if (formData.unitType === "5BHK DUPLEX") {
+      setFormData((prev) => ({ ...prev, budget: "₹6.17 Cr - ₹6.38 Cr" }));
+    } else if (formData.unitType === "Penthouse") {
+      setFormData((prev) => ({ ...prev, budget: "₹4.08 Cr - ₹4.49 Cr" }));
+    }
+  }, [formData.unitType]);
+
   // Validate the form before submission
   const validateForm = () => {
     const newErrors = {};
@@ -304,10 +317,10 @@ const Unitplans = () => {
                         className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
                       >
                         <option value="">Select</option>
-                        <option>₹50L - ₹1Cr</option>
-                        <option>₹1Cr - ₹1.5Cr</option>
-                        <option>₹1.5Cr - ₹2Cr</option>
-                        <option>₹2Cr+</option>
+                        <option>₹3.11 Cr - ₹3.50 Cr</option>
+                        <option>₹3.96 Cr - ₹4.35 Cr</option>
+                        <option>₹4.08 Cr - ₹4.49 Cr</option>
+                        <option>₹6.17 Cr - ₹6.38 Cr</option>
                       </select>
                       {errors.budget && (
                         <p className="text-red-500 text-xs">{errors.budget}</p>

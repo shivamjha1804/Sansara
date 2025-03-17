@@ -3,7 +3,7 @@ import React from "react";
 const experiences = [
   {
     title: "Your Neighborhood Mall for Everyday Conveniences",
-    image: "mall-image.jpg", // Replace with actual image path
+    image: "MallImage.jpg",
     points: [
       "Supermarket & Fresh produce store",
       "Pharmacy, ATMs & convenience stores",
@@ -15,7 +15,7 @@ const experiences = [
   },
   {
     title: "An Arena for Champions",
-    image: "sports-arena.jpg", // Replace with actual image path
+    image: "SportsArena.jpg",
     points: [
       "Professional courts for tennis, badminton, pickleball, baseball & volleyball",
       "Indoor gaming includes table tennis, pool & board games",
@@ -26,7 +26,7 @@ const experiences = [
   },
   {
     title: "The Temple & Ghat – A Sacred Riverfront Experience",
-    image: "temple-ghat.jpg", // Replace with actual image path
+    image: "TempleGhat.jpg",
     points: [
       "A grand temple space for prayer, meditation & inner peace",
       "A dedicated Ganga Aarti area to experience sacred traditions",
@@ -37,7 +37,7 @@ const experiences = [
   },
   {
     title: "A Culinary Retreat by the Water",
-    image: "riverside-cafe.jpg", // Replace with actual image path
+    image: "RiversideCafe.jpg",
     points: [
       "Glasshouse seating with uninterrupted river views for a serene morning breakfast",
       "Alfresco dining for a breezy, open-air experience",
@@ -50,13 +50,13 @@ const experiences = [
 
 const ExperienceGrid = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 -mt-20 pb-32 w-5/6 mx-auto h-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 -mt-20 pb-32 w-10/12 mx-auto h-full">
       {experiences.map((exp, index) => (
         <div key={index} className="flex flex-col md:flex-row p-4 items-start">
           <img
             src={exp.image}
             alt={exp.title}
-            className="w-full md:w-1/2 h-72  object-cover rounded-md mb-4 md:mb-0 md:mr-6"
+            className="w-full md:w-1/2 h-96  object-cover rounded-md mb-4 md:mb-0 md:mr-4"
           />
           <div className="md:w-full">
             <h2 className="text-xl font-bold mb-4">{exp.title}</h2>

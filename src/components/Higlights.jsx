@@ -643,14 +643,6 @@ const HighlightsSection = () => {
 
           {/* Horizontal divider above tagline */}
           <div className="h-0.5 w-full bg-white/80"></div>
-
-          {/* Tagline bottom section */}
-          <div className="text-center py-6 px-4 bg-blue-200/50">
-            <p className="text-xl md:text-xl  text-gray-800">
-              Sansara - Because home should be more than just a place, it should
-              be a complete world.
-            </p>
-          </div>
         </div>
       </div>
     </div>
