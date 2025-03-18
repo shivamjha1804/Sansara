@@ -1,4 +1,19 @@
 import React, { useState, useEffect } from "react";
+import axios from "axios";
+import countries from "i18n-iso-countries";
+import enLocale from "i18n-iso-countries/langs/en.json";
+import countryDialCodes from "country-telephone-data";
+import ThankYouModal from "./ThankYouModal";
+
+// Register locale data for country names
+countries.registerLocale(enLocale);
+const countryList = countryDialCodes.allCountries.map((country) => ({
+  name: country.iso2
+    ? countries.getName(country.iso2.toUpperCase(), "en")
+    : country.name,
+  code: `+${country.dialCode}`,
+  iso2: country.iso2,
+}));
 
 const Unitplans = () => {
   // State for UI control
@@ -13,6 +28,9 @@ const Unitplans = () => {
   // Modal states
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [modalImage, setModalImage] = useState("");
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [apiError, setApiError] = useState(null);
 
   // Form data and validation
   const [formData, setFormData] = useState({
@@ -95,18 +113,48 @@ const Unitplans = () => {
     setFormData({ ...formData, [name]: value });
   };
 
-  // Automatically set budget based on unit type
-  useEffect(() => {
-    if (formData.unitType === "3BHK") {
-      setFormData((prev) => ({ ...prev, budget: "₹3.11 Cr - ₹3.50 Cr" }));
-    } else if (formData.unitType === "4BHK") {
-      setFormData((prev) => ({ ...prev, budget: "₹3.96 Cr - ₹4.35 Cr" }));
-    } else if (formData.unitType === "5BHK DUPLEX") {
-      setFormData((prev) => ({ ...prev, budget: "₹6.17 Cr - ₹6.38 Cr" }));
-    } else if (formData.unitType === "Penthouse") {
-      setFormData((prev) => ({ ...prev, budget: "₹4.08 Cr - ₹4.49 Cr" }));
+  // Handle unit type specific changes with automatic budget updates
+  const handleUnitTypeChange = (e) => {
+    const { value } = e.target;
+    let budget = "";
+
+    switch (value) {
+      case "3BHK":
+        budget = "₹3.11Cr - ₹3.50Cr";
+        break;
+      case "4BHK":
+        budget = "₹3.96Cr - ₹4.35Cr";
+        break;
+      case "5BHK":
+        budget = "₹4.08Cr - ₹4.49Cr";
+        break;
+      case "5BHK Duplex":
+        budget = "₹6.17Cr - ₹6.38Cr";
+        break;
+      default:
+        budget = "";
     }
-  }, [formData.unitType]);
+
+    setFormData((prev) => ({
+      ...prev,
+      unitType: value,
+      budget: budget,
+    }));
+  };
+
+  // Close thank you modal and reset form
+  const closeThankYouModal = () => {
+    setShowThankYouModal(false);
+    // Reset form after successful submission
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      country: "",
+      unitType: "",
+      budget: "",
+    });
+  };
 
   // Validate the form before submission
   const validateForm = () => {
@@ -145,11 +193,48 @@ const Unitplans = () => {
     return Object.keys(newErrors).length === 0; // Return true if no errors
   };
 
-  // Handle form submission
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    if (validateForm()) {
-      // Form is valid, transition to showing unit plans
+  // Submit to API
+  const submitToAPI = async (formData) => {
+    setIsSubmitting(true);
+    setApiError(null);
+
+    try {
+      const selectedCountry = countryList.find(
+        (country) => country.name === formData.country
+      );
+      const countryCode = selectedCountry ? selectedCountry.code : "";
+
+      const apiData = {
+        fullName: formData.name,
+        emailAddress: formData.email,
+        country_Code: countryCode,
+        mobileNumber: formData.phone,
+        unit_type: formData.unitType,
+        budget: formData.budget,
+        utm_source: "google",
+        utm_medium: "search",
+        utm_campaign: "Sansara Landing Page",
+        utm_adgroup: "",
+        utm_adcopy: "",
+        campaign_code: "701S200000GkDM7",
+        projectName: "Sansara Phase I",
+        webbannerSource: "https://pssansara.com/",
+      };
+
+      const response = await axios.post(
+        "https://psgroup.in/API/enqForm",
+        apiData,
+        {
+          headers: {
+            access_token:
+              "g45#$312@#pk$#@!gshs*%$#@jkpg45#$312@#pk$#@!gshs*%$#@jkp",
+          },
+        }
+      );
+      console.log("API Response:", response.data);
+
+      // Show thank you modal and transition to unit plans
+      setShowThankYouModal(true);
       setShowForm(false);
       setShowUnitPlans(true);
 
@@ -159,12 +244,29 @@ const Unitplans = () => {
       } else if (formData.unitType === "4BHK") {
         setSelectedPlan("4BHK");
       } else if (
-        formData.unitType === "5BHK DUPLEX" ||
-        formData.unitType === "Penthouse"
+        formData.unitType === "5BHK" ||
+        formData.unitType === "5BHK Duplex"
       ) {
         setSelectedPlan("5BHK DUPLEX");
       }
+    } catch (error) {
+      console.error("API Error:", error);
+      setApiError(
+        "There was an error submitting your enquiry. Please try again."
+      );
+    } finally {
+      setIsSubmitting(false);
     }
+  };
+
+  // Handle form submission
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    if (validateForm()) {
+      submitToAPI(formData);
+      return true;
+    }
+    return false;
   };
 
   return (
@@ -198,7 +300,7 @@ const Unitplans = () => {
       <div className="w-full h-full mx-auto">
         {/* Centered Heading for both sections */}
         <div className="w-full pt-6 pb-4 rounded-t-lg text-center mb-0">
-          <h2 className="text-2xl sm:text-3xl  text-gray-800">Unit Plans</h2>
+          <h2 className="text-2xl sm:text-3xl text-gray-800">Unit Plans</h2>
           <p className="mt-1 text-sm text-gray-600">
             Luxury 3, 4 and 5 BHK Homes
           </p>
@@ -216,6 +318,12 @@ const Unitplans = () => {
                 <p className="text-xs text-gray-600 mb-6">
                   Fill in your details to explore our luxury units
                 </p>
+
+                {apiError && (
+                  <div className="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded mb-4">
+                    {apiError}
+                  </div>
+                )}
 
                 <form onSubmit={handleSubmit}>
                   <div className="mb-4">
@@ -270,15 +378,19 @@ const Unitplans = () => {
                         name="country"
                         value={formData.country}
                         onChange={handleChange}
-                        className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white"
                       >
                         <option value="">Select</option>
-                        <option>India</option>
-                        <option>USA</option>
-                        <option>UK</option>
-                        <option>UAE</option>
-                        <option>Singapore</option>
-                        <option>Australia</option>
+                        {countryList
+                          .filter((country) => country.name)
+                          .map((country) => (
+                            <option
+                              key={country.code + country.iso2}
+                              value={country.name}
+                            >
+                              {country.name} ({country.code})
+                            </option>
+                          ))}
                       </select>
                       {errors.country && (
                         <p className="text-red-500 text-xs">{errors.country}</p>
@@ -291,14 +403,14 @@ const Unitplans = () => {
                       <select
                         name="unitType"
                         value={formData.unitType}
-                        onChange={handleChange}
-                        className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
+                        onChange={handleUnitTypeChange}
+                        className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent appearance-none bg-white"
                       >
                         <option value="">Select</option>
-                        <option>3BHK</option>
-                        <option>4BHK</option>
-                        <option>5BHK</option>
-                        <option>5BHK DUPLEX</option>
+                        <option value="3BHK">3BHK</option>
+                        <option value="4BHK">4BHK</option>
+                        <option value="5BHK">5BHK</option>
+                        <option value="5BHK Duplex">5BHK Duplex</option>
                       </select>
                       {errors.unitType && (
                         <p className="text-red-500 text-xs">
@@ -308,20 +420,15 @@ const Unitplans = () => {
                     </div>
                     <div className="mb-4">
                       <label className="block text-sm font-medium mb-1 text-gray-700">
-                        Select Budget
+                        Budget Range
                       </label>
-                      <select
+                      <input
+                        type="text"
                         name="budget"
                         value={formData.budget}
-                        onChange={handleChange}
-                        className="w-full border border-gray-300 rounded px-3 py-2 text-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                      >
-                        <option value="">Select</option>
-                        <option>₹3.11 Cr - ₹3.50 Cr</option>
-                        <option>₹3.96 Cr - ₹4.35 Cr</option>
-                        <option>₹4.08 Cr - ₹4.49 Cr</option>
-                        <option>₹6.17 Cr - ₹6.38 Cr</option>
-                      </select>
+                        readOnly
+                        className="w-full border border-gray-300 rounded px-3 py-2 text-sm bg-gray-100 cursor-not-allowed"
+                      />
                       {errors.budget && (
                         <p className="text-red-500 text-xs">{errors.budget}</p>
                       )}
@@ -329,9 +436,14 @@ const Unitplans = () => {
 
                     <button
                       type="submit"
-                      className="w-full bg-blue-600 text-white rounded py-2 font-medium hover:bg-blue-700 transition-colors"
+                      disabled={isSubmitting}
+                      className={`w-full ${
+                        isSubmitting
+                          ? "bg-blue-400"
+                          : "bg-blue-600 hover:bg-blue-700"
+                      } text-white rounded py-2 font-medium transition-colors`}
                     >
-                      View Available Units
+                      {isSubmitting ? "Submitting..." : "View Available Units"}
                     </button>
                   </div>
                 </form>
@@ -371,11 +483,11 @@ const Unitplans = () => {
                 </div>
 
                 {/* Display units for the selected plan */}
-                <div className="mt-6 w-full flex flex-col  justify-center items-center">
+                <div className="mt-6 w-full flex flex-col justify-center items-center">
                   <h3 className="text-lg font-medium mb-4 text-gray-700 text-center">
                     Available Units
                   </h3>
-                  <div className="grid  sm:grid-cols-2 gap-9 mx-auto max-w-4xl">
+                  <div className="grid sm:grid-cols-2 gap-9 mx-auto max-w-4xl">
                     {floorPlanImages[selectedPlan].map((unit) => (
                       <div
                         key={unit.name}
@@ -403,7 +515,6 @@ const Unitplans = () => {
                 </div>
 
                 {/* Selected unit details */}
-
                 {selectedUnit && (
                   <div className="mt-6 p-4 rounded-lg shadow-md">
                     <h3 className="text-lg font-medium mb-3 text-blue-600 text-center">
@@ -469,6 +580,11 @@ const Unitplans = () => {
             />
           </div>
         </div>
+      )}
+
+      {/* Thank You Modal */}
+      {showThankYouModal && (
+        <ThankYouModal onClose={closeThankYouModal} name={formData.name} />
       )}
 
       {/* Add animations to the global styles */}
