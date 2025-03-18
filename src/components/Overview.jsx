@@ -29,10 +29,39 @@ const Overview = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+
+    if (name === "unitType") {
+      const unitType = value;
+      let budget = "";
+
+      switch (unitType) {
+        case "3BHK":
+          budget = "₹3.11Cr - ₹3.50Cr";
+          break;
+        case "4BHK":
+          budget = "₹3.96Cr - ₹4.35Cr";
+          break;
+        case "5BHK":
+          budget = "₹4.08Cr - ₹4.49Cr";
+          break;
+        case "5BHK Duplex":
+          budget = "₹6.17Cr - ₹6.38Cr";
+          break;
+        default:
+          budget = "";
+      }
+      setFormData({
+        ...formData,
+        budget: budget,
+        unitType: unitType,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
+    // Clear error when user starts typing
     if (errors[name]) {
       setErrors({
         ...errors,
@@ -60,31 +89,13 @@ const Overview = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
-    if (validateForm()) {
-      console.log("Form submitted:", formData);
-      setIsFormSubmitted(true);
-      setSubmitStatus("success");
-
-      // Download the brochure after form submission
-      handleDownload();
-
-      // Reset form after submission
-      setTimeout(() => {
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          country: "",
-          unitType: "",
-          budget: "",
-        });
-        setIsFormSubmitted(false);
-        setSubmitStatus(null);
-        setShowModal(false);
-      }, 3000);
-    }
+    return validateForm();
   };
+
+  const closeEnquiryModal = () => {
+    setShowModal(false);
+  };
+
 
   const handleMouseEnter = (buttonId) => {
     setHoveredButton(buttonId);
@@ -321,8 +332,9 @@ const Overview = () => {
       </div>
 
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 z-50 flex items-center justify-center p-4">
+        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative overflow-hidden animate-fadeIn">
+            {/* Close button */}
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 z-10 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-1"
@@ -344,39 +356,14 @@ const Overview = () => {
               </svg>
             </button>
 
-            {isFormSubmitted && submitStatus === "success" ? (
-              <div className="p-8 text-center">
-                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                  <svg
-                    className="w-8 h-8 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 className="text-xl font-medium mb-2 text-gray-800">
-                  Thank You!
-                </h3>
-                <p className="text-gray-600">
-                  We've received your enquiry and will contact you shortly.
-                </p>
-              </div>
-            ) : (
-              <Form
-                formData={formData}
-                errors={errors}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-              />
-            )}
+            <Form
+              formData={formData}
+              errors={errors}
+              setFormData={setFormData}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              closeEnquiryModal={closeEnquiryModal}
+            />
           </div>
         </div>
       )}

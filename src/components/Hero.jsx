@@ -12,7 +12,6 @@ const Hero = () => {
     budget: "",
   });
   const [errors, setErrors] = useState({});
-  const [isFormSubmitted, setIsFormSubmitted] = useState(false);
 
   // Prevent body scrolling when modal is open
   useEffect(() => {
@@ -28,10 +27,38 @@ const Hero = () => {
 
   const handleChange = (e) => {
     const { name, value } = e.target;
-    setFormData({
-      ...formData,
-      [name]: value,
-    });
+
+    if (name === "unitType") {
+      const unitType = value;
+      let budget = "";
+
+      switch (unitType) {
+        case "3BHK":
+          budget = "₹3.11Cr - ₹3.50Cr";
+          break;
+        case "4BHK":
+          budget = "₹3.96Cr - ₹4.35Cr";
+          break;
+        case "5BHK":
+          budget = "₹4.08Cr - ₹4.49Cr";
+          break;
+        case "5BHK Duplex":
+          budget = "₹6.17Cr - ₹6.38Cr";
+          break;
+        default:
+          budget = "";
+      }
+      setFormData({
+        ...formData,
+        budget: budget,
+        unitType: unitType,
+      });
+    } else {
+      setFormData({
+        ...formData,
+        [name]: value,
+      });
+    }
     // Clear error when user starts typing
     if (errors[name]) {
       setErrors({
@@ -60,25 +87,11 @@ const Hero = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    return validateForm();
+  };
 
-    if (validateForm()) {
-      console.log("Form submitted:", formData);
-      setIsFormSubmitted(true);
-
-      // Reset form after submission
-      setTimeout(() => {
-        setFormData({
-          name: "",
-          email: "",
-          phone: "",
-          country: "",
-          unitType: "",
-          budget: "",
-        });
-        setIsFormSubmitted(false);
-        setShowModal(false);
-      }, 3000);
-    }
+  const closeEnquiryModal = () => {
+    setShowModal(false);
   };
 
   return (
@@ -151,39 +164,14 @@ const Hero = () => {
               </svg>
             </button>
 
-            {isFormSubmitted ? (
-              <div className="p-8 text-center">
-                <div className="mx-auto w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-4">
-                  <svg
-                    className="w-8 h-8 text-green-600"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth="2"
-                      d="M5 13l4 4L19 7"
-                    ></path>
-                  </svg>
-                </div>
-                <h3 className="text-xl font-medium mb-2 text-gray-800">
-                  Thank You!
-                </h3>
-                <p className="text-gray-600">
-                  We've received your enquiry and will contact you shortly.
-                </p>
-              </div>
-            ) : (
-              <Form
-                formData={formData}
-                errors={errors}
-                handleChange={handleChange}
-                handleSubmit={handleSubmit}
-              />
-            )}
+            <Form
+              formData={formData}
+              errors={errors}
+              setFormData={setFormData}
+              handleChange={handleChange}
+              handleSubmit={handleSubmit}
+              closeEnquiryModal={closeEnquiryModal}
+            />
           </div>
         </div>
       )}

@@ -7,7 +7,7 @@ const ThankYouModal = ({ onClose, name }) => {
     const pdfUrl = "https://psgroup.in/sansara-Eflyer.pdf";
     const link = document.createElement("a");
     link.href = pdfUrl;
-    link.download = "https://psgroup.in/sansara-Eflyer.pdf"; // The name of the downloaded file
+    link.download = "sansara-Eflyer.pdf"; // The name of the downloaded file
     document.body.appendChild(link);
     link.click();
     document.body.removeChild(link);
