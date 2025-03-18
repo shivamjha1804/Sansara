@@ -94,6 +94,14 @@ const Hero = () => {
     setShowModal(false);
   };
 
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShowModal(true);
+    }, 1000); // Delay of 1 second
+
+    return () => clearTimeout(timer);
+  }, []);
+
   return (
     <div className="relative min-h-screen w-full overflow-hidden">
       {/* Desktop/Tablet background image - hidden on small screens */}
@@ -133,19 +141,19 @@ const Hero = () => {
         <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest font-light md:mt-9 text-center">
           SANSARA
         </h1>
-        <p className="text-white text-sm sm:text-base md:text-lg max-w-md text-center opacity-90 mt-2">
+        <p className="text-white text-sm  sm:text-base md:text-lg max-w-md text-center opacity-90 mt-2">
           Riverfront Luxury Residences
         </p>
       </div>
 
       {/* Modal - improved for all screen sizes */}
       {showModal && (
-        <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
+        <div className="fixed pt-3 inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative overflow-hidden animate-fadeIn">
             {/* Close button */}
             <button
               onClick={() => setShowModal(false)}
-              className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 z-10 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-1"
+              className="absolute top-5 right-3 text-gray-500 hover:text-gray-700 z-10 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-1"
               aria-label="Close modal"
             >
               <svg

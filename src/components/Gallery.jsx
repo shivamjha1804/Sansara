@@ -1,4 +1,10 @@
-import React, { useState, useEffect } from "react";
+import React, {
+  useState,
+  useCallback,
+  useMemo,
+  useRef,
+  useEffect,
+} from "react";
 import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
@@ -8,426 +14,319 @@ const Gallery = () => {
   const [modalIndex, setModalIndex] = useState(null);
   const [activeImageIndex, setActiveImageIndex] = useState(0);
   const [isModalOpen, setIsModalOpen] = useState(false);
-  const [slider, setSlider] = useState(null);
-  const [imagesLoaded, setImagesLoaded] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const sliderRef = useRef(null);
+  const [loadingState, setLoadingState] = useState({
+    mainImages: true,
+    modalImages: false,
+  });
 
-  // Sample data - in a real app, you would use your actual image paths
-  const data = [
-    {
-      id: "elevation-day",
-      main: {
-        path: "/image1.jpg",
-        title: "Elevation Day View",
-      },
-      images: [
-        {
+  // Sample data - memoized to prevent unnecessary re-renders
+  const galleryData = useMemo(
+    () => [
+      {
+        id: "elevation-day",
+        main: {
           path: "/image1.jpg",
           title: "Elevation Day View",
         },
-        {
-          path: "/image2.jpg",
-          title: "Elevation Across The Ganges",
-        },
-        {
-          path: "/image3.jpg",
-          title: "Ghats",
-        },
-        {
-          path: "/image4.jpg",
-          title: "Podium View",
-        },
-        {
-          path: "/image5.jpg",
-          title: "The River And Water Cascade",
-        },
-        {
-          path: "/image6.jpg",
-          title: "Family Lounge",
-        },
-        {
-          path: "/image7.jpg",
-          title: "Floating Deck",
-        },
-        {
-          path: "/image8.jpg",
-          title: "Open Lawn & Amphitheatre",
-        },
-        {
-          path: "/image9.jpg",
-          title: "Parent Deck",
-        },
-        {
-          path: "/image10.jpg",
-          title: "Podium Side Walkway",
-        },
-        {
-          path: "/image11.jpg",
-          title: "Senior Citizens Recreation Area",
-        },
-        {
-          path: "/image12.jpg",
-          title: "Stepped Garden",
-        },
-      ],
-    },
-    {
-      id: "parent-deck",
-      main: {
-        path: "/image9.jpg",
-        title: "Parent Deck",
+        images: Array.from({ length: 12 }, (_, i) => ({
+          path: `/image${i + 1}.jpg`,
+          title: [
+            "Elevation Day View",
+            "Elevation Across The Ganges",
+            "Ghats",
+            "Podium View",
+            "The River And Water Cascade",
+            "Family Lounge",
+            "Floating Deck",
+            "Open Lawn & Amphitheatre",
+            "Parent Deck",
+            "Podium Side Walkway",
+            "Senior Citizens Recreation Area",
+            "Stepped Garden",
+          ][i],
+        })),
       },
-      images: [
-        {
-          path: "/image1.jpg",
-          title: "Elevation Day View",
-        },
-        {
-          path: "/image2.jpg",
-          title: "Elevation Across The Ganges",
-        },
-        {
-          path: "/image3.jpg",
-          title: "Ghats",
-        },
-        {
-          path: "/image4.jpg",
-          title: "Podium View",
-        },
-        {
-          path: "/image5.jpg",
-          title: "The River And Water Cascade",
-        },
-        {
-          path: "/image6.jpg",
-          title: "Family Lounge",
-        },
-        {
-          path: "/image7.jpg",
-          title: "Floating Deck",
-        },
-        {
-          path: "/image8.jpg",
-          title: "Open Lawn & Amphitheatre",
-        },
-        {
+      {
+        id: "parent-deck",
+        main: {
           path: "/image9.jpg",
           title: "Parent Deck",
         },
-        {
-          path: "/image10.jpg",
-          title: "Podium Side Walkway",
-        },
-        {
-          path: "/image11.jpg",
-          title: "Senior Citizens Recreation Area",
-        },
-        {
-          path: "/image12.jpg",
-          title: "Stepped Garden",
-        },
-      ],
-    },
-    {
-      id: "podium-view",
-      main: {
-        path: "/image4.jpg",
-        title: "Podium View",
+        images: Array.from({ length: 12 }, (_, i) => ({
+          path: `/image${i + 1}.jpg`,
+          title: [
+            "Elevation Day View",
+            "Elevation Across The Ganges",
+            "Ghats",
+            "Podium View",
+            "The River And Water Cascade",
+            "Family Lounge",
+            "Floating Deck",
+            "Open Lawn & Amphitheatre",
+            "Parent Deck",
+            "Podium Side Walkway",
+            "Senior Citizens Recreation Area",
+            "Stepped Garden",
+          ][i],
+        })),
       },
-      images: [
-        {
-          path: "/image1.jpg",
-          title: "Elevation Day View",
-        },
-        {
-          path: "/image2.jpg",
-          title: "Elevation Across The Ganges",
-        },
-        {
-          path: "/image3.jpg",
-          title: "Ghats",
-        },
-        {
+      {
+        id: "podium-view",
+        main: {
           path: "/image4.jpg",
           title: "Podium View",
         },
-        {
-          path: "/image5.jpg",
-          title: "The River And Water Cascade",
-        },
-        {
-          path: "/image6.jpg",
-          title: "Family Lounge",
-        },
-        {
-          path: "/image7.jpg",
-          title: "Floating Deck",
-        },
-        {
-          path: "/image8.jpg",
-          title: "Open Lawn & Amphitheatre",
-        },
-        {
-          path: "/image9.jpg",
-          title: "Parent Deck",
-        },
-        {
-          path: "/image10.jpg",
-          title: "Podium Side Walkway",
-        },
-        {
-          path: "/image11.jpg",
-          title: "Senior Citizens Recreation Area",
-        },
-        {
-          path: "/image12.jpg",
-          title: "Stepped Garden",
-        },
-      ],
-    },
-    {
-      id: "floating-deck",
-      main: {
-        path: "/image7.jpg",
-        title: "Floating Deck",
+        images: Array.from({ length: 12 }, (_, i) => ({
+          path: `/image${i + 1}.jpg`,
+          title: [
+            "Elevation Day View",
+            "Elevation Across The Ganges",
+            "Ghats",
+            "Podium View",
+            "The River And Water Cascade",
+            "Family Lounge",
+            "Floating Deck",
+            "Open Lawn & Amphitheatre",
+            "Parent Deck",
+            "Podium Side Walkway",
+            "Senior Citizens Recreation Area",
+            "Stepped Garden",
+          ][i],
+        })),
       },
-      images: [
-        {
-          path: "/image1.jpg",
-          title: "Elevation Day View",
-        },
-        {
-          path: "/image2.jpg",
-          title: "Elevation Across The Ganges",
-        },
-        {
-          path: "/image3.jpg",
-          title: "Ghats",
-        },
-        {
-          path: "/image4.jpg",
-          title: "Podium View",
-        },
-        {
-          path: "/image5.jpg",
-          title: "The River And Water Cascade",
-        },
-        {
-          path: "/image6.jpg",
-          title: "Family Lounge",
-        },
-        {
+      {
+        id: "floating-deck",
+        main: {
           path: "/image7.jpg",
           title: "Floating Deck",
         },
-        {
-          path: "/image8.jpg",
-          title: "Open Lawn & Amphitheatre",
-        },
-        {
-          path: "/image9.jpg",
-          title: "Parent Deck",
-        },
-        {
-          path: "/image10.jpg",
-          title: "Podium Side Walkway",
-        },
-        {
-          path: "/image11.jpg",
-          title: "Senior Citizens Recreation Area",
-        },
-        {
-          path: "/image12.jpg",
-          title: "Stepped Garden",
-        },
-      ],
-    },
-    {
-      id: "podium-walkway",
-      main: {
-        path: "/image10.jpg",
-        title: "Podium Side Walkway",
+        images: Array.from({ length: 12 }, (_, i) => ({
+          path: `/image${i + 1}.jpg`,
+          title: [
+            "Elevation Day View",
+            "Elevation Across The Ganges",
+            "Ghats",
+            "Podium View",
+            "The River And Water Cascade",
+            "Family Lounge",
+            "Floating Deck",
+            "Open Lawn & Amphitheatre",
+            "Parent Deck",
+            "Podium Side Walkway",
+            "Senior Citizens Recreation Area",
+            "Stepped Garden",
+          ][i],
+        })),
       },
-      images: [
-        {
-          path: "/image1.jpg",
-          title: "Elevation Day View",
-        },
-        {
-          path: "/image2.jpg",
-          title: "Elevation Across The Ganges",
-        },
-        {
-          path: "/image3.jpg",
-          title: "Ghats",
-        },
-        {
-          path: "/image4.jpg",
-          title: "Podium View",
-        },
-        {
-          path: "/image5.jpg",
-          title: "The River And Water Cascade",
-        },
-        {
-          path: "/image6.jpg",
-          title: "Family Lounge",
-        },
-        {
-          path: "/image7.jpg",
-          title: "Floating Deck",
-        },
-        {
-          path: "/image8.jpg",
-          title: "Open Lawn & Amphitheatre",
-        },
-        {
-          path: "/image9.jpg",
-          title: "Parent Deck",
-        },
-        {
+      {
+        id: "podium-walkway",
+        main: {
           path: "/image10.jpg",
           title: "Podium Side Walkway",
         },
-        {
-          path: "/image11.jpg",
-          title: "Senior Citizens Recreation Area",
-        },
-        {
-          path: "/image12.jpg",
-          title: "Stepped Garden",
-        },
-      ],
-    },
-  ];
+        images: Array.from({ length: 12 }, (_, i) => ({
+          path: `/image${i + 1}.jpg`,
+          title: [
+            "Elevation Day View",
+            "Elevation Across The Ganges",
+            "Ghats",
+            "Podium View",
+            "The River And Water Cascade",
+            "Family Lounge",
+            "Floating Deck",
+            "Open Lawn & Amphitheatre",
+            "Parent Deck",
+            "Podium Side Walkway",
+            "Senior Citizens Recreation Area",
+            "Stepped Garden",
+          ][i],
+        })),
+      },
+    ],
+    []
+  );
 
-  // Preload main gallery images on component mount
+  // Load main images with IntersectionObserver
   useEffect(() => {
-    const preloadImages = () => {
-      setIsLoading(true);
-      let loadedCount = 0;
-      const totalMainImages = data.length;
-
-      data.forEach((item, index) => {
-        const img = new Image();
-        img.src = item.main.path;
-
-        img.onload = () => {
-          setImagesLoaded((prev) => ({
-            ...prev,
-            [`main-${index}`]: true,
-          }));
-
-          loadedCount++;
-          if (loadedCount === totalMainImages) {
-            setIsLoading(false);
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            const img = entry.target;
+            const src = img.getAttribute("data-src");
+            if (src) {
+              img.src = src;
+              img.removeAttribute("data-src");
+              observer.unobserve(img);
+            }
           }
-        };
+        });
+      },
+      { rootMargin: "100px" }
+    );
 
-        img.onerror = () => {
-          setImagesLoaded((prev) => ({
-            ...prev,
-            [`main-${index}`]: "error",
-          }));
+    setTimeout(() => {
+      const images = document.querySelectorAll(".main-gallery-img");
+      if (images.length) {
+        images.forEach((img) => observer.observe(img));
+      }
 
-          loadedCount++;
-          if (loadedCount === totalMainImages) {
-            setIsLoading(false);
-          }
-        };
-      });
-    };
+      // Set a shorter timeout to improve perceived performance
+      setLoadingState((prev) => ({ ...prev, mainImages: false }));
+    }, 500);
 
-    preloadImages();
+    return () => observer.disconnect();
   }, []);
 
-  // Preload specific gallery images when modal opens
+  // Critical fix: Synchronize slider with activeImageIndex
   useEffect(() => {
-    if (modalIndex !== null) {
-      // Preload the first few images in the gallery
-      const preloadCount = Math.min(4, data[modalIndex].images.length);
-
-      for (let i = 0; i < preloadCount; i++) {
-        const img = new Image();
-        img.src = data[modalIndex].images[i].path;
-      }
+    if (
+      isModalOpen &&
+      sliderRef.current &&
+      typeof activeImageIndex === "number"
+    ) {
+      // This ensures the slider moves to the correct slide
+      sliderRef.current.slickGoTo(activeImageIndex);
     }
-  }, [modalIndex]);
+  }, [activeImageIndex, isModalOpen]);
 
-  // Update slider when activeImageIndex changes
+  // Handle body overflow for modal
   useEffect(() => {
-    if (slider && modalIndex !== null) {
-      slider.slickGoTo(activeImageIndex);
-    }
-  }, [activeImageIndex, slider, modalIndex]);
-
-  // Handle body overflow when modal opens/closes
-  useEffect(() => {
-    if (isModalOpen) {
-      document.body.style.overflow = "hidden";
-    } else {
-      document.body.style.overflow = "auto";
-    }
-
+    document.body.style.overflow = isModalOpen ? "hidden" : "auto";
     return () => {
       document.body.style.overflow = "auto";
     };
   }, [isModalOpen]);
 
-  const openModal = (index) => {
-    setModalIndex(index);
-    setActiveImageIndex(0);
-    setIsModalOpen(true);
-  };
+  // Modal handlers
+  // Modal handlers
+  const openModal = useCallback(
+    (index) => {
+      // Set modal index and initial active image
+      setModalIndex(index);
+      setActiveImageIndex(0);
 
-  const closeModal = () => {
-    setIsModalOpen(false);
-    setModalIndex(null);
-    setActiveImageIndex(0);
-  };
+      // Show modal with loading state active
+      setIsModalOpen(true);
+      setLoadingState((prev) => ({ ...prev, modalImages: true }));
 
-  const handleImageError = (index, imageType) => {
-    setImagesLoaded((prev) => ({
-      ...prev,
-      [`${imageType}-${index}`]: "error",
-    }));
-  };
+      // Preload images before showing content
+      const imagesToLoad = galleryData[index].images;
+      let loadedCount = 0;
+      const totalImages = imagesToLoad.length;
 
-  const sliderSettings = {
-    dots: true,
-    infinite: true,
-    speed: 500,
-    slidesToShow: 1,
-    slidesToScroll: 1,
-    initialSlide: 0,
-    arrows: true,
-    adaptiveHeight: true,
-    lazyLoad: "ondemand",
-    swipe: true,
-    afterChange: (newIndex) => {
-      setActiveImageIndex(newIndex);
+      // Create image elements to trigger loading
+      imagesToLoad.forEach((img) => {
+        const imageLoader = new Image();
+        imageLoader.onload = () => {
+          loadedCount++;
+          // When most images (or all) are loaded, show the slider
+          if (
+            loadedCount >= Math.min(3, totalImages) ||
+            loadedCount === totalImages
+          ) {
+            setLoadingState((prev) => ({ ...prev, modalImages: false }));
+          }
+        };
+        imageLoader.onerror = () => {
+          loadedCount++;
+          // Continue even if some images fail to load
+          if (
+            loadedCount >= Math.min(3, totalImages) ||
+            loadedCount === totalImages
+          ) {
+            setLoadingState((prev) => ({ ...prev, modalImages: false }));
+          }
+        };
+        imageLoader.src = img.path;
+      });
+
+      // Fallback in case images take too long or fail to trigger events
+      const timeout = setTimeout(() => {
+        setLoadingState((prev) => ({ ...prev, modalImages: false }));
+      }, 2000);
+
+      return () => clearTimeout(timeout);
     },
-    responsive: [
-      {
-        breakpoint: 768,
-        settings: {
-          arrows: false,
-          dots: true,
-        },
-      },
-    ],
+    [galleryData]
+  );
+
+  const closeModal = useCallback(() => {
+    setIsModalOpen(false);
+    setTimeout(() => {
+      setModalIndex(null);
+      setActiveImageIndex(0);
+    }, 300); // Delay reset until after animation
+  }, []);
+
+  // Image fallback component
+  const ImageWithFallback = ({ src, alt, className, ...props }) => {
+    const [error, setError] = useState(false);
+
+    return error ? (
+      <div
+        className={`bg-gray-200 flex items-center justify-center ${className}`}
+      >
+        <p className="text-gray-500 text-center px-2">{alt}</p>
+      </div>
+    ) : (
+      <img
+        src={src}
+        alt={alt}
+        className={className}
+        onError={() => setError(true)}
+        {...props}
+      />
+    );
   };
 
-  // Render loading state
-  if (isLoading) {
+  // Fixed slider settings with proper event handlers
+  const sliderSettings = useMemo(
+    () => ({
+      dots: true,
+      infinite: true,
+      speed: 500,
+      slidesToShow: 1,
+      slidesToScroll: 1,
+      initialSlide: activeImageIndex, // Set initial slide based on activeImageIndex
+      arrows: true,
+      lazyLoad: "ondemand",
+      swipe: true,
+      beforeChange: (current, next) => {
+        // Update state before the slide changes
+        setActiveImageIndex(next);
+      },
+      responsive: [
+        {
+          breakpoint: 768,
+          settings: {
+            arrows: false,
+            dots: true,
+          },
+        },
+      ],
+    }),
+    [activeImageIndex]
+  ); // Include activeImageIndex in deps
+
+  // Properly handle thumbnail clicks
+  const handleThumbnailClick = useCallback((idx) => {
+    setActiveImageIndex(idx);
+    // Direct slickGoTo call for immediate response
+    if (sliderRef.current) {
+      sliderRef.current.slickGoTo(idx);
+    }
+  }, []);
+
+  // Render loading spinner
+  if (loadingState.mainImages) {
     return (
-      <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8 sm:py-12">
-        <h2 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-8">
-          Gallery
-        </h2>
+      <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8">
+        <h2 className="text-center text-2xl sm:text-3xl mb-6">Gallery</h2>
         <div className="flex justify-center items-center h-[300px]">
-          <div className="animate-pulse flex flex-col items-center">
-            <div className="w-12 h-12 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+          <div className="flex flex-col items-center">
+            <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
             <p className="mt-4 text-gray-500">Loading gallery...</p>
           </div>
         </div>
@@ -436,39 +335,27 @@ const Gallery = () => {
   }
 
   return (
-    <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8 sm:py-12">
-      <h2 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-8">Gallery</h2>
+    <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8">
+      <h2 className="text-center text-2xl sm:text-3xl mb-6">Gallery</h2>
 
-      {/* Desktop/Tablet layout (md and up) - Accordion style */}
-      <div className="hidden md:flex flex-wrap lg:flex-nowrap gap-2 sm:gap-4 justify-center h-[300px] sm:h-[350px] lg:h-[450px]">
-        {data.map((item, index) => (
+      {/* Desktop/Tablet layout - Accordion style */}
+      <div className="hidden md:flex flex-wrap lg:flex-nowrap gap-2 sm:gap-4 justify-center h-[350px] lg:h-[450px]">
+        {galleryData.map((item, index) => (
           <div
             key={`desktop-${item.id}`}
             className={`relative shadow-lg rounded-lg overflow-hidden transition-all duration-500 cursor-pointer
-              ${
-                activeIndex === index
-                  ? "flex-[5] lg:flex-[4]"
-                  : "flex-[1] lg:flex-[0.5]"
-              }`}
+              ${activeIndex === index ? "flex-[5]" : "flex-[1] lg:flex-[0.5]"}`}
             onMouseEnter={() => setActiveIndex(index)}
             onMouseLeave={() => setActiveIndex(null)}
             onClick={() => openModal(index)}
           >
-            {imagesLoaded[`main-${index}`] === "error" ? (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <p className="text-gray-500 text-center px-2">
-                  {item.main.title}
-                </p>
-              </div>
-            ) : (
-              <img
-                src={item.main.path}
-                alt={item.main.title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                onError={() => handleImageError(index, "main")}
-              />
-            )}
+            <ImageWithFallback
+              src={item.main.path}
+              alt={item.main.title}
+              className="w-full h-full object-cover main-gallery-img"
+              loading="lazy"
+              data-src={item.main.path}
+            />
             <div
               className={`absolute inset-0 bg-black bg-opacity-40 flex items-end transition-opacity duration-300
               ${activeIndex === index ? "opacity-0" : "opacity-100"}`}
@@ -481,29 +368,21 @@ const Gallery = () => {
         ))}
       </div>
 
-      {/* Mobile layout (smaller than md) */}
+      {/* Mobile layout */}
       <div className="grid md:hidden grid-cols-1 sm:grid-cols-2 gap-4">
-        {data.map((item, index) => (
+        {galleryData.map((item, index) => (
           <div
             key={`mobile-${item.id}`}
-            className="relative shadow-lg rounded-lg overflow-hidden h-[200px] sm:h-[250px] cursor-pointer"
+            className="relative shadow-lg rounded-lg overflow-hidden h-[200px] cursor-pointer"
             onClick={() => openModal(index)}
           >
-            {imagesLoaded[`main-${index}`] === "error" ? (
-              <div className="w-full h-full bg-gray-200 flex items-center justify-center">
-                <p className="text-gray-500 text-center px-2">
-                  {item.main.title}
-                </p>
-              </div>
-            ) : (
-              <img
-                src={item.main.path}
-                alt={item.main.title}
-                className="w-full h-full object-cover"
-                loading="lazy"
-                onError={() => handleImageError(index, "main")}
-              />
-            )}
+            <ImageWithFallback
+              src={item.main.path}
+              alt={item.main.title}
+              className="w-full h-full object-cover main-gallery-img"
+              loading="lazy"
+              data-src={item.main.path}
+            />
             <div className="absolute inset-0 bg-black bg-opacity-30 flex items-end">
               <p className="text-white font-medium p-3 w-full text-center">
                 {item.main.title}
@@ -513,7 +392,7 @@ const Gallery = () => {
         ))}
       </div>
 
-      {/* Modal */}
+      {/* Modal - Only render when open */}
       {isModalOpen && modalIndex !== null && (
         <div
           className="fixed inset-0 bg-black bg-opacity-90 flex items-center justify-center z-50 p-2 sm:p-4"
@@ -545,66 +424,75 @@ const Gallery = () => {
 
             <div className="p-3 sm:p-4 pb-2">
               <h3 className="text-lg sm:text-xl font-bold mb-1 text-center">
-                {`Gallery`}
+                Gallery
               </h3>
             </div>
 
-            {/* Slider */}
+            {/* Slider with loading state */}
             <div className="w-full px-2 sm:px-6 lg:px-8 pb-4">
-              <Slider ref={(slider) => setSlider(slider)} {...sliderSettings}>
-                {data[modalIndex].images.map((img, idx) => (
-                  <div key={`slide-${idx}`} className="outline-none">
-                    <div className="w-full h-56 sm:h-64 md:h-80 flex items-center justify-center relative">
-                      <img
-                        src={img.path}
-                        alt={img.title}
-                        className="max-h-full max-w-full object-contain"
-                      />
-                      <div className="absolute bottom-0 left-0 right-0 bg-transparent backdrop-blur-lg">
-                        <p className="text-white font-medium  text-center">
-                          {img.title}
-                        </p>
+              {loadingState.modalImages ? (
+                <div className="flex justify-center items-center h-56 sm:h-64 md:h-80">
+                  <div className="flex flex-col items-center">
+                    <div className="w-10 h-10 border-4 border-gray-300 border-t-blue-500 rounded-full animate-spin"></div>
+                    <p className="mt-4 text-gray-500">Loading images...</p>
+                  </div>
+                </div>
+              ) : (
+                <Slider
+                  ref={sliderRef}
+                  {...sliderSettings}
+                  key={`slider-${modalIndex}-${activeImageIndex}`}
+                >
+                  {galleryData[modalIndex].images.map((img, idx) => (
+                    <div key={`slide-${idx}`} className="outline-none">
+                      <div className="w-full h-56 sm:h-64 md:h-80 flex items-center justify-center relative">
+                        <img
+                          src={img.path}
+                          alt={img.title}
+                          className="max-h-full max-w-full object-contain"
+                        />
+                        <div className="absolute bottom-0 left-0 right-0 bg-transparent backdrop-blur-lg">
+                          <p className="text-white font-medium text-center">
+                            {img.title}
+                          </p>
+                        </div>
                       </div>
                     </div>
-                  </div>
-                ))}
-              </Slider>
+                  ))}
+                </Slider>
+              )}
             </div>
 
-            {/* Footer with thumbnails */}
-            <div className="bg-gray-100 p-2 sm:p-4 border-t">
-              <p className="text-xs sm:text-sm text-gray-600 text-center mb-2">
-                {`Image ${activeImageIndex + 1} of ${
-                  data[modalIndex].images.length
-                }`}
-              </p>
+            {/* Footer with thumbnails - Only show when not loading */}
+            {!loadingState.modalImages && (
+              <div className="bg-gray-100 p-2 sm:p-4 border-t">
+                <p className="text-xs sm:text-sm text-gray-600 text-center mb-2">
+                  {`Image ${activeImageIndex + 1} of ${
+                    galleryData[modalIndex].images.length
+                  }`}
+                </p>
 
-              {/* Thumbnail navigation - scrollable on smaller screens */}
-              <div className="flex justify-start sm:justify-center space-x-2 overflow-x-auto py-2 px-2 sm:px-0">
-                {data[modalIndex].images.map((img, idx) => (
-                  <div
-                    key={`thumb-${idx}`}
-                    onClick={() => {
-                      setActiveImageIndex(idx);
-                      if (slider) {
-                        slider.slickGoTo(idx);
-                      }
-                    }}
-                    className={`flex-shrink-0 w-12 sm:w-16 h-9 sm:h-12 rounded cursor-pointer transition-all ${
-                      activeImageIndex === idx
-                        ? "ring-2 ring-blue-500 opacity-100 scale-105"
-                        : "opacity-70 hover:opacity-100"
-                    }`}
-                  >
-                    <img
-                      src={img.path}
-                      alt={`Thumbnail ${idx + 1}`}
-                      className="w-full h-full object-cover rounded"
-                    />
-                  </div>
-                ))}
+                <div className="flex justify-start sm:justify-center space-x-2 overflow-x-auto py-2 px-2 sm:px-0">
+                  {galleryData[modalIndex].images.map((img, idx) => (
+                    <div
+                      key={`thumb-${idx}`}
+                      onClick={() => handleThumbnailClick(idx)}
+                      className={`flex-shrink-0 w-12 sm:w-16 h-9 sm:h-12 rounded cursor-pointer transition-all ${
+                        activeImageIndex === idx
+                          ? "ring-2 ring-blue-500 opacity-100 scale-105"
+                          : "opacity-70 hover:opacity-100"
+                      }`}
+                    >
+                      <img
+                        src={img.path}
+                        alt={`Thumbnail ${idx + 1}`}
+                        className="w-full h-full object-cover rounded"
+                      />
+                    </div>
+                  ))}
+                </div>
               </div>
-            </div>
+            )}
           </div>
         </div>
       )}

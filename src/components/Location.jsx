@@ -282,7 +282,7 @@ const Location = () => {
 
       {/* Loading Indicator */}
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-50">
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-40">
           <div className="text-white text-lg font-bold">Loading...</div>
         </div>
       )}
