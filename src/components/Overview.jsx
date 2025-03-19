@@ -96,7 +96,6 @@ const Overview = () => {
     setShowModal(false);
   };
 
-
   const handleMouseEnter = (buttonId) => {
     setHoveredButton(buttonId);
   };
@@ -407,7 +406,7 @@ const Overview = () => {
           </div>
           <div>
             <div className="text-xl sm:text-3xl font-medium">1300+</div>
-            <div className="text-xs sm:text-sm text-black">perennial trees</div>
+            <div className="text-xs sm:text-sm text-black">Perennial trees</div>
           </div>
         </div>
       </div>

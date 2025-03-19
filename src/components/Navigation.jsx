@@ -200,7 +200,7 @@ const Navigation = () => {
         <div ref={priceRef} id="price" className="-mt-10">
           <Price />
         </div>
-        <SansaraEnquiryForm />
+        {/* <SansaraEnquiryForm /> */}
         <div ref={galleryRef} id="gallery" className="py-16">
           <Gallery />
         </div>
