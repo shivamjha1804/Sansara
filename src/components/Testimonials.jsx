@@ -64,7 +64,7 @@ const Testimonials = () => {
   };
 
   return (
-    <div className="container mx-auto px-4 py-16">
+    <div className="container mx-auto px-8 py-16">
       <div className="text-center mb-12">
         <h2 className="text-3xl font-serif mb-2">Testimonials</h2>
         <p className="text-gray-600">
@@ -84,7 +84,7 @@ const Testimonials = () => {
             <img
               src={testimonial.image}
               alt="Testimonial"
-              className="w-full object-cover" // Removed fixed height
+              className="w-full h-full object-cover" // Removed fixed height
             />
             <div
               className={`absolute inset-0 bg-black bg-opacity-70 flex flex-col justify-center items-center p-4 transition-opacity duration-300 ${
