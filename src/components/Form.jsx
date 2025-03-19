@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-import ThankYouModal from "./ThankYouModal";
 import axios from "axios";
 import countries from "i18n-iso-countries";
 import enLocale from "i18n-iso-countries/langs/en.json";
@@ -21,8 +20,8 @@ const Form = ({
   handleSubmit,
   setFormData,
   closeEnquiryModal,
+  setShowThankYouModal,
 }) => {
-  const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [apiError, setApiError] = useState(null);
 
@@ -63,13 +62,13 @@ const Form = ({
           },
         }
       );
-      console.log("API Response:", response.data);
-
-      // Close the enquiry modal and show thank you modal
-      if (closeEnquiryModal) {
+      if (response?.data?.status && response?.data?.message === "SUCCESS") {
+        // First close the enquiry modal
         closeEnquiryModal();
+        // Then show thank you modal
+        setShowThankYouModal(true);
       }
-      setShowThankYouModal(true); // Open the Thank You modal
+      console.log("API Response:", response.data);
     } catch (error) {
       console.error("API Error:", error);
       setApiError(
@@ -85,21 +84,6 @@ const Form = ({
     const isValid = handleSubmit(e); // Validate the form
     if (isValid) {
       await submitToAPI(formData); // Submit to API if form is valid
-    }
-  };
-
-  const closeThankYouModal = () => {
-    setShowThankYouModal(false); // Close the Thank You modal
-    // Reset form after successful submission
-    if (setFormData) {
-      setFormData({
-        name: "",
-        email: "",
-        phone: "",
-        country: "",
-        unitType: "",
-        budget: "",
-      });
     }
   };
 
@@ -273,11 +257,6 @@ const Form = ({
           </div>
         </form>
       </div>
-
-      {/* Thank You Modal */}
-      {showThankYouModal && (
-        <ThankYouModal onClose={closeThankYouModal} name={formData.name} />
-      )}
     </div>
   );
 };

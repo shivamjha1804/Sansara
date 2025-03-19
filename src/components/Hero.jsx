@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
-import Form from "./Form"; // Make sure the correct import path is used
+import Form from "./Form";
+import ThankYouModal from "./ThankYouModal";
 
 const Hero = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,7 +17,7 @@ const Hero = () => {
 
   // Prevent body scrolling when modal is open
   useEffect(() => {
-    if (showModal) {
+    if (showModal || showThankYouModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -23,7 +25,27 @@ const Hero = () => {
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [showModal]);
+  }, [showModal, showThankYouModal]);
+
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      country: "",
+      unitType: "",
+      budget: "",
+    });
+    setErrors({});
+  };
+
+  const closeThankYouModal = () => {
+    setShowThankYouModal(false);
+  };
+
+  const closeEnquiryModal = () => {
+    setShowModal(false);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -86,18 +108,15 @@ const Hero = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     return validateForm();
   };
 
-  const closeEnquiryModal = () => {
-    setShowModal(false);
-  };
-
+  // Show the enquiry modal after 10 seconds
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowModal(true);
-    }, 10000); // Delay of 1 second
+    }, 10000);
 
     return () => clearTimeout(timer);
   }, []);
@@ -141,18 +160,21 @@ const Hero = () => {
         <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest font-light md:mt-9 text-center">
           SANSARA
         </h1>
-        <p className="text-white text-sm  sm:text-base md:text-lg max-w-md text-center opacity-90 mt-2">
+        <p className="text-white text-sm sm:text-base md:text-lg max-w-md text-center opacity-90 mt-2">
           Riverfront Luxury Residences
         </p>
       </div>
 
-      {/* Modal - improved for all screen sizes */}
+      {/* Enquiry Modal */}
       {showModal && (
         <div className="fixed pt-3 inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative overflow-hidden animate-fadeIn">
             {/* Close button */}
             <button
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                closeEnquiryModal();
+                resetForm();
+              }}
               className="absolute top-5 right-3 text-gray-500 hover:text-gray-700 z-10 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-1"
               aria-label="Close modal"
             >
@@ -179,9 +201,22 @@ const Hero = () => {
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               closeEnquiryModal={closeEnquiryModal}
+              setShowThankYouModal={setShowThankYouModal}
             />
           </div>
         </div>
+      )}
+
+      {/* Thank You Modal - Moved outside the Form component */}
+      {showThankYouModal && (
+        <ThankYouModal
+          onClose={() => {
+            closeThankYouModal();
+            // Reset form data when thank you modal is closed
+            resetForm();
+          }}
+          name={formData.name}
+        />
       )}
     </div>
   );

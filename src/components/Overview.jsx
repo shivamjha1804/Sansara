@@ -2,9 +2,11 @@ import React, { useState, useEffect } from "react";
 import FixedButtonMenu from "./FixedButtonMenu";
 import OverViewMainContent from "./OverviewMainContent";
 import Form from "./Form";
+import ThankYouModal from "./ThankYouModal";
 
 const Overview = () => {
   const [showModal, setShowModal] = useState(false);
+  const [showThankYouModal, setShowThankYouModal] = useState(false);
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -15,8 +17,9 @@ const Overview = () => {
   });
   const [errors, setErrors] = useState({});
 
+  // Prevent body scrolling when modal is open
   useEffect(() => {
-    if (showModal) {
+    if (showModal || showThankYouModal) {
       document.body.style.overflow = "hidden";
     } else {
       document.body.style.overflow = "auto";
@@ -24,7 +27,27 @@ const Overview = () => {
     return () => {
       document.body.style.overflow = "auto";
     };
-  }, [showModal]);
+  }, [showModal, showThankYouModal]);
+
+  const resetForm = () => {
+    setFormData({
+      name: "",
+      email: "",
+      phone: "",
+      country: "",
+      unitType: "",
+      budget: "",
+    });
+    setErrors({});
+  };
+
+  const closeThankYouModal = () => {
+    setShowThankYouModal(false);
+  };
+
+  const closeEnquiryModal = () => {
+    setShowModal(false);
+  };
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -87,12 +110,8 @@ const Overview = () => {
   };
 
   const handleSubmit = (e) => {
-    e.preventDefault();
+    if (e) e.preventDefault();
     return validateForm();
-  };
-
-  const closeEnquiryModal = () => {
-    setShowModal(false);
   };
 
   return (
@@ -100,12 +119,15 @@ const Overview = () => {
       <FixedButtonMenu setShowModal={setShowModal} />
       <OverViewMainContent />
 
-      {/* Modal for Form */}
+      {/* Enquiry Modal */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative overflow-hidden animate-fadeIn">
             <button
-              onClick={() => setShowModal(false)}
+              onClick={() => {
+                closeEnquiryModal();
+                resetForm();
+              }}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 z-10 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-1"
               aria-label="Close modal"
             >
@@ -132,9 +154,22 @@ const Overview = () => {
               handleChange={handleChange}
               handleSubmit={handleSubmit}
               closeEnquiryModal={closeEnquiryModal}
+              setShowThankYouModal={setShowThankYouModal}
             />
           </div>
         </div>
+      )}
+
+      {/* Thank You Modal - Moved outside the Form component */}
+      {showThankYouModal && (
+        <ThankYouModal
+          onClose={() => {
+            closeThankYouModal();
+            // Reset form data when thank you modal is closed
+            resetForm();
+          }}
+          name={formData.name}
+        />
       )}
     </>
   );
