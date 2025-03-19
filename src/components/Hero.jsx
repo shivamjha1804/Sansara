@@ -97,7 +97,7 @@ const Hero = () => {
   useEffect(() => {
     const timer = setTimeout(() => {
       setShowModal(true);
-    }, 1000); // Delay of 1 second
+    }, 6000); // Delay of 1 second
 
     return () => clearTimeout(timer);
   }, []);

@@ -215,7 +215,7 @@ const Location = () => {
 
       {/* SANSARA Header - Positioned responsively */}
       <div
-        className={`absolute ${getHeaderPosition()} bg-blue-900 text-white shadow-lg z-40`}
+        className={`absolute ${getHeaderPosition()} bg-blue-900 text-white shadow-lg z-30`}
       >
         <h1
           className={`font-bold ${
@@ -282,7 +282,7 @@ const Location = () => {
 
       {/* Loading Indicator */}
       {loading && (
-        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-40">
+        <div className="absolute inset-0 flex items-center justify-center bg-black bg-opacity-50 z-30">
           <div className="text-white text-lg font-bold">Loading...</div>
         </div>
       )}
