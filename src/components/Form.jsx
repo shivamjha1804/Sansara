@@ -69,7 +69,7 @@ const Form = ({
       if (closeEnquiryModal) {
         closeEnquiryModal();
       }
-      setShowThankYouModal(true);
+      setShowThankYouModal(true); // Open the Thank You modal
     } catch (error) {
       console.error("API Error:", error);
       setApiError(
@@ -82,14 +82,14 @@ const Form = ({
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    const isValid = handleSubmit(e);
-    if (isValid !== false) {
-      await submitToAPI(formData);
+    const isValid = handleSubmit(e); // Validate the form
+    if (isValid) {
+      await submitToAPI(formData); // Submit to API if form is valid
     }
   };
 
   const closeThankYouModal = () => {
-    setShowThankYouModal(false);
+    setShowThankYouModal(false); // Close the Thank You modal
     // Reset form after successful submission
     if (setFormData) {
       setFormData({
@@ -274,6 +274,7 @@ const Form = ({
         </form>
       </div>
 
+      {/* Thank You Modal */}
       {showThankYouModal && (
         <ThankYouModal onClose={closeThankYouModal} name={formData.name} />
       )}

@@ -50,13 +50,13 @@ const experiences = [
 
 const ExperienceGrid = () => {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 -mt-20 pb-32 w-10/12 mx-auto h-full">
+    <div className="grid grid-cols-1 md:grid-cols-2 -mt-20 pb-32 w-11/12 mx-auto h-full">
       {experiences.map((exp, index) => (
         <div key={index} className="flex flex-col md:flex-row p-4 items-start">
           <img
             src={exp.image}
             alt={exp.title}
-            className="w-full md:w-1/2 h-96  object-cover rounded-md mb-4 md:mb-0 md:mr-4"
+            className="w-full md:w-1/2 h-72  object-cover rounded-md mb-4 md:mb-0 md:mr-4"
           />
           <div className="md:w-full">
             <h2 className="text-xl font-bold mb-4">{exp.title}</h2>
