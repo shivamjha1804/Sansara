@@ -147,7 +147,8 @@ const Overview = () => {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto px-4 sm:px-6 -top-4 font-serif relative">
+    <div className="w-full mx-auto px-4 sm:px-6 -top-4 font-serif relative">
+      {/* Fixed Bottom Menu */}
       <div className="fixed z-50 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col justify-around md:justify-start md:gap-4 bg-white md:bg-transparent p-2 md:p-0 shadow-md md:shadow-none">
         <div
           className="relative flex items-center justify-center"
@@ -330,10 +331,10 @@ const Overview = () => {
         </div>
       </div>
 
+      {/* Modal for Form */}
       {showModal && (
         <div className="fixed inset-0 bg-black bg-opacity-70 flex items-center justify-center z-50 p-4">
           <div className="bg-white rounded-lg shadow-xl w-full max-w-md relative overflow-hidden animate-fadeIn">
-            {/* Close button */}
             <button
               onClick={() => setShowModal(false)}
               className="absolute top-3 right-3 text-gray-500 hover:text-gray-700 z-10 focus:outline-none focus:ring-2 focus:ring-gray-400 rounded-full p-1"
@@ -367,51 +368,34 @@ const Overview = () => {
         </div>
       )}
 
+      {/* Main Content */}
       <h1 className="text-2xl sm:text-3xl text-center font-normal tracking-wide mb-6 sm:mb-10 pt-4">
         Overview
       </h1>
 
+      {/* Statistics Section */}
       <div className="text-center mb-6 text-blue-500">
-        <div className="grid grid-cols-3 px-4 sm:px-20 text-center mb-2 gap-2">
-          <div>
-            <div className="text-xl sm:text-3xl font-medium">17.4</div>
-            <div className="text-xs sm:text-sm text-black">Acres</div>
-          </div>
-          <div>
-            <div className="text-xl sm:text-3xl font-medium">5</div>
-            <div className="text-xs sm:text-sm text-black">Towers</div>
-          </div>
-          <div>
-            <div className="text-xl sm:text-3xl font-medium">G+40</div>
-            <div className="text-xs sm:text-sm text-black">Storey</div>
-          </div>
-        </div>
-
-        <div className="grid grid-cols-2 md:grid-cols-4 text-center mb-2 gap-2 mt-6 sm:mt-8">
-          <div>
-            <div className="text-xl sm:text-3xl font-medium">70%</div>
-            <div className="text-xs sm:text-sm text-black">Open-to-sky</div>
-          </div>
-          <div>
-            <div className="text-xl sm:text-3xl font-medium">2.5</div>
-            <div className="text-xs sm:text-sm text-black">
-              Acres of Elevated Landscape
+        <div className="flex flex-wrap justify-center items-center px-4 sm:px-20 text-center mb-2 gap-4 sm:gap-16">
+          {[
+            { value: "17.4", label: "Acres" },
+            { value: "5", label: "Towers" },
+            { value: "G+40", label: "Storey" },
+            { value: "70%", label: "Open-to-sky" },
+            { value: "2.5", label: "Acres of Elevated Landscape" },
+            { value: "1000", label: "Ft. Riverfront Boulevard" },
+            { value: "1300+", label: "Perennial trees" },
+          ].map((item, index) => (
+            <div key={index} className="w-1/2 sm:w-auto">
+              <div className="text-xl sm:text-3xl font-medium">
+                {item.value}
+              </div>
+              <div className="text-xs sm:text-sm text-black">{item.label}</div>
             </div>
-          </div>
-          <div>
-            <div className="text-xl sm:text-3xl font-medium">1000</div>
-            <div className="text-xs sm:text-sm text-black">
-              Ft. Riverfront <br className="hidden sm:block" /> Boulevard
-            </div>
-          </div>
-          <div>
-            <div className="text-xl sm:text-3xl font-medium">1300+</div>
-            <div className="text-xs sm:text-sm text-black">Perennial trees</div>
-          </div>
+          ))}
         </div>
       </div>
 
-      {/* Description Paragraphs - Responsive text and spacing */}
+      {/* Description Section */}
       <div className="space-y-2 text-center mb-8 sm:mb-16 px-2 sm:px-2">
         <div className="border-t border-gray-200 pt-4 sm:pt-5">
           <p className="text-xs sm:text-sm">
@@ -450,8 +434,6 @@ const Overview = () => {
           and amenities. Of comfort and extravagance.
         </p>
       </div>
-
-      {/* Add extra padding at bottom for mobile to account for fixed bottom menu */}
     </div>
   );
 };

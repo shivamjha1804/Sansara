@@ -193,7 +193,7 @@ const Gallery = () => {
       },
       images: [
         {
-          path: "https://psgroup.in/uploads/Gallery/Elevation-Day-View.jpgg",
+          path: "https://psgroup.in/uploads/Gallery/Elevation-Day-View.jpg",
           title: "Elevation Day View",
         },
         {
@@ -250,7 +250,7 @@ const Gallery = () => {
       },
       images: [
         {
-          path: "/https://psgroup.in/uploads/Gallery/Elevation-Day-View.jpg",
+          path: "https://psgroup.in/uploads/Gallery/Elevation-Day-View.jpg",
           title: "Elevation Day View",
         },
         {
@@ -436,7 +436,7 @@ const Gallery = () => {
   }
 
   return (
-    <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8 sm:py-12">
+    <section className="w-full min-h-screen max-w-6xl mx-auto px-4 py-8 sm:py-12 -mt-20">
       <h2 className="text-center text-2xl sm:text-3xl mb-6 sm:mb-8">Gallery</h2>
 
       {/* Desktop/Tablet layout (md and up) - Accordion style */}
