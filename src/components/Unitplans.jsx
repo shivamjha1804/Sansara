@@ -178,7 +178,7 @@ const Unitplans = () => {
 
       {/* Modal for displaying the larger image */}
       {isModalOpen && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 animate-fadeIn">
+        <div className="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-75 animate-fadeIn px-4">
           <div className="relative bg-white p-6 rounded-lg shadow-lg max-w-4xl max-h-[90vh] overflow-auto">
             <button
               className="absolute top-2 right-2 text-gray-700 hover:text-gray-900"

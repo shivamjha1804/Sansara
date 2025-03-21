@@ -30,7 +30,7 @@ const Footer = () => {
                 href="http://www.Rera.Wb.Gov.In"
                 className="text-blue-500 hover:underline"
               >
-                www.Rera.Wb.Gov.In
+                www.rera.wb.gov.in
               </a>
             </div>
 
