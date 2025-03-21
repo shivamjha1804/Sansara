@@ -134,7 +134,7 @@ const Form = ({
 
       {/* Scrollable Form Container */}
       <div className="max-h-[400px] overflow-y-auto">
-        <form onSubmit={onSubmit} className="space-y-4">
+        <form onSubmit={onSubmit} className="space-y-4 mx-2">
           <div className="space-y-4">
             <div>
               <label className="block text-sm font-medium text-gray-700">
