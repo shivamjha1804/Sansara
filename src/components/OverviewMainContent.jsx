@@ -2,24 +2,35 @@ import React from "react";
 
 const OverViewMainContent = () => {
   return (
-    <div className="w-full mx-auto px-4 sm:px-6 -top-4 font-serif relative">
+    <div className="w-full md:w-4/6 mx-auto px-4 sm:px-6 -top-4 font-serif relative">
       <h1 className="text-2xl sm:text-3xl text-center font-normal tracking-wide mb-6 sm:mb-10 pt-4">
         Overview
       </h1>
 
       {/* Statistics Section */}
       <div className="text-center mb-6 text-blue-500">
-        <div className="flex flex-wrap justify-center items-center px-4 sm:px-20 text-center mb-2 gap-4 sm:gap-16">
+        <div className="grid grid-cols-4 gap-4 sm:gap-8 mb-4 px-2 sm:px-10">
           {[
             { value: "17.4", label: "Acres" },
             { value: "5", label: "Towers" },
             { value: "G+40", label: "Storey" },
             { value: "70%", label: "Open-to-sky" },
+          ].map((item, index) => (
+            <div key={index} className="flex flex-col items-center">
+              <div className="text-xl sm:text-3xl font-medium">
+                {item.value}
+              </div>
+              <div className="text-xs sm:text-sm text-black">{item.label}</div>
+            </div>
+          ))}
+        </div>
+        <div className="grid grid-cols-3 gap-4 sm:gap-8 px-2 sm:px-10">
+          {[
             { value: "2.5", label: "Acres of Elevated Landscape" },
             { value: "1000", label: "Ft. Riverfront Boulevard" },
             { value: "1300+", label: "Perennial trees" },
           ].map((item, index) => (
-            <div key={index} className="w-1/2 sm:w-auto">
+            <div key={index} className="flex flex-col items-center">
               <div className="text-xl sm:text-3xl font-medium">
                 {item.value}
               </div>

@@ -101,7 +101,7 @@ const Navigation = () => {
         <div className="max-w-6xl mx-auto px-4">
           {/* Mobile menu button */}
           <div className="md:hidden flex justify-between items-center py-4">
-            <img src="sansaraLogoImg01.png" alt="logo" />
+            <img src="./MainLogo.png" alt="logo" className=" w-24" />
             <button
               onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
               className="p-2 rounded-md hover:bg-gray-100"

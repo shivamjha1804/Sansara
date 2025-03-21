@@ -141,11 +141,7 @@ const Hero = () => {
       {/* Navigation bar - responsive padding and sizing */}
       <nav className="relative z-10 flex justify-between items-center py-4 px-4 sm:px-6 md:px-8 text-white w-full max-w-7xl mx-auto">
         <div className="font-bold text-xl w-24 sm:w-32 md:w-40">
-          <img
-            src="./sansaraLogoImg01.png"
-            alt="Sansara"
-            className="w-full h-auto"
-          />
+          <img src="./MainLogo.png" alt="Sansara" className="w-full h-auto" />
         </div>
         <button
           className="bg-white bg-opacity-20 border border-white px-3 py-1.5 sm:px-4 sm:py-2 rounded text-xs sm:text-sm hover:bg-opacity-30 transition-colors focus:outline-none focus:ring-2 focus:ring-white"

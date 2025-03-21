@@ -5,12 +5,8 @@ const ThankYouModal = ({ onClose, name }) => {
   const handleDownloadBrochure = () => {
     // Replace 'brochure.pdf' with the actual path to your PDF file
     const pdfUrl = "https://psgroup.in/sansara-Eflyer.pdf";
-    const link = document.createElement("a");
-    link.href = pdfUrl;
-    link.download = "sansara-Eflyer.pdf"; // The name of the downloaded file
-    document.body.appendChild(link);
-    link.click();
-    document.body.removeChild(link);
+    // Open the PDF in a new tab
+    window.open(pdfUrl, "_blank");
   };
 
   console.log("Opened");
