@@ -112,7 +112,7 @@ const Testimonials = () => {
               <img
                 src={testimonial.image}
                 alt="Testimonial"
-                className="w-full h-64 object-cover" // Fixed height for mobile
+                className="w-full h-full object-cover"
               />
               {/* Conditionally render text based on activeTestimonialId */}
               {activeTestimonialId === testimonial.id && (

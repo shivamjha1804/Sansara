@@ -21,13 +21,11 @@ const ThankYouModal = ({ onClose, name }) => {
         >
           &#10005; {/* Unicode for 'X' */}
         </button>
-
         <h2 className="text-2xl font-bold mb-4">Thank You!</h2>
         <p className="mb-6">
           {name ? `Thank you ${name}` : "Thank you"} for submitting your
-          enquiry. Our real estate team will contact you shortly.
+          enquiry. Our team will contact you shortly
         </p>
-
         {/* Download Brochure Button */}
         <div className="flex justify-end">
           <button

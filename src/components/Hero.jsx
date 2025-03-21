@@ -141,7 +141,11 @@ const Hero = () => {
       {/* Navigation bar - responsive padding and sizing */}
       <nav className="relative z-10 flex justify-between items-center py-4 px-4 sm:px-6 md:px-8 text-white w-full max-w-7xl mx-auto">
         <div className="font-bold text-xl w-24 sm:w-32 md:w-40">
-          <img src="./MainLogo.png" alt="Sansara" className="w-full h-auto" />
+          <img
+            src="./sansaraLogoImg01.png"
+            alt="Sansara"
+            className="w-full h-auto"
+          />
         </div>
         <button
           className="bg-white bg-opacity-20 border border-white px-3 py-1.5 sm:px-4 sm:py-2 rounded text-xs sm:text-sm hover:bg-opacity-30 transition-colors focus:outline-none focus:ring-2 focus:ring-white"
@@ -153,12 +157,7 @@ const Hero = () => {
 
       {/* Main content with Sansara title - responsive text sizing */}
       <div className="relative h-screen flex flex-col justify-center items-center px-4">
-        <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest font-light md:mt-9 text-center">
-          SANSARA
-        </h1>
-        <p className="text-white text-sm sm:text-base md:text-lg max-w-md text-center opacity-90 mt-2">
-          Riverfront Luxury Residences
-        </p>
+        <img src="./MainLogo.png" alt="sansaraImg" className=" mt-8" />
       </div>
 
       {/* Enquiry Modal */}

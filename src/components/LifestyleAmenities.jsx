@@ -56,7 +56,7 @@ const ExperienceGrid = () => {
           <img
             src={exp.image}
             alt={exp.title}
-            className="w-full md:w-1/2 h-72  object-cover rounded-md mb-4 md:mb-0 md:mr-4"
+            className="w-full md:w-1/2 h-80  object-cover rounded-md mb-4 md:mb-0 md:mr-4"
           />
           <div className="md:w-full">
             <h2 className="text-xl font-bold mb-4">{exp.title}</h2>

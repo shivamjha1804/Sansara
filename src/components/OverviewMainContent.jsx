@@ -9,7 +9,7 @@ const OverViewMainContent = () => {
 
       {/* Statistics Section */}
       <div className="text-center mb-6 text-blue-500">
-        <div className="grid grid-cols-4 gap-4 sm:gap-8 mb-4 px-2 sm:px-10">
+        <div className="grid grid-cols-4 gap-4 sm:gap-8 mb-4 px-2 sm:px-10 ">
           {[
             { value: "17.4", label: "Acres" },
             { value: "5", label: "Towers" },

@@ -119,7 +119,7 @@ const Form = ({
   return (
     <div className="bg-white p-6 shadow-md rounded-lg max-w-md mx-auto">
       <h3 className="text-lg font-medium mb-1 text-gray-800">
-        Real Estate Enquiry
+        Interested in enquiring about Sansara?
       </h3>
       <p className="text-xs text-gray-600 mb-4">
         Fill in your details and we will get in touch with you as soon as

@@ -42,11 +42,11 @@ const NewsletterSubscription = () => {
         />
 
         {/* Semi-transparent overlay to ensure text visibility */}
-        <div className="absolute inset-0 bg-blue-500 opacity-30" />
+        <div className="absolute inset-0 bg-blue-500 opacity-20" />
 
         {/* Content Container */}
         <div className="relative h-full flex flex-col items-center justify-center px-4 text-white text-center">
-          <h2 className="text-2xl sm:text-3xl font-bold tracking-wide mb-2">
+          <h2 className="text-2xl sm:text-3xl font-bold tracking-wide mb-2 text-[#1E3A8A]">
             SUBSCRIBE TO OUR NEWSLETTER
           </h2>
           <p className="text-sm mb-4 sm:mb-6">

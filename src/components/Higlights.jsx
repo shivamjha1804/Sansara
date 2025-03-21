@@ -434,7 +434,9 @@ const HighlightsSection = () => {
   const CategorySection = ({ category, title, items }) => {
     return (
       <div className="text-center space-y-2">
-        <h2 className="text-xl md:text-xl font-serif text-white">{category}</h2>
+        <h2 className="text-xl md:text-xl font-serif text-white bg-blue-600 py-1 px-3 inline-block rounded">
+          {category}
+        </h2>
         <p className="text-gray-800 italic font-medium text-lg md:text-sm">
           {title}
         </p>
@@ -484,7 +486,7 @@ const HighlightsSection = () => {
           {/* Carousel container */}
           <div
             ref={carouselRef}
-            className="flex overflow-x-hidden scroll-smooth py-4 px-8 sm:px-12"
+            className="flex overflow-x-hidden scroll-smooth py-4 px-8 sm:px-12 uppercase"
             style={{ scrollBehavior: "smooth" }}
             onMouseMove={handleMouseMove}
           >
