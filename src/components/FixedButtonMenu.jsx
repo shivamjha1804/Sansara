@@ -16,10 +16,10 @@ const FixedButtonMenu = ({ setShowModal }) => {
   };
 
   return (
-    <div className="fixed z-50 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col md:justify-start md:gap-4 md:bg-transparent bg-white pt-1 pb-1 md:p-0 shadow-md md:shadow-none ">
+    <div className="fixed z-50 bottom-0 left-0 right-0 md:bottom-auto md:left-auto md:right-0 md:top-1/3 flex flex-row md:flex-col md:justify-start md:gap-4 md:bg-transparent  -ml-1  md:p-0 shadow-md md:shadow-none">
       {/* Call Us Button */}
       <div
-        className="relative flex items-center justify-center w-full mx-2"
+        className="relative flex items-center justify-center w-full"
         onMouseEnter={() => handleMouseEnter("contact")}
         onMouseLeave={handleMouseLeave}
       >
@@ -87,7 +87,7 @@ const FixedButtonMenu = ({ setShowModal }) => {
 
         {/* Call Us Button */}
         <button
-          className="bg-blue-600 text-white px-4 py-3 md:p-3 flex flex-col md:flex-row items-center justify-center shadow-lg transition-all hover:bg-blue-700 rounded-lg md:rounded-none w-full md:w-auto"
+          className="bg-blue-600 text-white px-4 py-3 md:p-3 flex flex-col md:flex-row items-center justify-center shadow-lg transition-all hover:bg-blue-700 rounded-none md:rounded-lg w-full md:w-auto -mr-1"
           onClick={handlePhoneCall}
           aria-label="Contact Us"
         >
@@ -132,7 +132,7 @@ const FixedButtonMenu = ({ setShowModal }) => {
 
       {/* Download Brochure Button */}
       <div
-        className="relative flex items-center justify-center w-full mx-2"
+        className="relative flex items-center justify-center w-full"
         onMouseEnter={() => handleMouseEnter("brochure")}
         onMouseLeave={handleMouseLeave}
       >
@@ -176,7 +176,7 @@ const FixedButtonMenu = ({ setShowModal }) => {
 
         {/* Download Brochure Button */}
         <button
-          className="bg-indigo-600 text-white px-4 py-3 md:p-3 flex flex-col md:flex-row items-center justify-center shadow-lg transition-all hover:bg-indigo-700 rounded-lg md:rounded-none w-full md:w-auto"
+          className="bg-blue-700 text-white px-4 py-3 md:p-3 flex flex-col md:flex-row items-center justify-center shadow-lg transition-all hover:bg-indigo-700 rounded-none md:rounded-lg w-full md:w-auto"
           onClick={() => setShowModal(true)}
           aria-label="Download Brochure"
         >
@@ -225,7 +225,7 @@ const FixedButtonMenu = ({ setShowModal }) => {
 
       {/* Enquire Now Button */}
       <div
-        className="relative flex items-center justify-center w-full mx-2"
+        className="relative flex items-center justify-center w-full"
         onMouseEnter={() => handleMouseEnter("enquire")}
         onMouseLeave={handleMouseLeave}
       >
@@ -267,7 +267,7 @@ const FixedButtonMenu = ({ setShowModal }) => {
         </div>
 
         <button
-          className="bg-green-600 text-white px-4 py-3 md:p-3 flex flex-col md:flex-row items-center justify-center shadow-lg transition-all hover:bg-green-700 rounded-lg md:rounded-none w-full md:w-auto"
+          className="bg-blue-700 text-white px-4 py-3 md:p-3 flex flex-col md:flex-row items-center justify-center shadow-lg transition-all hover:bg-blue-500 rounded-none md:rounded-lg w-full md:w-auto"
           onClick={() => setShowModal(true)}
           aria-label="Enquire Now"
         >

@@ -156,8 +156,14 @@ const Hero = () => {
       </nav>
 
       {/* Main content with Sansara title - responsive text sizing */}
+
       <div className="relative h-screen flex flex-col justify-center items-center px-4">
-        <img src="./MainLogo.png" alt="sansaraImg" className=" mt-8" />
+        <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest font-light md:mt-9 text-center">
+          SANSARA
+        </h1>
+        <p className="text-white text-xl sm:text-base md:text-lg max-w-md text-center opacity-90">
+          A world of its own
+        </p>
       </div>
 
       {/* Enquiry Modal */}
