@@ -87,7 +87,7 @@ const FixedButtonMenu = ({ setShowModal }) => {
 
         {/* Call Us Button */}
         <button
-          className="bg-blue-600 text-white px-4 py-3 md:p-3 flex flex-col md:flex-row items-center justify-center shadow-lg transition-all hover:bg-blue-700 rounded-none md:rounded-lg w-full md:w-auto -mr-1"
+          className="bg-blue-700 text-white px-4 py-3 md:p-3 flex flex-col md:flex-row items-center justify-center shadow-lg transition-all hover:bg-blue-700 rounded-none md:rounded-lg w-full md:w-auto -mr-1"
           onClick={handlePhoneCall}
           aria-label="Contact Us"
         >
