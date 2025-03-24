@@ -140,7 +140,7 @@ const Hero = () => {
 
       {/* Navigation bar - responsive padding and sizing */}
       <nav className="relative z-10 flex justify-between items-center py-4 px-4 sm:px-6 md:px-8 text-white w-full max-w-7xl mx-auto">
-        <div className="font-bold text-xl w-24 sm:w-32 md:w-40">
+        <div className="font-bold text-xl w-24 sm:w-32 md:w-35">
           <img
             src="./sansaraLogoImg01.png"
             alt="Sansara"
@@ -157,11 +157,11 @@ const Hero = () => {
 
       {/* Main content with Sansara title - responsive text sizing */}
 
-      <div className="relative h-screen flex flex-col justify-center items-center px-4">
-        <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-8xl tracking-widest font-light md:mt-9 text-center">
+      <div className="relative h-screen flex flex-col justify-center items-center px-4 pt-24 md:pt-10 ">
+        <h1 className="text-white text-5xl sm:text-6xl md:text-7xl lg:text-7xl tracking-widest font-light md:mt-9 text-center">
           SANSARA
         </h1>
-        <p className="text-white text-xl sm:text-base md:text-lg max-w-md text-center opacity-90">
+        <p className="text-white text-xl sm:text-base md:text-3xl max-w-md text-center opacity-90">
           A world of its own
         </p>
       </div>
