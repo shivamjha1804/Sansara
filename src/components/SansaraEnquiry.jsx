@@ -132,6 +132,10 @@ const SansaraEnquiryForm = () => {
 
       try {
         // Prepare API data
+        const storedUTMParams = localStorage.getItem("utm_parameters");
+        const parsedUTMParams = storedUTMParams
+          ? JSON.parse(storedUTMParams)
+          : {};
         const apiData = {
           fullName: formData.name,
           emailAddress: formData.email,
@@ -139,11 +143,11 @@ const SansaraEnquiryForm = () => {
           mobileNumber: formData.phone,
           unit_type: formData.unitType,
           budget: formData.budget,
-          utm_source: "google",
-          utm_medium: "search",
+          utm_source: parsedUTMParams.utm_source || "google",
+          utm_medium: parsedUTMParams.utm_medium || "search",
+          utm_adgroup: parsedUTMParams.utm_adgroup || "",
+          utm_adcopy: parsedUTMParams.utm_adcopy || "",
           utm_campaign: "Sansara Landing Page",
-          utm_adgroup: "",
-          utm_adcopy: "",
           campaign_code: "701S200000GkDM7",
           projectName: "Sansara Phase I",
           webbannerSource: "https://pssansara.com/",
